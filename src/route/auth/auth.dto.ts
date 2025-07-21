@@ -1,5 +1,6 @@
-import { IsEmail, IsString, MinLength, MaxLength, IsOptional, IsBoolean, IsInt, IsIn } from 'class-validator';
+import { IsEmail, IsString, MinLength, MaxLength, IsOptional, IsBoolean, IsInt, IsIn, Length } from 'class-validator';
 import { Exclude } from 'class-transformer';
+import { VerificationType } from 'generated/prisma';
 
 export class UserDto {
     id: string;
@@ -63,6 +64,9 @@ export class RegisterDto extends LoginDto {
     @IsOptional()
     @IsBoolean()
     publicProfile?: boolean;
+    @IsString()
+    @Length(6, 6)
+    otp: string;
 }
 
 export class RegisterResponseDto {
@@ -82,6 +86,7 @@ export class RegisterResponseDto {
     updatedAt: Date;
     @Exclude()
     password: string;
+    active: string;
 
     constructor(partial: Partial<RegisterResponseDto>) {
         Object.assign(this, partial);
@@ -89,7 +94,7 @@ export class RegisterResponseDto {
 }
 
 export class LoginResponseDto {
-    user: UserDto;
+    user: Omit<UserDto, 'password'>;
     accessToken: string;
     refreshToken: string;
     constructor(partial: Partial<LoginResponseDto>) {
@@ -140,4 +145,31 @@ export class MeResponseDto {
     constructor(partial: Partial<MeResponseDto>) {
         Object.assign(this, partial);
     }
+}
+
+export class ForgotPasswordBodyDto {
+    @IsEmail()
+    email: string;
+    @IsString()
+    @MinLength(6)
+    @MaxLength(32)
+    password: string;
+    @IsString()
+    @Length(6, 6)
+    otp: string;
+    @IsString()
+    @MinLength(6)
+    @MaxLength(32)
+    confirmPassword: string;
+
+
+ 
+}
+
+export class SendOtpDto {
+    @IsEmail()
+    email: string;
+    @IsString()
+    @IsIn([VerificationType.REGISTER, VerificationType.FORGOT_PASSWORD])
+    type: string;
 }

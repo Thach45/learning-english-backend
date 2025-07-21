@@ -28,7 +28,7 @@ model User {
   publicProfile Boolean @default(false) @map("public_profile") @db.Bool
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-
+  status String @default("active") @map("status") @db.String
   
   tokens RefreshToken[]
   vocabularies Vocabulary[] @relation("CreatedVocabularies")
@@ -91,11 +91,7 @@ model Vocabulary {
   @@unique([word, studySetId])
 }
 
-enum Level {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-}
+
 
 model Category {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
@@ -115,6 +111,22 @@ model Category {
   @@unique([name, authorId])
 }
 
+
+
+model VerificationCode {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique @db.String
+  code  String @db.String
+  type  VerificationType
+
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email, type])
+  @@index([expiresAt])
+}
+
+
 model UserLikesStudySet {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -126,4 +138,12 @@ model UserLikesStudySet {
   @@unique([userId, studySetId])
 }
 
-
+enum Level {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+enum VerificationType {
+  REGISTER
+  FORGOT_PASSWORD
+}

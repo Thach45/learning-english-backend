@@ -129,7 +129,8 @@ exports.Prisma.UserScalarFieldEnum = {
   notificationsEnabled: 'notificationsEnabled',
   publicProfile: 'publicProfile',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  status: 'status'
 };
 
 exports.Prisma.RefreshTokenScalarFieldEnum = {
@@ -181,6 +182,15 @@ exports.Prisma.CategoryScalarFieldEnum = {
   authorId: 'authorId'
 };
 
+exports.Prisma.VerificationCodeScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  code: 'code',
+  type: 'type',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.UserLikesStudySetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -203,12 +213,18 @@ exports.Level = exports.$Enums.Level = {
   ADVANCED: 'ADVANCED'
 };
 
+exports.VerificationType = exports.$Enums.VerificationType = {
+  REGISTER: 'REGISTER',
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
   StudySet: 'StudySet',
   Vocabulary: 'Vocabulary',
   Category: 'Category',
+  VerificationCode: 'VerificationCode',
   UserLikesStudySet: 'UserLikesStudySet'
 };
 

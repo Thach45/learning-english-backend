@@ -39,6 +39,11 @@ export type Vocabulary = $Result.DefaultSelection<Prisma.$VocabularyPayload>
  */
 export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
 /**
+ * Model VerificationCode
+ * 
+ */
+export type VerificationCode = $Result.DefaultSelection<Prisma.$VerificationCodePayload>
+/**
  * Model UserLikesStudySet
  * 
  */
@@ -56,11 +61,23 @@ export namespace $Enums {
 
 export type Level = (typeof Level)[keyof typeof Level]
 
+
+export const VerificationType: {
+  REGISTER: 'REGISTER',
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD'
+};
+
+export type VerificationType = (typeof VerificationType)[keyof typeof VerificationType]
+
 }
 
 export type Level = $Enums.Level
 
 export const Level: typeof $Enums.Level
+
+export type VerificationType = $Enums.VerificationType
+
+export const VerificationType: typeof $Enums.VerificationType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -203,6 +220,16 @@ export class PrismaClient<
     * ```
     */
   get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.verificationCode`: Exposes CRUD operations for the **VerificationCode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VerificationCodes
+    * const verificationCodes = await prisma.verificationCode.findMany()
+    * ```
+    */
+  get verificationCode(): Prisma.VerificationCodeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.userLikesStudySet`: Exposes CRUD operations for the **UserLikesStudySet** model.
@@ -658,6 +685,7 @@ export namespace Prisma {
     StudySet: 'StudySet',
     Vocabulary: 'Vocabulary',
     Category: 'Category',
+    VerificationCode: 'VerificationCode',
     UserLikesStudySet: 'UserLikesStudySet'
   };
 
@@ -677,7 +705,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "refreshToken" | "studySet" | "vocabulary" | "category" | "userLikesStudySet"
+      modelProps: "user" | "refreshToken" | "studySet" | "vocabulary" | "category" | "verificationCode" | "userLikesStudySet"
       txIsolationLevel: never
     }
     model: {
@@ -1051,6 +1079,80 @@ export namespace Prisma {
           }
         }
       }
+      VerificationCode: {
+        payload: Prisma.$VerificationCodePayload<ExtArgs>
+        fields: Prisma.VerificationCodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VerificationCodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VerificationCodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          findFirst: {
+            args: Prisma.VerificationCodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VerificationCodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          findMany: {
+            args: Prisma.VerificationCodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>[]
+          }
+          create: {
+            args: Prisma.VerificationCodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          createMany: {
+            args: Prisma.VerificationCodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.VerificationCodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          update: {
+            args: Prisma.VerificationCodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          deleteMany: {
+            args: Prisma.VerificationCodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VerificationCodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.VerificationCodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          aggregate: {
+            args: Prisma.VerificationCodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVerificationCode>
+          }
+          groupBy: {
+            args: Prisma.VerificationCodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VerificationCodeGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.VerificationCodeFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.VerificationCodeAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.VerificationCodeCountArgs<ExtArgs>
+            result: $Utils.Optional<VerificationCodeCountAggregateOutputType> | number
+          }
+        }
+      }
       UserLikesStudySet: {
         payload: Prisma.$UserLikesStudySetPayload<ExtArgs>
         fields: Prisma.UserLikesStudySetFieldRefs
@@ -1201,6 +1303,7 @@ export namespace Prisma {
     studySet?: StudySetOmit
     vocabulary?: VocabularyOmit
     category?: CategoryOmit
+    verificationCode?: VerificationCodeOmit
     userLikesStudySet?: UserLikesStudySetOmit
   }
 
@@ -1478,6 +1581,7 @@ export namespace Prisma {
     publicProfile: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    status: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1497,6 +1601,7 @@ export namespace Prisma {
     publicProfile: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    status: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1516,6 +1621,7 @@ export namespace Prisma {
     publicProfile: number
     createdAt: number
     updatedAt: number
+    status: number
     _all: number
   }
 
@@ -1553,6 +1659,7 @@ export namespace Prisma {
     publicProfile?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1572,6 +1679,7 @@ export namespace Prisma {
     publicProfile?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1591,6 +1699,7 @@ export namespace Prisma {
     publicProfile?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
     _all?: true
   }
 
@@ -1697,6 +1806,7 @@ export namespace Prisma {
     publicProfile: boolean
     createdAt: Date
     updatedAt: Date
+    status: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1735,6 +1845,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
     tokens?: boolean | User$tokensArgs<ExtArgs>
     vocabularies?: boolean | User$vocabulariesArgs<ExtArgs>
     studySets?: boolean | User$studySetsArgs<ExtArgs>
@@ -1762,9 +1873,10 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatarUrl" | "level" | "xp" | "streak" | "lastLearningDate" | "totalWordsLearned" | "dailyGoal" | "difficultyPreference" | "notificationsEnabled" | "publicProfile" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatarUrl" | "level" | "xp" | "streak" | "lastLearningDate" | "totalWordsLearned" | "dailyGoal" | "difficultyPreference" | "notificationsEnabled" | "publicProfile" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tokens?: boolean | User$tokensArgs<ExtArgs>
     vocabularies?: boolean | User$vocabulariesArgs<ExtArgs>
@@ -1800,6 +1912,7 @@ export namespace Prisma {
       publicProfile: boolean
       createdAt: Date
       updatedAt: Date
+      status: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2213,6 +2326,7 @@ export namespace Prisma {
     readonly publicProfile: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly status: FieldRef<"User", 'String'>
   }
     
 
@@ -6951,6 +7065,949 @@ export namespace Prisma {
 
 
   /**
+   * Model VerificationCode
+   */
+
+  export type AggregateVerificationCode = {
+    _count: VerificationCodeCountAggregateOutputType | null
+    _min: VerificationCodeMinAggregateOutputType | null
+    _max: VerificationCodeMaxAggregateOutputType | null
+  }
+
+  export type VerificationCodeMinAggregateOutputType = {
+    id: string | null
+    email: string | null
+    code: string | null
+    type: $Enums.VerificationType | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type VerificationCodeMaxAggregateOutputType = {
+    id: string | null
+    email: string | null
+    code: string | null
+    type: $Enums.VerificationType | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type VerificationCodeCountAggregateOutputType = {
+    id: number
+    email: number
+    code: number
+    type: number
+    expiresAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type VerificationCodeMinAggregateInputType = {
+    id?: true
+    email?: true
+    code?: true
+    type?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type VerificationCodeMaxAggregateInputType = {
+    id?: true
+    email?: true
+    code?: true
+    type?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type VerificationCodeCountAggregateInputType = {
+    id?: true
+    email?: true
+    code?: true
+    type?: true
+    expiresAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type VerificationCodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerificationCode to aggregate.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VerificationCodes
+    **/
+    _count?: true | VerificationCodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VerificationCodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VerificationCodeMaxAggregateInputType
+  }
+
+  export type GetVerificationCodeAggregateType<T extends VerificationCodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateVerificationCode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVerificationCode[P]>
+      : GetScalarType<T[P], AggregateVerificationCode[P]>
+  }
+
+
+
+
+  export type VerificationCodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VerificationCodeWhereInput
+    orderBy?: VerificationCodeOrderByWithAggregationInput | VerificationCodeOrderByWithAggregationInput[]
+    by: VerificationCodeScalarFieldEnum[] | VerificationCodeScalarFieldEnum
+    having?: VerificationCodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VerificationCodeCountAggregateInputType | true
+    _min?: VerificationCodeMinAggregateInputType
+    _max?: VerificationCodeMaxAggregateInputType
+  }
+
+  export type VerificationCodeGroupByOutputType = {
+    id: string
+    email: string
+    code: string
+    type: $Enums.VerificationType
+    expiresAt: Date
+    createdAt: Date
+    _count: VerificationCodeCountAggregateOutputType | null
+    _min: VerificationCodeMinAggregateOutputType | null
+    _max: VerificationCodeMaxAggregateOutputType | null
+  }
+
+  type GetVerificationCodeGroupByPayload<T extends VerificationCodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VerificationCodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VerificationCodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VerificationCodeGroupByOutputType[P]>
+            : GetScalarType<T[P], VerificationCodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VerificationCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    code?: boolean
+    type?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["verificationCode"]>
+
+
+
+  export type VerificationCodeSelectScalar = {
+    id?: boolean
+    email?: boolean
+    code?: boolean
+    type?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type VerificationCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "code" | "type" | "expiresAt" | "createdAt", ExtArgs["result"]["verificationCode"]>
+
+  export type $VerificationCodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VerificationCode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      email: string
+      code: string
+      type: $Enums.VerificationType
+      expiresAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["verificationCode"]>
+    composites: {}
+  }
+
+  type VerificationCodeGetPayload<S extends boolean | null | undefined | VerificationCodeDefaultArgs> = $Result.GetResult<Prisma.$VerificationCodePayload, S>
+
+  type VerificationCodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VerificationCodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VerificationCodeCountAggregateInputType | true
+    }
+
+  export interface VerificationCodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VerificationCode'], meta: { name: 'VerificationCode' } }
+    /**
+     * Find zero or one VerificationCode that matches the filter.
+     * @param {VerificationCodeFindUniqueArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VerificationCodeFindUniqueArgs>(args: SelectSubset<T, VerificationCodeFindUniqueArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VerificationCode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VerificationCodeFindUniqueOrThrowArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VerificationCodeFindUniqueOrThrowArgs>(args: SelectSubset<T, VerificationCodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VerificationCode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeFindFirstArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VerificationCodeFindFirstArgs>(args?: SelectSubset<T, VerificationCodeFindFirstArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VerificationCode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeFindFirstOrThrowArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VerificationCodeFindFirstOrThrowArgs>(args?: SelectSubset<T, VerificationCodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VerificationCodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VerificationCodes
+     * const verificationCodes = await prisma.verificationCode.findMany()
+     * 
+     * // Get first 10 VerificationCodes
+     * const verificationCodes = await prisma.verificationCode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const verificationCodeWithIdOnly = await prisma.verificationCode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VerificationCodeFindManyArgs>(args?: SelectSubset<T, VerificationCodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VerificationCode.
+     * @param {VerificationCodeCreateArgs} args - Arguments to create a VerificationCode.
+     * @example
+     * // Create one VerificationCode
+     * const VerificationCode = await prisma.verificationCode.create({
+     *   data: {
+     *     // ... data to create a VerificationCode
+     *   }
+     * })
+     * 
+     */
+    create<T extends VerificationCodeCreateArgs>(args: SelectSubset<T, VerificationCodeCreateArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VerificationCodes.
+     * @param {VerificationCodeCreateManyArgs} args - Arguments to create many VerificationCodes.
+     * @example
+     * // Create many VerificationCodes
+     * const verificationCode = await prisma.verificationCode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VerificationCodeCreateManyArgs>(args?: SelectSubset<T, VerificationCodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a VerificationCode.
+     * @param {VerificationCodeDeleteArgs} args - Arguments to delete one VerificationCode.
+     * @example
+     * // Delete one VerificationCode
+     * const VerificationCode = await prisma.verificationCode.delete({
+     *   where: {
+     *     // ... filter to delete one VerificationCode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VerificationCodeDeleteArgs>(args: SelectSubset<T, VerificationCodeDeleteArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VerificationCode.
+     * @param {VerificationCodeUpdateArgs} args - Arguments to update one VerificationCode.
+     * @example
+     * // Update one VerificationCode
+     * const verificationCode = await prisma.verificationCode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VerificationCodeUpdateArgs>(args: SelectSubset<T, VerificationCodeUpdateArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VerificationCodes.
+     * @param {VerificationCodeDeleteManyArgs} args - Arguments to filter VerificationCodes to delete.
+     * @example
+     * // Delete a few VerificationCodes
+     * const { count } = await prisma.verificationCode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VerificationCodeDeleteManyArgs>(args?: SelectSubset<T, VerificationCodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VerificationCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VerificationCodes
+     * const verificationCode = await prisma.verificationCode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VerificationCodeUpdateManyArgs>(args: SelectSubset<T, VerificationCodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one VerificationCode.
+     * @param {VerificationCodeUpsertArgs} args - Arguments to update or create a VerificationCode.
+     * @example
+     * // Update or create a VerificationCode
+     * const verificationCode = await prisma.verificationCode.upsert({
+     *   create: {
+     *     // ... data to create a VerificationCode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VerificationCode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VerificationCodeUpsertArgs>(args: SelectSubset<T, VerificationCodeUpsertArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VerificationCodes that matches the filter.
+     * @param {VerificationCodeFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const verificationCode = await prisma.verificationCode.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: VerificationCodeFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a VerificationCode.
+     * @param {VerificationCodeAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const verificationCode = await prisma.verificationCode.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: VerificationCodeAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of VerificationCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeCountArgs} args - Arguments to filter VerificationCodes to count.
+     * @example
+     * // Count the number of VerificationCodes
+     * const count = await prisma.verificationCode.count({
+     *   where: {
+     *     // ... the filter for the VerificationCodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends VerificationCodeCountArgs>(
+      args?: Subset<T, VerificationCodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VerificationCodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VerificationCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VerificationCodeAggregateArgs>(args: Subset<T, VerificationCodeAggregateArgs>): Prisma.PrismaPromise<GetVerificationCodeAggregateType<T>>
+
+    /**
+     * Group by VerificationCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VerificationCodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VerificationCodeGroupByArgs['orderBy'] }
+        : { orderBy?: VerificationCodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VerificationCodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVerificationCodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VerificationCode model
+   */
+  readonly fields: VerificationCodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VerificationCode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VerificationCodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VerificationCode model
+   */
+  interface VerificationCodeFieldRefs {
+    readonly id: FieldRef<"VerificationCode", 'String'>
+    readonly email: FieldRef<"VerificationCode", 'String'>
+    readonly code: FieldRef<"VerificationCode", 'String'>
+    readonly type: FieldRef<"VerificationCode", 'VerificationType'>
+    readonly expiresAt: FieldRef<"VerificationCode", 'DateTime'>
+    readonly createdAt: FieldRef<"VerificationCode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VerificationCode findUnique
+   */
+  export type VerificationCodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode findUniqueOrThrow
+   */
+  export type VerificationCodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode findFirst
+   */
+  export type VerificationCodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerificationCodes.
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerificationCodes.
+     */
+    distinct?: VerificationCodeScalarFieldEnum | VerificationCodeScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationCode findFirstOrThrow
+   */
+  export type VerificationCodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerificationCodes.
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerificationCodes.
+     */
+    distinct?: VerificationCodeScalarFieldEnum | VerificationCodeScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationCode findMany
+   */
+  export type VerificationCodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCodes to fetch.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VerificationCodes.
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    distinct?: VerificationCodeScalarFieldEnum | VerificationCodeScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationCode create
+   */
+  export type VerificationCodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a VerificationCode.
+     */
+    data: XOR<VerificationCodeCreateInput, VerificationCodeUncheckedCreateInput>
+  }
+
+  /**
+   * VerificationCode createMany
+   */
+  export type VerificationCodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VerificationCodes.
+     */
+    data: VerificationCodeCreateManyInput | VerificationCodeCreateManyInput[]
+  }
+
+  /**
+   * VerificationCode update
+   */
+  export type VerificationCodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a VerificationCode.
+     */
+    data: XOR<VerificationCodeUpdateInput, VerificationCodeUncheckedUpdateInput>
+    /**
+     * Choose, which VerificationCode to update.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode updateMany
+   */
+  export type VerificationCodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VerificationCodes.
+     */
+    data: XOR<VerificationCodeUpdateManyMutationInput, VerificationCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which VerificationCodes to update
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * Limit how many VerificationCodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VerificationCode upsert
+   */
+  export type VerificationCodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the VerificationCode to update in case it exists.
+     */
+    where: VerificationCodeWhereUniqueInput
+    /**
+     * In case the VerificationCode found by the `where` argument doesn't exist, create a new VerificationCode with this data.
+     */
+    create: XOR<VerificationCodeCreateInput, VerificationCodeUncheckedCreateInput>
+    /**
+     * In case the VerificationCode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VerificationCodeUpdateInput, VerificationCodeUncheckedUpdateInput>
+  }
+
+  /**
+   * VerificationCode delete
+   */
+  export type VerificationCodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter which VerificationCode to delete.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode deleteMany
+   */
+  export type VerificationCodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerificationCodes to delete
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * Limit how many VerificationCodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VerificationCode findRaw
+   */
+  export type VerificationCodeFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * VerificationCode aggregateRaw
+   */
+  export type VerificationCodeAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * VerificationCode without action
+   */
+  export type VerificationCodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model UserLikesStudySet
    */
 
@@ -7942,7 +8999,8 @@ export namespace Prisma {
     notificationsEnabled: 'notificationsEnabled',
     publicProfile: 'publicProfile',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    status: 'status'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -8007,6 +9065,18 @@ export namespace Prisma {
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+  export const VerificationCodeScalarFieldEnum: {
+    id: 'id',
+    email: 'email',
+    code: 'code',
+    type: 'type',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+  };
+
+  export type VerificationCodeScalarFieldEnum = (typeof VerificationCodeScalarFieldEnum)[keyof typeof VerificationCodeScalarFieldEnum]
 
 
   export const UserLikesStudySetScalarFieldEnum: {
@@ -8104,6 +9174,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'VerificationType'
+   */
+  export type EnumVerificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'VerificationType[]'
+   */
+  export type ListEnumVerificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8140,6 +9224,7 @@ export namespace Prisma {
     publicProfile?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    status?: StringFilter<"User"> | string
     tokens?: RefreshTokenListRelationFilter
     vocabularies?: VocabularyListRelationFilter
     studySets?: StudySetListRelationFilter
@@ -8164,6 +9249,7 @@ export namespace Prisma {
     publicProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
     tokens?: RefreshTokenOrderByRelationAggregateInput
     vocabularies?: VocabularyOrderByRelationAggregateInput
     studySets?: StudySetOrderByRelationAggregateInput
@@ -8191,6 +9277,7 @@ export namespace Prisma {
     publicProfile?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    status?: StringFilter<"User"> | string
     tokens?: RefreshTokenListRelationFilter
     vocabularies?: VocabularyListRelationFilter
     studySets?: StudySetListRelationFilter
@@ -8215,6 +9302,7 @@ export namespace Prisma {
     publicProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -8242,6 +9330,7 @@ export namespace Prisma {
     publicProfile?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    status?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type RefreshTokenWhereInput = {
@@ -8568,6 +9657,63 @@ export namespace Prisma {
     authorId?: StringWithAggregatesFilter<"Category"> | string
   }
 
+  export type VerificationCodeWhereInput = {
+    AND?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    OR?: VerificationCodeWhereInput[]
+    NOT?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    id?: StringFilter<"VerificationCode"> | string
+    email?: StringFilter<"VerificationCode"> | string
+    code?: StringFilter<"VerificationCode"> | string
+    type?: EnumVerificationTypeFilter<"VerificationCode"> | $Enums.VerificationType
+    expiresAt?: DateTimeFilter<"VerificationCode"> | Date | string
+    createdAt?: DateTimeFilter<"VerificationCode"> | Date | string
+  }
+
+  export type VerificationCodeOrderByWithRelationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VerificationCodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    AND?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    OR?: VerificationCodeWhereInput[]
+    NOT?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    code?: StringFilter<"VerificationCode"> | string
+    type?: EnumVerificationTypeFilter<"VerificationCode"> | $Enums.VerificationType
+    expiresAt?: DateTimeFilter<"VerificationCode"> | Date | string
+    createdAt?: DateTimeFilter<"VerificationCode"> | Date | string
+  }, "id" | "email">
+
+  export type VerificationCodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: VerificationCodeCountOrderByAggregateInput
+    _max?: VerificationCodeMaxOrderByAggregateInput
+    _min?: VerificationCodeMinOrderByAggregateInput
+  }
+
+  export type VerificationCodeScalarWhereWithAggregatesInput = {
+    AND?: VerificationCodeScalarWhereWithAggregatesInput | VerificationCodeScalarWhereWithAggregatesInput[]
+    OR?: VerificationCodeScalarWhereWithAggregatesInput[]
+    NOT?: VerificationCodeScalarWhereWithAggregatesInput | VerificationCodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VerificationCode"> | string
+    email?: StringWithAggregatesFilter<"VerificationCode"> | string
+    code?: StringWithAggregatesFilter<"VerificationCode"> | string
+    type?: EnumVerificationTypeWithAggregatesFilter<"VerificationCode"> | $Enums.VerificationType
+    expiresAt?: DateTimeWithAggregatesFilter<"VerificationCode"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"VerificationCode"> | Date | string
+  }
+
   export type UserLikesStudySetWhereInput = {
     AND?: UserLikesStudySetWhereInput | UserLikesStudySetWhereInput[]
     OR?: UserLikesStudySetWhereInput[]
@@ -8639,6 +9785,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
@@ -8663,6 +9810,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
@@ -8686,6 +9834,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
@@ -8709,6 +9858,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8733,6 +9883,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -8751,6 +9902,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -8769,6 +9921,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type RefreshTokenCreateInput = {
@@ -9104,6 +10257,65 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type VerificationCodeCreateInput = {
+    id?: string
+    email: string
+    code: string
+    type: $Enums.VerificationType
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type VerificationCodeUncheckedCreateInput = {
+    id?: string
+    email: string
+    code: string
+    type: $Enums.VerificationType
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type VerificationCodeUpdateInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerificationTypeFieldUpdateOperationsInput | $Enums.VerificationType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationCodeUncheckedUpdateInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerificationTypeFieldUpdateOperationsInput | $Enums.VerificationType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationCodeCreateManyInput = {
+    id?: string
+    email: string
+    code: string
+    type: $Enums.VerificationType
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type VerificationCodeUpdateManyMutationInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerificationTypeFieldUpdateOperationsInput | $Enums.VerificationType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationCodeUncheckedUpdateManyInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerificationTypeFieldUpdateOperationsInput | $Enums.VerificationType
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserLikesStudySetCreateInput = {
     id?: string
     createdAt?: Date | string
@@ -9284,6 +10496,7 @@ export namespace Prisma {
     publicProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -9311,6 +10524,7 @@ export namespace Prisma {
     publicProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -9330,6 +10544,7 @@ export namespace Prisma {
     publicProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -9631,6 +10846,50 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     authorId?: SortOrder
+  }
+
+  export type EnumVerificationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerificationType | EnumVerificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerificationTypeFilter<$PrismaModel> | $Enums.VerificationType
+  }
+
+  export type VerificationCodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VerificationCodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VerificationCodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumVerificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerificationType | EnumVerificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.VerificationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVerificationTypeFilter<$PrismaModel>
+    _max?: NestedEnumVerificationTypeFilter<$PrismaModel>
   }
 
   export type UserLikesStudySetUserIdStudySetIdCompoundUniqueInput = {
@@ -10122,6 +11381,10 @@ export namespace Prisma {
     deleteMany?: StudySetScalarWhereInput | StudySetScalarWhereInput[]
   }
 
+  export type EnumVerificationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.VerificationType
+  }
+
   export type UserCreateNestedOneWithoutLikedStudySetsInput = {
     create?: XOR<UserCreateWithoutLikedStudySetsInput, UserUncheckedCreateWithoutLikedStudySetsInput>
     connectOrCreate?: UserCreateOrConnectWithoutLikedStudySetsInput
@@ -10344,6 +11607,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLevelFilter<$PrismaModel>
     _max?: NestedEnumLevelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumVerificationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerificationType | EnumVerificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerificationTypeFilter<$PrismaModel> | $Enums.VerificationType
+  }
+
+  export type NestedEnumVerificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerificationType | EnumVerificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.VerificationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVerificationTypeFilter<$PrismaModel>
+    _max?: NestedEnumVerificationTypeFilter<$PrismaModel>
   }
 
   export type RefreshTokenCreateWithoutUserInput = {
@@ -10667,6 +11947,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
@@ -10690,6 +11971,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
@@ -10728,6 +12010,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
@@ -10750,6 +12033,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
@@ -10773,6 +12057,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
@@ -10796,6 +12081,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
@@ -10921,6 +12207,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
@@ -10943,6 +12230,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
@@ -11066,6 +12354,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenCreateNestedManyWithoutUserInput
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
@@ -11089,6 +12378,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
@@ -11166,6 +12456,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
@@ -11188,6 +12479,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
@@ -11250,6 +12542,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
@@ -11273,6 +12566,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
@@ -11327,6 +12621,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
@@ -11349,6 +12644,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
@@ -11372,6 +12668,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
@@ -11395,6 +12692,7 @@ export namespace Prisma {
     publicProfile?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
     tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
@@ -11468,6 +12766,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
@@ -11490,6 +12789,7 @@ export namespace Prisma {
     publicProfile?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
     tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
