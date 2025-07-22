@@ -35,6 +35,7 @@ model User {
   studySets StudySet[] @relation("CreatedStudySets")
   likedStudySets UserLikesStudySet[]
   categories Category[]
+  vocabularyProgress UserVocabularyProgress[]
 }
 
 model RefreshToken {
@@ -88,6 +89,7 @@ model Vocabulary {
   // Relationships
   studySet StudySet @relation(fields: [studySetId], references: [id])
   createdBy User @relation("CreatedVocabularies", fields: [createdById], references: [id])
+  vocabularyProgress UserVocabularyProgress[]
   @@unique([word, studySetId])
 }
 
@@ -136,6 +138,28 @@ model UserLikesStudySet {
   createdAt  DateTime @default(now())
 
   @@unique([userId, studySetId])
+}
+
+model UserVocabularyProgress {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String   @db.ObjectId
+  vocabularyId   String   @db.ObjectId
+  status         String   @default("new") // new, review, mastered
+  lastReviewedAt DateTime?
+  nextReviewAt   DateTime?
+  reviewCount    Int      @default(0)
+  correctCount   Int      @default(0)
+  incorrectCount Int      @default(0)
+  easeFactor     Float    @default(2.5)
+  interval       Int      @default(1) // số ngày giữa các lần ôn
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user        User       @relation(fields: [userId], references: [id])
+  vocabulary  Vocabulary @relation(fields: [vocabularyId], references: [id])
+
+  @@unique([userId, vocabularyId])
+  @@index([userId, nextReviewAt])
 }
 
 enum Level {

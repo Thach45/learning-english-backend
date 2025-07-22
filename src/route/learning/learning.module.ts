@@ -1,0 +1,11 @@
+import { Module } from '@nestjs/common';
+import { LearningController } from './learning.controller';
+import { LearningService } from './learning.service';
+import { PrismaService } from '../../shared/service/prisma.service';
+import { LearningRepo } from './learning.repo';
+
+@Module({
+  controllers: [LearningController],
+  providers: [LearningService, LearningRepo, PrismaService],
+})
+export class LearningModule {} 

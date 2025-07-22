@@ -48,6 +48,11 @@ export type VerificationCode = $Result.DefaultSelection<Prisma.$VerificationCode
  * 
  */
 export type UserLikesStudySet = $Result.DefaultSelection<Prisma.$UserLikesStudySetPayload>
+/**
+ * Model UserVocabularyProgress
+ * 
+ */
+export type UserVocabularyProgress = $Result.DefaultSelection<Prisma.$UserVocabularyProgressPayload>
 
 /**
  * Enums
@@ -240,6 +245,16 @@ export class PrismaClient<
     * ```
     */
   get userLikesStudySet(): Prisma.UserLikesStudySetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userVocabularyProgress`: Exposes CRUD operations for the **UserVocabularyProgress** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserVocabularyProgresses
+    * const userVocabularyProgresses = await prisma.userVocabularyProgress.findMany()
+    * ```
+    */
+  get userVocabularyProgress(): Prisma.UserVocabularyProgressDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -686,7 +701,8 @@ export namespace Prisma {
     Vocabulary: 'Vocabulary',
     Category: 'Category',
     VerificationCode: 'VerificationCode',
-    UserLikesStudySet: 'UserLikesStudySet'
+    UserLikesStudySet: 'UserLikesStudySet',
+    UserVocabularyProgress: 'UserVocabularyProgress'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -705,7 +721,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "refreshToken" | "studySet" | "vocabulary" | "category" | "verificationCode" | "userLikesStudySet"
+      modelProps: "user" | "refreshToken" | "studySet" | "vocabulary" | "category" | "verificationCode" | "userLikesStudySet" | "userVocabularyProgress"
       txIsolationLevel: never
     }
     model: {
@@ -1227,6 +1243,80 @@ export namespace Prisma {
           }
         }
       }
+      UserVocabularyProgress: {
+        payload: Prisma.$UserVocabularyProgressPayload<ExtArgs>
+        fields: Prisma.UserVocabularyProgressFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserVocabularyProgressFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserVocabularyProgressFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload>
+          }
+          findFirst: {
+            args: Prisma.UserVocabularyProgressFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserVocabularyProgressFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload>
+          }
+          findMany: {
+            args: Prisma.UserVocabularyProgressFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload>[]
+          }
+          create: {
+            args: Prisma.UserVocabularyProgressCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload>
+          }
+          createMany: {
+            args: Prisma.UserVocabularyProgressCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserVocabularyProgressDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload>
+          }
+          update: {
+            args: Prisma.UserVocabularyProgressUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserVocabularyProgressDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserVocabularyProgressUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserVocabularyProgressUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVocabularyProgressPayload>
+          }
+          aggregate: {
+            args: Prisma.UserVocabularyProgressAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserVocabularyProgress>
+          }
+          groupBy: {
+            args: Prisma.UserVocabularyProgressGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserVocabularyProgressGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.UserVocabularyProgressFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.UserVocabularyProgressAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.UserVocabularyProgressCountArgs<ExtArgs>
+            result: $Utils.Optional<UserVocabularyProgressCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1305,6 +1395,7 @@ export namespace Prisma {
     category?: CategoryOmit
     verificationCode?: VerificationCodeOmit
     userLikesStudySet?: UserLikesStudySetOmit
+    userVocabularyProgress?: UserVocabularyProgressOmit
   }
 
   /* Types for Logging */
@@ -1404,6 +1495,7 @@ export namespace Prisma {
     studySets: number
     likedStudySets: number
     categories: number
+    vocabularyProgress: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1412,6 +1504,7 @@ export namespace Prisma {
     studySets?: boolean | UserCountOutputTypeCountStudySetsArgs
     likedStudySets?: boolean | UserCountOutputTypeCountLikedStudySetsArgs
     categories?: boolean | UserCountOutputTypeCountCategoriesArgs
+    vocabularyProgress?: boolean | UserCountOutputTypeCountVocabularyProgressArgs
   }
 
   // Custom InputTypes
@@ -1460,6 +1553,13 @@ export namespace Prisma {
     where?: CategoryWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountVocabularyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserVocabularyProgressWhereInput
+  }
+
 
   /**
    * Count Type StudySetCountOutputType
@@ -1498,6 +1598,37 @@ export namespace Prisma {
    */
   export type StudySetCountOutputTypeCountLikedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserLikesStudySetWhereInput
+  }
+
+
+  /**
+   * Count Type VocabularyCountOutputType
+   */
+
+  export type VocabularyCountOutputType = {
+    vocabularyProgress: number
+  }
+
+  export type VocabularyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vocabularyProgress?: boolean | VocabularyCountOutputTypeCountVocabularyProgressArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * VocabularyCountOutputType without action
+   */
+  export type VocabularyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VocabularyCountOutputType
+     */
+    select?: VocabularyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * VocabularyCountOutputType without action
+   */
+  export type VocabularyCountOutputTypeCountVocabularyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserVocabularyProgressWhereInput
   }
 
 
@@ -1851,6 +1982,7 @@ export namespace Prisma {
     studySets?: boolean | User$studySetsArgs<ExtArgs>
     likedStudySets?: boolean | User$likedStudySetsArgs<ExtArgs>
     categories?: boolean | User$categoriesArgs<ExtArgs>
+    vocabularyProgress?: boolean | User$vocabularyProgressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1883,6 +2015,7 @@ export namespace Prisma {
     studySets?: boolean | User$studySetsArgs<ExtArgs>
     likedStudySets?: boolean | User$likedStudySetsArgs<ExtArgs>
     categories?: boolean | User$categoriesArgs<ExtArgs>
+    vocabularyProgress?: boolean | User$vocabularyProgressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1894,6 +2027,7 @@ export namespace Prisma {
       studySets: Prisma.$StudySetPayload<ExtArgs>[]
       likedStudySets: Prisma.$UserLikesStudySetPayload<ExtArgs>[]
       categories: Prisma.$CategoryPayload<ExtArgs>[]
+      vocabularyProgress: Prisma.$UserVocabularyProgressPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2281,6 +2415,7 @@ export namespace Prisma {
     studySets<T extends User$studySetsArgs<ExtArgs> = {}>(args?: Subset<T, User$studySetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     likedStudySets<T extends User$likedStudySetsArgs<ExtArgs> = {}>(args?: Subset<T, User$likedStudySetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLikesStudySetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     categories<T extends User$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, User$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vocabularyProgress<T extends User$vocabularyProgressArgs<ExtArgs> = {}>(args?: Subset<T, User$vocabularyProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2814,6 +2949,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * User.vocabularyProgress
+   */
+  export type User$vocabularyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    where?: UserVocabularyProgressWhereInput
+    orderBy?: UserVocabularyProgressOrderByWithRelationInput | UserVocabularyProgressOrderByWithRelationInput[]
+    cursor?: UserVocabularyProgressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserVocabularyProgressScalarFieldEnum | UserVocabularyProgressScalarFieldEnum[]
   }
 
   /**
@@ -5173,6 +5332,8 @@ export namespace Prisma {
     createdById?: boolean
     studySet?: boolean | StudySetDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    vocabularyProgress?: boolean | Vocabulary$vocabularyProgressArgs<ExtArgs>
+    _count?: boolean | VocabularyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vocabulary"]>
 
 
@@ -5196,6 +5357,8 @@ export namespace Prisma {
   export type VocabularyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studySet?: boolean | StudySetDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    vocabularyProgress?: boolean | Vocabulary$vocabularyProgressArgs<ExtArgs>
+    _count?: boolean | VocabularyCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $VocabularyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5203,6 +5366,7 @@ export namespace Prisma {
     objects: {
       studySet: Prisma.$StudySetPayload<ExtArgs>
       createdBy: Prisma.$UserPayload<ExtArgs>
+      vocabularyProgress: Prisma.$UserVocabularyProgressPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5582,6 +5746,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     studySet<T extends StudySetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudySetDefaultArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    vocabularyProgress<T extends Vocabulary$vocabularyProgressArgs<ExtArgs> = {}>(args?: Subset<T, Vocabulary$vocabularyProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5990,6 +6155,30 @@ export namespace Prisma {
      * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
      */
     options?: InputJsonValue
+  }
+
+  /**
+   * Vocabulary.vocabularyProgress
+   */
+  export type Vocabulary$vocabularyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    where?: UserVocabularyProgressWhereInput
+    orderBy?: UserVocabularyProgressOrderByWithRelationInput | UserVocabularyProgressOrderByWithRelationInput[]
+    cursor?: UserVocabularyProgressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserVocabularyProgressScalarFieldEnum | UserVocabularyProgressScalarFieldEnum[]
   }
 
   /**
@@ -8980,6 +9169,1127 @@ export namespace Prisma {
 
 
   /**
+   * Model UserVocabularyProgress
+   */
+
+  export type AggregateUserVocabularyProgress = {
+    _count: UserVocabularyProgressCountAggregateOutputType | null
+    _avg: UserVocabularyProgressAvgAggregateOutputType | null
+    _sum: UserVocabularyProgressSumAggregateOutputType | null
+    _min: UserVocabularyProgressMinAggregateOutputType | null
+    _max: UserVocabularyProgressMaxAggregateOutputType | null
+  }
+
+  export type UserVocabularyProgressAvgAggregateOutputType = {
+    reviewCount: number | null
+    correctCount: number | null
+    incorrectCount: number | null
+    easeFactor: number | null
+    interval: number | null
+  }
+
+  export type UserVocabularyProgressSumAggregateOutputType = {
+    reviewCount: number | null
+    correctCount: number | null
+    incorrectCount: number | null
+    easeFactor: number | null
+    interval: number | null
+  }
+
+  export type UserVocabularyProgressMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    vocabularyId: string | null
+    status: string | null
+    lastReviewedAt: Date | null
+    nextReviewAt: Date | null
+    reviewCount: number | null
+    correctCount: number | null
+    incorrectCount: number | null
+    easeFactor: number | null
+    interval: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserVocabularyProgressMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    vocabularyId: string | null
+    status: string | null
+    lastReviewedAt: Date | null
+    nextReviewAt: Date | null
+    reviewCount: number | null
+    correctCount: number | null
+    incorrectCount: number | null
+    easeFactor: number | null
+    interval: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserVocabularyProgressCountAggregateOutputType = {
+    id: number
+    userId: number
+    vocabularyId: number
+    status: number
+    lastReviewedAt: number
+    nextReviewAt: number
+    reviewCount: number
+    correctCount: number
+    incorrectCount: number
+    easeFactor: number
+    interval: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserVocabularyProgressAvgAggregateInputType = {
+    reviewCount?: true
+    correctCount?: true
+    incorrectCount?: true
+    easeFactor?: true
+    interval?: true
+  }
+
+  export type UserVocabularyProgressSumAggregateInputType = {
+    reviewCount?: true
+    correctCount?: true
+    incorrectCount?: true
+    easeFactor?: true
+    interval?: true
+  }
+
+  export type UserVocabularyProgressMinAggregateInputType = {
+    id?: true
+    userId?: true
+    vocabularyId?: true
+    status?: true
+    lastReviewedAt?: true
+    nextReviewAt?: true
+    reviewCount?: true
+    correctCount?: true
+    incorrectCount?: true
+    easeFactor?: true
+    interval?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserVocabularyProgressMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    vocabularyId?: true
+    status?: true
+    lastReviewedAt?: true
+    nextReviewAt?: true
+    reviewCount?: true
+    correctCount?: true
+    incorrectCount?: true
+    easeFactor?: true
+    interval?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserVocabularyProgressCountAggregateInputType = {
+    id?: true
+    userId?: true
+    vocabularyId?: true
+    status?: true
+    lastReviewedAt?: true
+    nextReviewAt?: true
+    reviewCount?: true
+    correctCount?: true
+    incorrectCount?: true
+    easeFactor?: true
+    interval?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserVocabularyProgressAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserVocabularyProgress to aggregate.
+     */
+    where?: UserVocabularyProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVocabularyProgresses to fetch.
+     */
+    orderBy?: UserVocabularyProgressOrderByWithRelationInput | UserVocabularyProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserVocabularyProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVocabularyProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVocabularyProgresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserVocabularyProgresses
+    **/
+    _count?: true | UserVocabularyProgressCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserVocabularyProgressAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserVocabularyProgressSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserVocabularyProgressMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserVocabularyProgressMaxAggregateInputType
+  }
+
+  export type GetUserVocabularyProgressAggregateType<T extends UserVocabularyProgressAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserVocabularyProgress]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserVocabularyProgress[P]>
+      : GetScalarType<T[P], AggregateUserVocabularyProgress[P]>
+  }
+
+
+
+
+  export type UserVocabularyProgressGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserVocabularyProgressWhereInput
+    orderBy?: UserVocabularyProgressOrderByWithAggregationInput | UserVocabularyProgressOrderByWithAggregationInput[]
+    by: UserVocabularyProgressScalarFieldEnum[] | UserVocabularyProgressScalarFieldEnum
+    having?: UserVocabularyProgressScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserVocabularyProgressCountAggregateInputType | true
+    _avg?: UserVocabularyProgressAvgAggregateInputType
+    _sum?: UserVocabularyProgressSumAggregateInputType
+    _min?: UserVocabularyProgressMinAggregateInputType
+    _max?: UserVocabularyProgressMaxAggregateInputType
+  }
+
+  export type UserVocabularyProgressGroupByOutputType = {
+    id: string
+    userId: string
+    vocabularyId: string
+    status: string
+    lastReviewedAt: Date | null
+    nextReviewAt: Date | null
+    reviewCount: number
+    correctCount: number
+    incorrectCount: number
+    easeFactor: number
+    interval: number
+    createdAt: Date
+    updatedAt: Date
+    _count: UserVocabularyProgressCountAggregateOutputType | null
+    _avg: UserVocabularyProgressAvgAggregateOutputType | null
+    _sum: UserVocabularyProgressSumAggregateOutputType | null
+    _min: UserVocabularyProgressMinAggregateOutputType | null
+    _max: UserVocabularyProgressMaxAggregateOutputType | null
+  }
+
+  type GetUserVocabularyProgressGroupByPayload<T extends UserVocabularyProgressGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserVocabularyProgressGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserVocabularyProgressGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserVocabularyProgressGroupByOutputType[P]>
+            : GetScalarType<T[P], UserVocabularyProgressGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserVocabularyProgressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    vocabularyId?: boolean
+    status?: boolean
+    lastReviewedAt?: boolean
+    nextReviewAt?: boolean
+    reviewCount?: boolean
+    correctCount?: boolean
+    incorrectCount?: boolean
+    easeFactor?: boolean
+    interval?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    vocabulary?: boolean | VocabularyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userVocabularyProgress"]>
+
+
+
+  export type UserVocabularyProgressSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    vocabularyId?: boolean
+    status?: boolean
+    lastReviewedAt?: boolean
+    nextReviewAt?: boolean
+    reviewCount?: boolean
+    correctCount?: boolean
+    incorrectCount?: boolean
+    easeFactor?: boolean
+    interval?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserVocabularyProgressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "vocabularyId" | "status" | "lastReviewedAt" | "nextReviewAt" | "reviewCount" | "correctCount" | "incorrectCount" | "easeFactor" | "interval" | "createdAt" | "updatedAt", ExtArgs["result"]["userVocabularyProgress"]>
+  export type UserVocabularyProgressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    vocabulary?: boolean | VocabularyDefaultArgs<ExtArgs>
+  }
+
+  export type $UserVocabularyProgressPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserVocabularyProgress"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      vocabulary: Prisma.$VocabularyPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      vocabularyId: string
+      status: string
+      lastReviewedAt: Date | null
+      nextReviewAt: Date | null
+      reviewCount: number
+      correctCount: number
+      incorrectCount: number
+      easeFactor: number
+      interval: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userVocabularyProgress"]>
+    composites: {}
+  }
+
+  type UserVocabularyProgressGetPayload<S extends boolean | null | undefined | UserVocabularyProgressDefaultArgs> = $Result.GetResult<Prisma.$UserVocabularyProgressPayload, S>
+
+  type UserVocabularyProgressCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserVocabularyProgressFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserVocabularyProgressCountAggregateInputType | true
+    }
+
+  export interface UserVocabularyProgressDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserVocabularyProgress'], meta: { name: 'UserVocabularyProgress' } }
+    /**
+     * Find zero or one UserVocabularyProgress that matches the filter.
+     * @param {UserVocabularyProgressFindUniqueArgs} args - Arguments to find a UserVocabularyProgress
+     * @example
+     * // Get one UserVocabularyProgress
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserVocabularyProgressFindUniqueArgs>(args: SelectSubset<T, UserVocabularyProgressFindUniqueArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserVocabularyProgress that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserVocabularyProgressFindUniqueOrThrowArgs} args - Arguments to find a UserVocabularyProgress
+     * @example
+     * // Get one UserVocabularyProgress
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserVocabularyProgressFindUniqueOrThrowArgs>(args: SelectSubset<T, UserVocabularyProgressFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserVocabularyProgress that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVocabularyProgressFindFirstArgs} args - Arguments to find a UserVocabularyProgress
+     * @example
+     * // Get one UserVocabularyProgress
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserVocabularyProgressFindFirstArgs>(args?: SelectSubset<T, UserVocabularyProgressFindFirstArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserVocabularyProgress that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVocabularyProgressFindFirstOrThrowArgs} args - Arguments to find a UserVocabularyProgress
+     * @example
+     * // Get one UserVocabularyProgress
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserVocabularyProgressFindFirstOrThrowArgs>(args?: SelectSubset<T, UserVocabularyProgressFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserVocabularyProgresses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVocabularyProgressFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserVocabularyProgresses
+     * const userVocabularyProgresses = await prisma.userVocabularyProgress.findMany()
+     * 
+     * // Get first 10 UserVocabularyProgresses
+     * const userVocabularyProgresses = await prisma.userVocabularyProgress.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userVocabularyProgressWithIdOnly = await prisma.userVocabularyProgress.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserVocabularyProgressFindManyArgs>(args?: SelectSubset<T, UserVocabularyProgressFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserVocabularyProgress.
+     * @param {UserVocabularyProgressCreateArgs} args - Arguments to create a UserVocabularyProgress.
+     * @example
+     * // Create one UserVocabularyProgress
+     * const UserVocabularyProgress = await prisma.userVocabularyProgress.create({
+     *   data: {
+     *     // ... data to create a UserVocabularyProgress
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserVocabularyProgressCreateArgs>(args: SelectSubset<T, UserVocabularyProgressCreateArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserVocabularyProgresses.
+     * @param {UserVocabularyProgressCreateManyArgs} args - Arguments to create many UserVocabularyProgresses.
+     * @example
+     * // Create many UserVocabularyProgresses
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserVocabularyProgressCreateManyArgs>(args?: SelectSubset<T, UserVocabularyProgressCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a UserVocabularyProgress.
+     * @param {UserVocabularyProgressDeleteArgs} args - Arguments to delete one UserVocabularyProgress.
+     * @example
+     * // Delete one UserVocabularyProgress
+     * const UserVocabularyProgress = await prisma.userVocabularyProgress.delete({
+     *   where: {
+     *     // ... filter to delete one UserVocabularyProgress
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserVocabularyProgressDeleteArgs>(args: SelectSubset<T, UserVocabularyProgressDeleteArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserVocabularyProgress.
+     * @param {UserVocabularyProgressUpdateArgs} args - Arguments to update one UserVocabularyProgress.
+     * @example
+     * // Update one UserVocabularyProgress
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserVocabularyProgressUpdateArgs>(args: SelectSubset<T, UserVocabularyProgressUpdateArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserVocabularyProgresses.
+     * @param {UserVocabularyProgressDeleteManyArgs} args - Arguments to filter UserVocabularyProgresses to delete.
+     * @example
+     * // Delete a few UserVocabularyProgresses
+     * const { count } = await prisma.userVocabularyProgress.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserVocabularyProgressDeleteManyArgs>(args?: SelectSubset<T, UserVocabularyProgressDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserVocabularyProgresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVocabularyProgressUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserVocabularyProgresses
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserVocabularyProgressUpdateManyArgs>(args: SelectSubset<T, UserVocabularyProgressUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserVocabularyProgress.
+     * @param {UserVocabularyProgressUpsertArgs} args - Arguments to update or create a UserVocabularyProgress.
+     * @example
+     * // Update or create a UserVocabularyProgress
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.upsert({
+     *   create: {
+     *     // ... data to create a UserVocabularyProgress
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserVocabularyProgress we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserVocabularyProgressUpsertArgs>(args: SelectSubset<T, UserVocabularyProgressUpsertArgs<ExtArgs>>): Prisma__UserVocabularyProgressClient<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserVocabularyProgresses that matches the filter.
+     * @param {UserVocabularyProgressFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: UserVocabularyProgressFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a UserVocabularyProgress.
+     * @param {UserVocabularyProgressAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const userVocabularyProgress = await prisma.userVocabularyProgress.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: UserVocabularyProgressAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of UserVocabularyProgresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVocabularyProgressCountArgs} args - Arguments to filter UserVocabularyProgresses to count.
+     * @example
+     * // Count the number of UserVocabularyProgresses
+     * const count = await prisma.userVocabularyProgress.count({
+     *   where: {
+     *     // ... the filter for the UserVocabularyProgresses we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserVocabularyProgressCountArgs>(
+      args?: Subset<T, UserVocabularyProgressCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserVocabularyProgressCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserVocabularyProgress.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVocabularyProgressAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserVocabularyProgressAggregateArgs>(args: Subset<T, UserVocabularyProgressAggregateArgs>): Prisma.PrismaPromise<GetUserVocabularyProgressAggregateType<T>>
+
+    /**
+     * Group by UserVocabularyProgress.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVocabularyProgressGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserVocabularyProgressGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserVocabularyProgressGroupByArgs['orderBy'] }
+        : { orderBy?: UserVocabularyProgressGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserVocabularyProgressGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserVocabularyProgressGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserVocabularyProgress model
+   */
+  readonly fields: UserVocabularyProgressFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserVocabularyProgress.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserVocabularyProgressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    vocabulary<T extends VocabularyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VocabularyDefaultArgs<ExtArgs>>): Prisma__VocabularyClient<$Result.GetResult<Prisma.$VocabularyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserVocabularyProgress model
+   */
+  interface UserVocabularyProgressFieldRefs {
+    readonly id: FieldRef<"UserVocabularyProgress", 'String'>
+    readonly userId: FieldRef<"UserVocabularyProgress", 'String'>
+    readonly vocabularyId: FieldRef<"UserVocabularyProgress", 'String'>
+    readonly status: FieldRef<"UserVocabularyProgress", 'String'>
+    readonly lastReviewedAt: FieldRef<"UserVocabularyProgress", 'DateTime'>
+    readonly nextReviewAt: FieldRef<"UserVocabularyProgress", 'DateTime'>
+    readonly reviewCount: FieldRef<"UserVocabularyProgress", 'Int'>
+    readonly correctCount: FieldRef<"UserVocabularyProgress", 'Int'>
+    readonly incorrectCount: FieldRef<"UserVocabularyProgress", 'Int'>
+    readonly easeFactor: FieldRef<"UserVocabularyProgress", 'Float'>
+    readonly interval: FieldRef<"UserVocabularyProgress", 'Int'>
+    readonly createdAt: FieldRef<"UserVocabularyProgress", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserVocabularyProgress", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserVocabularyProgress findUnique
+   */
+  export type UserVocabularyProgressFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVocabularyProgress to fetch.
+     */
+    where: UserVocabularyProgressWhereUniqueInput
+  }
+
+  /**
+   * UserVocabularyProgress findUniqueOrThrow
+   */
+  export type UserVocabularyProgressFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVocabularyProgress to fetch.
+     */
+    where: UserVocabularyProgressWhereUniqueInput
+  }
+
+  /**
+   * UserVocabularyProgress findFirst
+   */
+  export type UserVocabularyProgressFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVocabularyProgress to fetch.
+     */
+    where?: UserVocabularyProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVocabularyProgresses to fetch.
+     */
+    orderBy?: UserVocabularyProgressOrderByWithRelationInput | UserVocabularyProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserVocabularyProgresses.
+     */
+    cursor?: UserVocabularyProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVocabularyProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVocabularyProgresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserVocabularyProgresses.
+     */
+    distinct?: UserVocabularyProgressScalarFieldEnum | UserVocabularyProgressScalarFieldEnum[]
+  }
+
+  /**
+   * UserVocabularyProgress findFirstOrThrow
+   */
+  export type UserVocabularyProgressFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVocabularyProgress to fetch.
+     */
+    where?: UserVocabularyProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVocabularyProgresses to fetch.
+     */
+    orderBy?: UserVocabularyProgressOrderByWithRelationInput | UserVocabularyProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserVocabularyProgresses.
+     */
+    cursor?: UserVocabularyProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVocabularyProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVocabularyProgresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserVocabularyProgresses.
+     */
+    distinct?: UserVocabularyProgressScalarFieldEnum | UserVocabularyProgressScalarFieldEnum[]
+  }
+
+  /**
+   * UserVocabularyProgress findMany
+   */
+  export type UserVocabularyProgressFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVocabularyProgresses to fetch.
+     */
+    where?: UserVocabularyProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVocabularyProgresses to fetch.
+     */
+    orderBy?: UserVocabularyProgressOrderByWithRelationInput | UserVocabularyProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserVocabularyProgresses.
+     */
+    cursor?: UserVocabularyProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVocabularyProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVocabularyProgresses.
+     */
+    skip?: number
+    distinct?: UserVocabularyProgressScalarFieldEnum | UserVocabularyProgressScalarFieldEnum[]
+  }
+
+  /**
+   * UserVocabularyProgress create
+   */
+  export type UserVocabularyProgressCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserVocabularyProgress.
+     */
+    data: XOR<UserVocabularyProgressCreateInput, UserVocabularyProgressUncheckedCreateInput>
+  }
+
+  /**
+   * UserVocabularyProgress createMany
+   */
+  export type UserVocabularyProgressCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserVocabularyProgresses.
+     */
+    data: UserVocabularyProgressCreateManyInput | UserVocabularyProgressCreateManyInput[]
+  }
+
+  /**
+   * UserVocabularyProgress update
+   */
+  export type UserVocabularyProgressUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserVocabularyProgress.
+     */
+    data: XOR<UserVocabularyProgressUpdateInput, UserVocabularyProgressUncheckedUpdateInput>
+    /**
+     * Choose, which UserVocabularyProgress to update.
+     */
+    where: UserVocabularyProgressWhereUniqueInput
+  }
+
+  /**
+   * UserVocabularyProgress updateMany
+   */
+  export type UserVocabularyProgressUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserVocabularyProgresses.
+     */
+    data: XOR<UserVocabularyProgressUpdateManyMutationInput, UserVocabularyProgressUncheckedUpdateManyInput>
+    /**
+     * Filter which UserVocabularyProgresses to update
+     */
+    where?: UserVocabularyProgressWhereInput
+    /**
+     * Limit how many UserVocabularyProgresses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserVocabularyProgress upsert
+   */
+  export type UserVocabularyProgressUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserVocabularyProgress to update in case it exists.
+     */
+    where: UserVocabularyProgressWhereUniqueInput
+    /**
+     * In case the UserVocabularyProgress found by the `where` argument doesn't exist, create a new UserVocabularyProgress with this data.
+     */
+    create: XOR<UserVocabularyProgressCreateInput, UserVocabularyProgressUncheckedCreateInput>
+    /**
+     * In case the UserVocabularyProgress was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserVocabularyProgressUpdateInput, UserVocabularyProgressUncheckedUpdateInput>
+  }
+
+  /**
+   * UserVocabularyProgress delete
+   */
+  export type UserVocabularyProgressDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+    /**
+     * Filter which UserVocabularyProgress to delete.
+     */
+    where: UserVocabularyProgressWhereUniqueInput
+  }
+
+  /**
+   * UserVocabularyProgress deleteMany
+   */
+  export type UserVocabularyProgressDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserVocabularyProgresses to delete
+     */
+    where?: UserVocabularyProgressWhereInput
+    /**
+     * Limit how many UserVocabularyProgresses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserVocabularyProgress findRaw
+   */
+  export type UserVocabularyProgressFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserVocabularyProgress aggregateRaw
+   */
+  export type UserVocabularyProgressAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserVocabularyProgress without action
+   */
+  export type UserVocabularyProgressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVocabularyProgress
+     */
+    select?: UserVocabularyProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVocabularyProgress
+     */
+    omit?: UserVocabularyProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVocabularyProgressInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9087,6 +10397,25 @@ export namespace Prisma {
   };
 
   export type UserLikesStudySetScalarFieldEnum = (typeof UserLikesStudySetScalarFieldEnum)[keyof typeof UserLikesStudySetScalarFieldEnum]
+
+
+  export const UserVocabularyProgressScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    vocabularyId: 'vocabularyId',
+    status: 'status',
+    lastReviewedAt: 'lastReviewedAt',
+    nextReviewAt: 'nextReviewAt',
+    reviewCount: 'reviewCount',
+    correctCount: 'correctCount',
+    incorrectCount: 'incorrectCount',
+    easeFactor: 'easeFactor',
+    interval: 'interval',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserVocabularyProgressScalarFieldEnum = (typeof UserVocabularyProgressScalarFieldEnum)[keyof typeof UserVocabularyProgressScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9230,6 +10559,7 @@ export namespace Prisma {
     studySets?: StudySetListRelationFilter
     likedStudySets?: UserLikesStudySetListRelationFilter
     categories?: CategoryListRelationFilter
+    vocabularyProgress?: UserVocabularyProgressListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9255,6 +10585,7 @@ export namespace Prisma {
     studySets?: StudySetOrderByRelationAggregateInput
     likedStudySets?: UserLikesStudySetOrderByRelationAggregateInput
     categories?: CategoryOrderByRelationAggregateInput
+    vocabularyProgress?: UserVocabularyProgressOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9283,6 +10614,7 @@ export namespace Prisma {
     studySets?: StudySetListRelationFilter
     likedStudySets?: UserLikesStudySetListRelationFilter
     categories?: CategoryListRelationFilter
+    vocabularyProgress?: UserVocabularyProgressListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9502,6 +10834,7 @@ export namespace Prisma {
     createdById?: StringFilter<"Vocabulary"> | string
     studySet?: XOR<StudySetScalarRelationFilter, StudySetWhereInput>
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    vocabularyProgress?: UserVocabularyProgressListRelationFilter
   }
 
   export type VocabularyOrderByWithRelationInput = {
@@ -9519,6 +10852,7 @@ export namespace Prisma {
     createdById?: SortOrder
     studySet?: StudySetOrderByWithRelationInput
     createdBy?: UserOrderByWithRelationInput
+    vocabularyProgress?: UserVocabularyProgressOrderByRelationAggregateInput
   }
 
   export type VocabularyWhereUniqueInput = Prisma.AtLeast<{
@@ -9540,6 +10874,7 @@ export namespace Prisma {
     createdById?: StringFilter<"Vocabulary"> | string
     studySet?: XOR<StudySetScalarRelationFilter, StudySetWhereInput>
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    vocabularyProgress?: UserVocabularyProgressListRelationFilter
   }, "id" | "word_studySetId">
 
   export type VocabularyOrderByWithAggregationInput = {
@@ -9768,6 +11103,107 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"UserLikesStudySet"> | Date | string
   }
 
+  export type UserVocabularyProgressWhereInput = {
+    AND?: UserVocabularyProgressWhereInput | UserVocabularyProgressWhereInput[]
+    OR?: UserVocabularyProgressWhereInput[]
+    NOT?: UserVocabularyProgressWhereInput | UserVocabularyProgressWhereInput[]
+    id?: StringFilter<"UserVocabularyProgress"> | string
+    userId?: StringFilter<"UserVocabularyProgress"> | string
+    vocabularyId?: StringFilter<"UserVocabularyProgress"> | string
+    status?: StringFilter<"UserVocabularyProgress"> | string
+    lastReviewedAt?: DateTimeNullableFilter<"UserVocabularyProgress"> | Date | string | null
+    nextReviewAt?: DateTimeNullableFilter<"UserVocabularyProgress"> | Date | string | null
+    reviewCount?: IntFilter<"UserVocabularyProgress"> | number
+    correctCount?: IntFilter<"UserVocabularyProgress"> | number
+    incorrectCount?: IntFilter<"UserVocabularyProgress"> | number
+    easeFactor?: FloatFilter<"UserVocabularyProgress"> | number
+    interval?: IntFilter<"UserVocabularyProgress"> | number
+    createdAt?: DateTimeFilter<"UserVocabularyProgress"> | Date | string
+    updatedAt?: DateTimeFilter<"UserVocabularyProgress"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    vocabulary?: XOR<VocabularyScalarRelationFilter, VocabularyWhereInput>
+  }
+
+  export type UserVocabularyProgressOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    vocabularyId?: SortOrder
+    status?: SortOrder
+    lastReviewedAt?: SortOrder
+    nextReviewAt?: SortOrder
+    reviewCount?: SortOrder
+    correctCount?: SortOrder
+    incorrectCount?: SortOrder
+    easeFactor?: SortOrder
+    interval?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    vocabulary?: VocabularyOrderByWithRelationInput
+  }
+
+  export type UserVocabularyProgressWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_vocabularyId?: UserVocabularyProgressUserIdVocabularyIdCompoundUniqueInput
+    AND?: UserVocabularyProgressWhereInput | UserVocabularyProgressWhereInput[]
+    OR?: UserVocabularyProgressWhereInput[]
+    NOT?: UserVocabularyProgressWhereInput | UserVocabularyProgressWhereInput[]
+    userId?: StringFilter<"UserVocabularyProgress"> | string
+    vocabularyId?: StringFilter<"UserVocabularyProgress"> | string
+    status?: StringFilter<"UserVocabularyProgress"> | string
+    lastReviewedAt?: DateTimeNullableFilter<"UserVocabularyProgress"> | Date | string | null
+    nextReviewAt?: DateTimeNullableFilter<"UserVocabularyProgress"> | Date | string | null
+    reviewCount?: IntFilter<"UserVocabularyProgress"> | number
+    correctCount?: IntFilter<"UserVocabularyProgress"> | number
+    incorrectCount?: IntFilter<"UserVocabularyProgress"> | number
+    easeFactor?: FloatFilter<"UserVocabularyProgress"> | number
+    interval?: IntFilter<"UserVocabularyProgress"> | number
+    createdAt?: DateTimeFilter<"UserVocabularyProgress"> | Date | string
+    updatedAt?: DateTimeFilter<"UserVocabularyProgress"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    vocabulary?: XOR<VocabularyScalarRelationFilter, VocabularyWhereInput>
+  }, "id" | "userId_vocabularyId">
+
+  export type UserVocabularyProgressOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    vocabularyId?: SortOrder
+    status?: SortOrder
+    lastReviewedAt?: SortOrder
+    nextReviewAt?: SortOrder
+    reviewCount?: SortOrder
+    correctCount?: SortOrder
+    incorrectCount?: SortOrder
+    easeFactor?: SortOrder
+    interval?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserVocabularyProgressCountOrderByAggregateInput
+    _avg?: UserVocabularyProgressAvgOrderByAggregateInput
+    _max?: UserVocabularyProgressMaxOrderByAggregateInput
+    _min?: UserVocabularyProgressMinOrderByAggregateInput
+    _sum?: UserVocabularyProgressSumOrderByAggregateInput
+  }
+
+  export type UserVocabularyProgressScalarWhereWithAggregatesInput = {
+    AND?: UserVocabularyProgressScalarWhereWithAggregatesInput | UserVocabularyProgressScalarWhereWithAggregatesInput[]
+    OR?: UserVocabularyProgressScalarWhereWithAggregatesInput[]
+    NOT?: UserVocabularyProgressScalarWhereWithAggregatesInput | UserVocabularyProgressScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserVocabularyProgress"> | string
+    userId?: StringWithAggregatesFilter<"UserVocabularyProgress"> | string
+    vocabularyId?: StringWithAggregatesFilter<"UserVocabularyProgress"> | string
+    status?: StringWithAggregatesFilter<"UserVocabularyProgress"> | string
+    lastReviewedAt?: DateTimeNullableWithAggregatesFilter<"UserVocabularyProgress"> | Date | string | null
+    nextReviewAt?: DateTimeNullableWithAggregatesFilter<"UserVocabularyProgress"> | Date | string | null
+    reviewCount?: IntWithAggregatesFilter<"UserVocabularyProgress"> | number
+    correctCount?: IntWithAggregatesFilter<"UserVocabularyProgress"> | number
+    incorrectCount?: IntWithAggregatesFilter<"UserVocabularyProgress"> | number
+    easeFactor?: FloatWithAggregatesFilter<"UserVocabularyProgress"> | number
+    interval?: IntWithAggregatesFilter<"UserVocabularyProgress"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"UserVocabularyProgress"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserVocabularyProgress"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -9791,6 +11227,7 @@ export namespace Prisma {
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9816,6 +11253,7 @@ export namespace Prisma {
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9840,6 +11278,7 @@ export namespace Prisma {
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9864,6 +11303,7 @@ export namespace Prisma {
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10088,6 +11528,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     studySet: StudySetCreateNestedOneWithoutVocabulariesInput
     createdBy: UserCreateNestedOneWithoutVocabulariesInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutVocabularyInput
   }
 
   export type VocabularyUncheckedCreateInput = {
@@ -10103,6 +11544,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     studySetId: string
     createdById: string
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutVocabularyInput
   }
 
   export type VocabularyUpdateInput = {
@@ -10117,6 +11559,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySet?: StudySetUpdateOneRequiredWithoutVocabulariesNestedInput
     createdBy?: UserUpdateOneRequiredWithoutVocabulariesNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutVocabularyNestedInput
   }
 
   export type VocabularyUncheckedUpdateInput = {
@@ -10131,6 +11574,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutVocabularyNestedInput
   }
 
   export type VocabularyCreateManyInput = {
@@ -10359,6 +11803,112 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserVocabularyProgressCreateInput = {
+    id?: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutVocabularyProgressInput
+    vocabulary: VocabularyCreateNestedOneWithoutVocabularyProgressInput
+  }
+
+  export type UserVocabularyProgressUncheckedCreateInput = {
+    id?: string
+    userId: string
+    vocabularyId: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVocabularyProgressUpdateInput = {
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVocabularyProgressNestedInput
+    vocabulary?: VocabularyUpdateOneRequiredWithoutVocabularyProgressNestedInput
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    vocabularyId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVocabularyProgressCreateManyInput = {
+    id?: string
+    userId: string
+    vocabularyId: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVocabularyProgressUpdateManyMutationInput = {
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    vocabularyId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -10459,6 +12009,12 @@ export namespace Prisma {
     none?: CategoryWhereInput
   }
 
+  export type UserVocabularyProgressListRelationFilter = {
+    every?: UserVocabularyProgressWhereInput
+    some?: UserVocabularyProgressWhereInput
+    none?: UserVocabularyProgressWhereInput
+  }
+
   export type RefreshTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -10476,6 +12032,10 @@ export namespace Prisma {
   }
 
   export type CategoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserVocabularyProgressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10918,6 +12478,107 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type VocabularyScalarRelationFilter = {
+    is?: VocabularyWhereInput
+    isNot?: VocabularyWhereInput
+  }
+
+  export type UserVocabularyProgressUserIdVocabularyIdCompoundUniqueInput = {
+    userId: string
+    vocabularyId: string
+  }
+
+  export type UserVocabularyProgressCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    vocabularyId?: SortOrder
+    status?: SortOrder
+    lastReviewedAt?: SortOrder
+    nextReviewAt?: SortOrder
+    reviewCount?: SortOrder
+    correctCount?: SortOrder
+    incorrectCount?: SortOrder
+    easeFactor?: SortOrder
+    interval?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserVocabularyProgressAvgOrderByAggregateInput = {
+    reviewCount?: SortOrder
+    correctCount?: SortOrder
+    incorrectCount?: SortOrder
+    easeFactor?: SortOrder
+    interval?: SortOrder
+  }
+
+  export type UserVocabularyProgressMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    vocabularyId?: SortOrder
+    status?: SortOrder
+    lastReviewedAt?: SortOrder
+    nextReviewAt?: SortOrder
+    reviewCount?: SortOrder
+    correctCount?: SortOrder
+    incorrectCount?: SortOrder
+    easeFactor?: SortOrder
+    interval?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserVocabularyProgressMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    vocabularyId?: SortOrder
+    status?: SortOrder
+    lastReviewedAt?: SortOrder
+    nextReviewAt?: SortOrder
+    reviewCount?: SortOrder
+    correctCount?: SortOrder
+    incorrectCount?: SortOrder
+    easeFactor?: SortOrder
+    interval?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserVocabularyProgressSumOrderByAggregateInput = {
+    reviewCount?: SortOrder
+    correctCount?: SortOrder
+    incorrectCount?: SortOrder
+    easeFactor?: SortOrder
+    interval?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type RefreshTokenCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -10953,6 +12614,13 @@ export namespace Prisma {
     connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
   }
 
+  export type UserVocabularyProgressCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutUserInput, UserVocabularyProgressUncheckedCreateWithoutUserInput> | UserVocabularyProgressCreateWithoutUserInput[] | UserVocabularyProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutUserInput | UserVocabularyProgressCreateOrConnectWithoutUserInput[]
+    createMany?: UserVocabularyProgressCreateManyUserInputEnvelope
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -10986,6 +12654,13 @@ export namespace Prisma {
     connectOrCreate?: CategoryCreateOrConnectWithoutAuthorInput | CategoryCreateOrConnectWithoutAuthorInput[]
     createMany?: CategoryCreateManyAuthorInputEnvelope
     connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+  }
+
+  export type UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutUserInput, UserVocabularyProgressUncheckedCreateWithoutUserInput> | UserVocabularyProgressCreateWithoutUserInput[] | UserVocabularyProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutUserInput | UserVocabularyProgressCreateOrConnectWithoutUserInput[]
+    createMany?: UserVocabularyProgressCreateManyUserInputEnvelope
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11088,6 +12763,20 @@ export namespace Prisma {
     deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
   }
 
+  export type UserVocabularyProgressUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutUserInput, UserVocabularyProgressUncheckedCreateWithoutUserInput> | UserVocabularyProgressCreateWithoutUserInput[] | UserVocabularyProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutUserInput | UserVocabularyProgressCreateOrConnectWithoutUserInput[]
+    upsert?: UserVocabularyProgressUpsertWithWhereUniqueWithoutUserInput | UserVocabularyProgressUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserVocabularyProgressCreateManyUserInputEnvelope
+    set?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    disconnect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    delete?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    update?: UserVocabularyProgressUpdateWithWhereUniqueWithoutUserInput | UserVocabularyProgressUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserVocabularyProgressUpdateManyWithWhereWithoutUserInput | UserVocabularyProgressUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -11156,6 +12845,20 @@ export namespace Prisma {
     update?: CategoryUpdateWithWhereUniqueWithoutAuthorInput | CategoryUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: CategoryUpdateManyWithWhereWithoutAuthorInput | CategoryUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutUserInput, UserVocabularyProgressUncheckedCreateWithoutUserInput> | UserVocabularyProgressCreateWithoutUserInput[] | UserVocabularyProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutUserInput | UserVocabularyProgressCreateOrConnectWithoutUserInput[]
+    upsert?: UserVocabularyProgressUpsertWithWhereUniqueWithoutUserInput | UserVocabularyProgressUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserVocabularyProgressCreateManyUserInputEnvelope
+    set?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    disconnect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    delete?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    update?: UserVocabularyProgressUpdateWithWhereUniqueWithoutUserInput | UserVocabularyProgressUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserVocabularyProgressUpdateManyWithWhereWithoutUserInput | UserVocabularyProgressUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutTokensInput = {
@@ -11309,6 +13012,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type UserVocabularyProgressCreateNestedManyWithoutVocabularyInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutVocabularyInput, UserVocabularyProgressUncheckedCreateWithoutVocabularyInput> | UserVocabularyProgressCreateWithoutVocabularyInput[] | UserVocabularyProgressUncheckedCreateWithoutVocabularyInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutVocabularyInput | UserVocabularyProgressCreateOrConnectWithoutVocabularyInput[]
+    createMany?: UserVocabularyProgressCreateManyVocabularyInputEnvelope
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+  }
+
+  export type UserVocabularyProgressUncheckedCreateNestedManyWithoutVocabularyInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutVocabularyInput, UserVocabularyProgressUncheckedCreateWithoutVocabularyInput> | UserVocabularyProgressCreateWithoutVocabularyInput[] | UserVocabularyProgressUncheckedCreateWithoutVocabularyInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutVocabularyInput | UserVocabularyProgressCreateOrConnectWithoutVocabularyInput[]
+    createMany?: UserVocabularyProgressCreateManyVocabularyInputEnvelope
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+  }
+
   export type StudySetUpdateOneRequiredWithoutVocabulariesNestedInput = {
     create?: XOR<StudySetCreateWithoutVocabulariesInput, StudySetUncheckedCreateWithoutVocabulariesInput>
     connectOrCreate?: StudySetCreateOrConnectWithoutVocabulariesInput
@@ -11323,6 +13040,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutVocabulariesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVocabulariesInput, UserUpdateWithoutVocabulariesInput>, UserUncheckedUpdateWithoutVocabulariesInput>
+  }
+
+  export type UserVocabularyProgressUpdateManyWithoutVocabularyNestedInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutVocabularyInput, UserVocabularyProgressUncheckedCreateWithoutVocabularyInput> | UserVocabularyProgressCreateWithoutVocabularyInput[] | UserVocabularyProgressUncheckedCreateWithoutVocabularyInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutVocabularyInput | UserVocabularyProgressCreateOrConnectWithoutVocabularyInput[]
+    upsert?: UserVocabularyProgressUpsertWithWhereUniqueWithoutVocabularyInput | UserVocabularyProgressUpsertWithWhereUniqueWithoutVocabularyInput[]
+    createMany?: UserVocabularyProgressCreateManyVocabularyInputEnvelope
+    set?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    disconnect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    delete?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    update?: UserVocabularyProgressUpdateWithWhereUniqueWithoutVocabularyInput | UserVocabularyProgressUpdateWithWhereUniqueWithoutVocabularyInput[]
+    updateMany?: UserVocabularyProgressUpdateManyWithWhereWithoutVocabularyInput | UserVocabularyProgressUpdateManyWithWhereWithoutVocabularyInput[]
+    deleteMany?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateManyWithoutVocabularyNestedInput = {
+    create?: XOR<UserVocabularyProgressCreateWithoutVocabularyInput, UserVocabularyProgressUncheckedCreateWithoutVocabularyInput> | UserVocabularyProgressCreateWithoutVocabularyInput[] | UserVocabularyProgressUncheckedCreateWithoutVocabularyInput[]
+    connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutVocabularyInput | UserVocabularyProgressCreateOrConnectWithoutVocabularyInput[]
+    upsert?: UserVocabularyProgressUpsertWithWhereUniqueWithoutVocabularyInput | UserVocabularyProgressUpsertWithWhereUniqueWithoutVocabularyInput[]
+    createMany?: UserVocabularyProgressCreateManyVocabularyInputEnvelope
+    set?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    disconnect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    delete?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+    update?: UserVocabularyProgressUpdateWithWhereUniqueWithoutVocabularyInput | UserVocabularyProgressUpdateWithWhereUniqueWithoutVocabularyInput[]
+    updateMany?: UserVocabularyProgressUpdateManyWithWhereWithoutVocabularyInput | UserVocabularyProgressUpdateManyWithWhereWithoutVocabularyInput[]
+    deleteMany?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
   }
 
   export type StudySetCreateNestedManyWithoutCategoryInput = {
@@ -11411,6 +13156,42 @@ export namespace Prisma {
     upsert?: StudySetUpsertWithoutLikedByInput
     connect?: StudySetWhereUniqueInput
     update?: XOR<XOR<StudySetUpdateToOneWithWhereWithoutLikedByInput, StudySetUpdateWithoutLikedByInput>, StudySetUncheckedUpdateWithoutLikedByInput>
+  }
+
+  export type UserCreateNestedOneWithoutVocabularyProgressInput = {
+    create?: XOR<UserCreateWithoutVocabularyProgressInput, UserUncheckedCreateWithoutVocabularyProgressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVocabularyProgressInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type VocabularyCreateNestedOneWithoutVocabularyProgressInput = {
+    create?: XOR<VocabularyCreateWithoutVocabularyProgressInput, VocabularyUncheckedCreateWithoutVocabularyProgressInput>
+    connectOrCreate?: VocabularyCreateOrConnectWithoutVocabularyProgressInput
+    connect?: VocabularyWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutVocabularyProgressNestedInput = {
+    create?: XOR<UserCreateWithoutVocabularyProgressInput, UserUncheckedCreateWithoutVocabularyProgressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVocabularyProgressInput
+    upsert?: UserUpsertWithoutVocabularyProgressInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVocabularyProgressInput, UserUpdateWithoutVocabularyProgressInput>, UserUncheckedUpdateWithoutVocabularyProgressInput>
+  }
+
+  export type VocabularyUpdateOneRequiredWithoutVocabularyProgressNestedInput = {
+    create?: XOR<VocabularyCreateWithoutVocabularyProgressInput, VocabularyUncheckedCreateWithoutVocabularyProgressInput>
+    connectOrCreate?: VocabularyCreateOrConnectWithoutVocabularyProgressInput
+    upsert?: VocabularyUpsertWithoutVocabularyProgressInput
+    connect?: VocabularyWhereUniqueInput
+    update?: XOR<XOR<VocabularyUpdateToOneWithWhereWithoutVocabularyProgressInput, VocabularyUpdateWithoutVocabularyProgressInput>, VocabularyUncheckedUpdateWithoutVocabularyProgressInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11626,6 +13407,22 @@ export namespace Prisma {
     _max?: NestedEnumVerificationTypeFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type RefreshTokenCreateWithoutUserInput = {
     id?: string
     token: string
@@ -11661,6 +13458,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     studySet: StudySetCreateNestedOneWithoutVocabulariesInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutVocabularyInput
   }
 
   export type VocabularyUncheckedCreateWithoutCreatedByInput = {
@@ -11675,6 +13473,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     studySetId: string
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutVocabularyInput
   }
 
   export type VocabularyCreateOrConnectWithoutCreatedByInput = {
@@ -11777,6 +13576,45 @@ export namespace Prisma {
 
   export type CategoryCreateManyAuthorInputEnvelope = {
     data: CategoryCreateManyAuthorInput | CategoryCreateManyAuthorInput[]
+  }
+
+  export type UserVocabularyProgressCreateWithoutUserInput = {
+    id?: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vocabulary: VocabularyCreateNestedOneWithoutVocabularyProgressInput
+  }
+
+  export type UserVocabularyProgressUncheckedCreateWithoutUserInput = {
+    id?: string
+    vocabularyId: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVocabularyProgressCreateOrConnectWithoutUserInput = {
+    where: UserVocabularyProgressWhereUniqueInput
+    create: XOR<UserVocabularyProgressCreateWithoutUserInput, UserVocabularyProgressUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserVocabularyProgressCreateManyUserInputEnvelope = {
+    data: UserVocabularyProgressCreateManyUserInput | UserVocabularyProgressCreateManyUserInput[]
   }
 
   export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -11930,6 +13768,41 @@ export namespace Prisma {
     authorId?: StringFilter<"Category"> | string
   }
 
+  export type UserVocabularyProgressUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserVocabularyProgressWhereUniqueInput
+    update: XOR<UserVocabularyProgressUpdateWithoutUserInput, UserVocabularyProgressUncheckedUpdateWithoutUserInput>
+    create: XOR<UserVocabularyProgressCreateWithoutUserInput, UserVocabularyProgressUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserVocabularyProgressUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserVocabularyProgressWhereUniqueInput
+    data: XOR<UserVocabularyProgressUpdateWithoutUserInput, UserVocabularyProgressUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserVocabularyProgressUpdateManyWithWhereWithoutUserInput = {
+    where: UserVocabularyProgressScalarWhereInput
+    data: XOR<UserVocabularyProgressUpdateManyMutationInput, UserVocabularyProgressUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserVocabularyProgressScalarWhereInput = {
+    AND?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
+    OR?: UserVocabularyProgressScalarWhereInput[]
+    NOT?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
+    id?: StringFilter<"UserVocabularyProgress"> | string
+    userId?: StringFilter<"UserVocabularyProgress"> | string
+    vocabularyId?: StringFilter<"UserVocabularyProgress"> | string
+    status?: StringFilter<"UserVocabularyProgress"> | string
+    lastReviewedAt?: DateTimeNullableFilter<"UserVocabularyProgress"> | Date | string | null
+    nextReviewAt?: DateTimeNullableFilter<"UserVocabularyProgress"> | Date | string | null
+    reviewCount?: IntFilter<"UserVocabularyProgress"> | number
+    correctCount?: IntFilter<"UserVocabularyProgress"> | number
+    incorrectCount?: IntFilter<"UserVocabularyProgress"> | number
+    easeFactor?: FloatFilter<"UserVocabularyProgress"> | number
+    interval?: IntFilter<"UserVocabularyProgress"> | number
+    createdAt?: DateTimeFilter<"UserVocabularyProgress"> | Date | string
+    updatedAt?: DateTimeFilter<"UserVocabularyProgress"> | Date | string
+  }
+
   export type UserCreateWithoutTokensInput = {
     id?: string
     name: string
@@ -11952,6 +13825,7 @@ export namespace Prisma {
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -11976,6 +13850,7 @@ export namespace Prisma {
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -12015,6 +13890,7 @@ export namespace Prisma {
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -12038,6 +13914,7 @@ export namespace Prisma {
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutStudySetsInput = {
@@ -12062,6 +13939,7 @@ export namespace Prisma {
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStudySetsInput = {
@@ -12086,6 +13964,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudySetsInput = {
@@ -12134,6 +14013,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutVocabulariesInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutVocabularyInput
   }
 
   export type VocabularyUncheckedCreateWithoutStudySetInput = {
@@ -12148,6 +14028,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutVocabularyInput
   }
 
   export type VocabularyCreateOrConnectWithoutStudySetInput = {
@@ -12212,6 +14093,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudySetsInput = {
@@ -12235,6 +14117,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithoutStudySetsInput = {
@@ -12359,6 +14242,7 @@ export namespace Prisma {
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVocabulariesInput = {
@@ -12383,11 +14267,51 @@ export namespace Prisma {
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVocabulariesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutVocabulariesInput, UserUncheckedCreateWithoutVocabulariesInput>
+  }
+
+  export type UserVocabularyProgressCreateWithoutVocabularyInput = {
+    id?: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutVocabularyProgressInput
+  }
+
+  export type UserVocabularyProgressUncheckedCreateWithoutVocabularyInput = {
+    id?: string
+    userId: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVocabularyProgressCreateOrConnectWithoutVocabularyInput = {
+    where: UserVocabularyProgressWhereUniqueInput
+    create: XOR<UserVocabularyProgressCreateWithoutVocabularyInput, UserVocabularyProgressUncheckedCreateWithoutVocabularyInput>
+  }
+
+  export type UserVocabularyProgressCreateManyVocabularyInputEnvelope = {
+    data: UserVocabularyProgressCreateManyVocabularyInput | UserVocabularyProgressCreateManyVocabularyInput[]
   }
 
   export type StudySetUpsertWithoutVocabulariesInput = {
@@ -12461,6 +14385,7 @@ export namespace Prisma {
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVocabulariesInput = {
@@ -12484,6 +14409,23 @@ export namespace Prisma {
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserVocabularyProgressUpsertWithWhereUniqueWithoutVocabularyInput = {
+    where: UserVocabularyProgressWhereUniqueInput
+    update: XOR<UserVocabularyProgressUpdateWithoutVocabularyInput, UserVocabularyProgressUncheckedUpdateWithoutVocabularyInput>
+    create: XOR<UserVocabularyProgressCreateWithoutVocabularyInput, UserVocabularyProgressUncheckedCreateWithoutVocabularyInput>
+  }
+
+  export type UserVocabularyProgressUpdateWithWhereUniqueWithoutVocabularyInput = {
+    where: UserVocabularyProgressWhereUniqueInput
+    data: XOR<UserVocabularyProgressUpdateWithoutVocabularyInput, UserVocabularyProgressUncheckedUpdateWithoutVocabularyInput>
+  }
+
+  export type UserVocabularyProgressUpdateManyWithWhereWithoutVocabularyInput = {
+    where: UserVocabularyProgressScalarWhereInput
+    data: XOR<UserVocabularyProgressUpdateManyMutationInput, UserVocabularyProgressUncheckedUpdateManyWithoutVocabularyInput>
   }
 
   export type StudySetCreateWithoutCategoryInput = {
@@ -12547,6 +14489,7 @@ export namespace Prisma {
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -12571,6 +14514,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -12626,6 +14570,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -12649,6 +14594,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLikedStudySetsInput = {
@@ -12673,6 +14619,7 @@ export namespace Prisma {
     vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikedStudySetsInput = {
@@ -12697,6 +14644,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikedStudySetsInput = {
@@ -12771,6 +14719,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikedStudySetsInput = {
@@ -12794,6 +14743,7 @@ export namespace Prisma {
     vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StudySetUpsertWithoutLikedByInput = {
@@ -12833,6 +14783,194 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     vocabularies?: VocabularyUncheckedUpdateManyWithoutStudySetNestedInput
+  }
+
+  export type UserCreateWithoutVocabularyProgressInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
+    categories?: CategoryCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutVocabularyProgressInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutVocabularyProgressInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVocabularyProgressInput, UserUncheckedCreateWithoutVocabularyProgressInput>
+  }
+
+  export type VocabularyCreateWithoutVocabularyProgressInput = {
+    id?: string
+    word: string
+    pronunciation?: string | null
+    meaning: string
+    definition?: string | null
+    example?: string | null
+    imageUrl?: string | null
+    audioUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studySet: StudySetCreateNestedOneWithoutVocabulariesInput
+    createdBy: UserCreateNestedOneWithoutVocabulariesInput
+  }
+
+  export type VocabularyUncheckedCreateWithoutVocabularyProgressInput = {
+    id?: string
+    word: string
+    pronunciation?: string | null
+    meaning: string
+    definition?: string | null
+    example?: string | null
+    imageUrl?: string | null
+    audioUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studySetId: string
+    createdById: string
+  }
+
+  export type VocabularyCreateOrConnectWithoutVocabularyProgressInput = {
+    where: VocabularyWhereUniqueInput
+    create: XOR<VocabularyCreateWithoutVocabularyProgressInput, VocabularyUncheckedCreateWithoutVocabularyProgressInput>
+  }
+
+  export type UserUpsertWithoutVocabularyProgressInput = {
+    update: XOR<UserUpdateWithoutVocabularyProgressInput, UserUncheckedUpdateWithoutVocabularyProgressInput>
+    create: XOR<UserCreateWithoutVocabularyProgressInput, UserUncheckedCreateWithoutVocabularyProgressInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVocabularyProgressInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVocabularyProgressInput, UserUncheckedUpdateWithoutVocabularyProgressInput>
+  }
+
+  export type UserUpdateWithoutVocabularyProgressInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
+    categories?: CategoryUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVocabularyProgressInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type VocabularyUpsertWithoutVocabularyProgressInput = {
+    update: XOR<VocabularyUpdateWithoutVocabularyProgressInput, VocabularyUncheckedUpdateWithoutVocabularyProgressInput>
+    create: XOR<VocabularyCreateWithoutVocabularyProgressInput, VocabularyUncheckedCreateWithoutVocabularyProgressInput>
+    where?: VocabularyWhereInput
+  }
+
+  export type VocabularyUpdateToOneWithWhereWithoutVocabularyProgressInput = {
+    where?: VocabularyWhereInput
+    data: XOR<VocabularyUpdateWithoutVocabularyProgressInput, VocabularyUncheckedUpdateWithoutVocabularyProgressInput>
+  }
+
+  export type VocabularyUpdateWithoutVocabularyProgressInput = {
+    word?: StringFieldUpdateOperationsInput | string
+    pronunciation?: NullableStringFieldUpdateOperationsInput | string | null
+    meaning?: StringFieldUpdateOperationsInput | string
+    definition?: NullableStringFieldUpdateOperationsInput | string | null
+    example?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studySet?: StudySetUpdateOneRequiredWithoutVocabulariesNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutVocabulariesNestedInput
+  }
+
+  export type VocabularyUncheckedUpdateWithoutVocabularyProgressInput = {
+    word?: StringFieldUpdateOperationsInput | string
+    pronunciation?: NullableStringFieldUpdateOperationsInput | string | null
+    meaning?: StringFieldUpdateOperationsInput | string
+    definition?: NullableStringFieldUpdateOperationsInput | string | null
+    example?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studySetId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
   }
 
   export type RefreshTokenCreateManyUserInput = {
@@ -12886,6 +15024,21 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type UserVocabularyProgressCreateManyUserInput = {
+    id?: string
+    vocabularyId: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type RefreshTokenUpdateWithoutUserInput = {
     token?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12915,6 +15068,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySet?: StudySetUpdateOneRequiredWithoutVocabulariesNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutVocabularyNestedInput
   }
 
   export type VocabularyUncheckedUpdateWithoutCreatedByInput = {
@@ -12928,6 +15082,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutVocabularyNestedInput
   }
 
   export type VocabularyUncheckedUpdateManyWithoutCreatedByInput = {
@@ -13030,6 +15185,48 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserVocabularyProgressUpdateWithoutUserInput = {
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vocabulary?: VocabularyUpdateOneRequiredWithoutVocabularyProgressNestedInput
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateWithoutUserInput = {
+    vocabularyId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateManyWithoutUserInput = {
+    vocabularyId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VocabularyCreateManyStudySetInput = {
     id?: string
     word: string
@@ -13061,6 +15258,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutVocabulariesNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutVocabularyNestedInput
   }
 
   export type VocabularyUncheckedUpdateWithoutStudySetInput = {
@@ -13074,6 +15272,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutVocabularyNestedInput
   }
 
   export type VocabularyUncheckedUpdateManyWithoutStudySetInput = {
@@ -13102,6 +15301,63 @@ export namespace Prisma {
   export type UserLikesStudySetUncheckedUpdateManyWithoutStudySetInput = {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVocabularyProgressCreateManyVocabularyInput = {
+    id?: string
+    userId: string
+    status?: string
+    lastReviewedAt?: Date | string | null
+    nextReviewAt?: Date | string | null
+    reviewCount?: number
+    correctCount?: number
+    incorrectCount?: number
+    easeFactor?: number
+    interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVocabularyProgressUpdateWithoutVocabularyInput = {
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVocabularyProgressNestedInput
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateWithoutVocabularyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVocabularyProgressUncheckedUpdateManyWithoutVocabularyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextReviewAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    correctCount?: IntFieldUpdateOperationsInput | number
+    incorrectCount?: IntFieldUpdateOperationsInput | number
+    easeFactor?: FloatFieldUpdateOperationsInput | number
+    interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StudySetCreateManyCategoryInput = {

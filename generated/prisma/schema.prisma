@@ -30,11 +30,12 @@ model User {
   updatedAt            DateTime  @updatedAt @map("updated_at")
   status               String    @default("active") @map("status") @db.String
 
-  tokens         RefreshToken[]
-  vocabularies   Vocabulary[]        @relation("CreatedVocabularies")
-  studySets      StudySet[]          @relation("CreatedStudySets")
-  likedStudySets UserLikesStudySet[]
-  categories     Category[]
+  tokens             RefreshToken[]
+  vocabularies       Vocabulary[]             @relation("CreatedVocabularies")
+  studySets          StudySet[]               @relation("CreatedStudySets")
+  likedStudySets     UserLikesStudySet[]
+  categories         Category[]
+  vocabularyProgress UserVocabularyProgress[]
 }
 
 model RefreshToken {
@@ -86,8 +87,9 @@ model Vocabulary {
   createdById String @map("created_by") @db.ObjectId
 
   // Relationships
-  studySet  StudySet @relation(fields: [studySetId], references: [id])
-  createdBy User     @relation("CreatedVocabularies", fields: [createdById], references: [id])
+  studySet           StudySet                 @relation(fields: [studySetId], references: [id])
+  createdBy          User                     @relation("CreatedVocabularies", fields: [createdById], references: [id])
+  vocabularyProgress UserVocabularyProgress[]
 
   @@unique([word, studySetId])
 }
@@ -119,7 +121,7 @@ model VerificationCode {
   expiresAt DateTime
   createdAt DateTime @default(now())
 
-  @@index([email, code, type])
+  @@index([email, type])
   @@index([expiresAt])
 }
 
@@ -132,6 +134,28 @@ model UserLikesStudySet {
   createdAt  DateTime @default(now())
 
   @@unique([userId, studySetId])
+}
+
+model UserVocabularyProgress {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String    @db.ObjectId
+  vocabularyId   String    @db.ObjectId
+  status         String    @default("new") // new, review, mastered
+  lastReviewedAt DateTime?
+  nextReviewAt   DateTime?
+  reviewCount    Int       @default(0)
+  correctCount   Int       @default(0)
+  incorrectCount Int       @default(0)
+  easeFactor     Float     @default(2.5)
+  interval       Int       @default(1) // số ngày giữa các lần ôn
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id])
+  vocabulary Vocabulary @relation(fields: [vocabularyId], references: [id])
+
+  @@unique([userId, vocabularyId])
+  @@index([userId, nextReviewAt])
 }
 
 enum Level {

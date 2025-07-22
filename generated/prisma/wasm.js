@@ -198,6 +198,22 @@ exports.Prisma.UserLikesStudySetScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.UserVocabularyProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  vocabularyId: 'vocabularyId',
+  status: 'status',
+  lastReviewedAt: 'lastReviewedAt',
+  nextReviewAt: 'nextReviewAt',
+  reviewCount: 'reviewCount',
+  correctCount: 'correctCount',
+  incorrectCount: 'incorrectCount',
+  easeFactor: 'easeFactor',
+  interval: 'interval',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -225,7 +241,8 @@ exports.Prisma.ModelName = {
   Vocabulary: 'Vocabulary',
   Category: 'Category',
   VerificationCode: 'VerificationCode',
-  UserLikesStudySet: 'UserLikesStudySet'
+  UserLikesStudySet: 'UserLikesStudySet',
+  UserVocabularyProgress: 'UserVocabularyProgress'
 };
 
 /**
