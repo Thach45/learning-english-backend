@@ -92,3 +92,33 @@ export class UpdateVocabularyProgressResponseDto {
     Object.assign(this, data);
   }
 }
+
+export class StudySetStatsDto {
+  @IsNumber()
+  total: number;
+
+  @IsNumber()
+  learned: number;
+
+  @IsNumber()
+  needReview: number;
+
+  @IsNumber()
+  mastered: number;
+
+  @IsNumber()
+  allReview: number;
+}
+
+export class StudySetStatsResponseDto {
+  data: StudySetStatsDto;
+
+  constructor(data: StudySetStatsDto) {
+    this.data = data;
+  }
+}
+export class GetVocabularyQueryDto {
+  @IsString()
+  mode: string;
+  
+}

@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ReviewVocabularyDto, UserProgressDto } from './learning.dto';
 import { LearningRepo } from './learning.repo';
+import { StudySetStatsDto } from './learning.dto';
 
 function calculateSR(progress, result: string) {
   let { interval, easeFactor, reviewCount, correctCount } = progress;
@@ -134,20 +135,19 @@ export class LearningService {
     };
   }
 
-  async getStudySetVocabulary(studySetId: string, userId?: string): Promise<ReviewVocabularyDto[]> {
+  async getStudySetVocabulary(studySetId: string, userId: string, mode?: string): Promise<ReviewVocabularyDto[]> {
     const vocabularies = await this.repo.getVocabulariesByStudySet(studySetId);
-    if (!userId) {
+    if(mode === 'review') {
       return vocabularies.map(vocab => ({
-        vocabularyId: vocab.id,     
+        vocabularyId: vocab.id,
         word: vocab.word,
         meaning: vocab.meaning,
-
         definition: vocab.definition ?? undefined,
         pronunciation: vocab.pronunciation ?? undefined,
         example: vocab.example ?? undefined,
         imageUrl: vocab.imageUrl ?? undefined,
         audioUrl: vocab.audioUrl ?? undefined,
-        status: 'new',
+        status: 'review',
         nextReviewAt: undefined,
         reviewCount: 0,
         correctCount: 0,
@@ -156,6 +156,7 @@ export class LearningService {
         interval: 1,
       }));
     }
+    else {
     const progressList = await this.repo.getProgressList(userId, vocabularies.map(v => v.id));
     const progressMap = new Map(progressList.map(p => [p.vocabularyId, p]));
     if (progressList.length < vocabularies.length) {
@@ -182,6 +183,7 @@ export class LearningService {
     } else {
       const now = new Date();
       const reviewList = await this.repo.getReviewProgressList(userId, vocabularies.map(v => v.id), now);
+      
       return reviewList.map(progress => ({
         vocabularyId: progress.vocabularyId,
         word: progress.vocabulary.word,
@@ -199,6 +201,11 @@ export class LearningService {
         easeFactor: progress.easeFactor,
         interval: progress.interval,
       }));
+      }
     }
+    
+  }
+  async getStudySetStats(studySetId: string, userId: string): Promise<StudySetStatsDto> {
+    return this.repo.getStudySetStats(studySetId, userId);
   }
 } 

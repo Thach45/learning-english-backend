@@ -63,4 +63,54 @@ export class LearningRepo {
       _sum: { correctCount: true, incorrectCount: true },
     });
   }
+
+  // Study Set Stats
+  async getStudySetStats(studySetId: string, userId: string) {
+    const now = new Date();
+    
+    // Get total vocabulary count
+    const total = await this.prisma.vocabulary.count({
+      where: { studySetId }
+    });
+
+    // Get progress counts by status
+    const learned = await this.prisma.userVocabularyProgress.count({
+      where: {
+        userId,
+        vocabulary: { studySetId },
+        status: 'learned'
+      }
+    });
+
+    const mastered = await this.prisma.userVocabularyProgress.count({
+      where: {
+        userId,
+        vocabulary: { studySetId },
+        status: 'mastered'
+      }
+    });
+
+    // Get count of words needing review
+    const needReview = await this.prisma.userVocabularyProgress.count({
+      where: {
+        userId,
+        vocabulary: { studySetId },
+        nextReviewAt: { lte: now }
+      }
+    });
+    const allReview = await this.prisma.userVocabularyProgress.count({
+      where: {
+        userId,
+        vocabulary: { studySetId },
+        status: 'review'
+      }
+    });
+    return {
+      total,
+      learned,
+      needReview,
+      mastered,
+      allReview
+    };
+  }
 }
