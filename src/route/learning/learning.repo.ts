@@ -5,8 +5,10 @@ import { PrismaService } from '../../shared/service/prisma.service';
 export class LearningRepo {
   constructor(private readonly prisma: PrismaService) {}
 
-  getVocabulariesByStudySet(studySetId: string) {
-    return this.prisma.vocabulary.findMany({ where: { studySetId } });
+  async getVocabulariesByStudySet(studySetId: string) {
+    const vocabularies = await this.prisma.vocabulary.findMany({ where: { studySetId } });
+    console.log("vocabularies", vocabularies);
+    return vocabularies;
   }
 
   getProgressList(userId: string, vocabularyIds: string[]) {

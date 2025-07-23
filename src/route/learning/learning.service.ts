@@ -15,7 +15,7 @@ function calculateSR(progress, result: string) {
     easeFactor = Math.max(1.3, easeFactor + 0.05);
     interval = Math.round(interval * easeFactor);
   } else if (result === 'hard') {
-    easeFactor = Math.max(1.3, easeFactor - 0.2);
+    easeFactor = Math.max(1.3, easeFactor - 0.25);
     interval = 1;
     correctCount = 0; // reset chuỗi đúng liên tiếp
   } else {
@@ -53,6 +53,7 @@ export class LearningService {
       word: progress.vocabulary.word,
       meaning: progress.vocabulary.meaning,
       definition: progress.vocabulary.definition ?? undefined,
+      pronunciation: progress.vocabulary.pronunciation ?? undefined,
       example: progress.vocabulary.example ?? undefined,
       imageUrl: progress.vocabulary.imageUrl ?? undefined,
       audioUrl: progress.vocabulary.audioUrl ?? undefined,
@@ -137,10 +138,12 @@ export class LearningService {
     const vocabularies = await this.repo.getVocabulariesByStudySet(studySetId);
     if (!userId) {
       return vocabularies.map(vocab => ({
-        vocabularyId: vocab.id,
+        vocabularyId: vocab.id,     
         word: vocab.word,
         meaning: vocab.meaning,
+
         definition: vocab.definition ?? undefined,
+        pronunciation: vocab.pronunciation ?? undefined,
         example: vocab.example ?? undefined,
         imageUrl: vocab.imageUrl ?? undefined,
         audioUrl: vocab.audioUrl ?? undefined,
@@ -163,6 +166,7 @@ export class LearningService {
           word: vocab.word,
           meaning: vocab.meaning,
           definition: vocab.definition ?? undefined,
+          pronunciation: vocab.pronunciation ?? undefined,
           example: vocab.example ?? undefined,
           imageUrl: vocab.imageUrl ?? undefined,
           audioUrl: vocab.audioUrl ?? undefined,
@@ -183,6 +187,7 @@ export class LearningService {
         word: progress.vocabulary.word,
         meaning: progress.vocabulary.meaning,
         definition: progress.vocabulary.definition ?? undefined,
+        pronunciation: progress.vocabulary.pronunciation ?? undefined,
         example: progress.vocabulary.example ?? undefined,
         imageUrl: progress.vocabulary.imageUrl ?? undefined,
         audioUrl: progress.vocabulary.audioUrl ?? undefined,

@@ -1,4 +1,5 @@
-import { IsString, IsOptional, IsNumber, IsDate, IsBoolean } from 'class-validator';
+import { IsString, IsOptional, IsNumber, IsDate, IsBoolean, IsEnum } from 'class-validator';
+import { Level } from 'generated/prisma';
 
 export class ReviewVocabularyDto {
   @IsString()
@@ -8,8 +9,15 @@ export class ReviewVocabularyDto {
   @IsString()
   meaning: string;
   @IsString()
+  @IsOptional()
   definition?: string;
+  // @IsEnum(Level)
+  // level: Level;
   @IsString()
+  @IsOptional()
+  pronunciation?: string;
+  @IsString()
+  @IsOptional()
   example?: string;
   @IsString()
   imageUrl?: string;
