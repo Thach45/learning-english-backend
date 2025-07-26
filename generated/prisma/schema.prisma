@@ -71,16 +71,17 @@ model StudySet {
 }
 
 model Vocabulary {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  word          String   @db.String
-  pronunciation String?  @db.String
-  meaning       String   @db.String // tiếng Việt
-  definition    String?  @db.String // tiếng Anh
-  example       String?  @db.String
-  imageUrl      String?  @map("image_url") @db.String
-  audioUrl      String?  @map("audio_url") @db.String
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  word          String       @db.String
+  pronunciation String?      @db.String
+  meaning       String       @db.String // tiếng Việt
+  definition    String?      @db.String // tiếng Anh
+  example       String?      @db.String
+  imageUrl      String?      @map("image_url") @db.String
+  audioUrl      String?      @map("audio_url") @db.String
+  partOfSpeech  PartOfSpeech @default(OTHER) @map("part_of_speech")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
 
   // References
   studySetId  String @db.ObjectId
@@ -167,4 +168,17 @@ enum Level {
 enum VerificationType {
   REGISTER
   FORGOT_PASSWORD
+}
+
+enum PartOfSpeech {
+  NOUN
+  VERB
+  ADJECTIVE
+  ADVERB
+  PRONOUN
+  PREPOSITION
+  CONJUNCTION
+  INTERJECTION
+  DETERMINER
+  OTHER
 }

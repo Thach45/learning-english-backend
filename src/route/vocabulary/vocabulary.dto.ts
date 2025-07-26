@@ -1,4 +1,17 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+
+export enum PartOfSpeech {
+    NOUN = 'NOUN',
+    VERB = 'VERB',
+    ADJECTIVE = 'ADJECTIVE',
+    ADVERB = 'ADVERB',
+    PRONOUN = 'PRONOUN',
+    PREPOSITION = 'PREPOSITION',
+    CONJUNCTION = 'CONJUNCTION',
+    INTERJECTION = 'INTERJECTION',
+    DETERMINER = 'DETERMINER',
+    OTHER = 'OTHER'
+}
 
 export class VocabularyResponseDto {
     @IsString()
@@ -29,7 +42,16 @@ export class VocabularyResponseDto {
     @IsString()
     audioUrl?: string;
 
-    constructor(data: VocabularyResponseDto) {
+    @IsEnum(PartOfSpeech)
+    @IsOptional()
+    partOfSpeech: PartOfSpeech = PartOfSpeech.OTHER;
+
+    @IsArray()
+    @IsEnum(PartOfSpeech, { each: true })
+    @IsOptional()
+    alternativePartOfSpeech: PartOfSpeech[] = [];
+
+    constructor(data: { word: string; meaning: string } & Partial<Omit<VocabularyResponseDto, 'word' | 'meaning'>>) {
         this.word = data.word;
         this.pronunciation = data.pronunciation;
         this.meaning = data.meaning;
@@ -37,7 +59,8 @@ export class VocabularyResponseDto {
         this.example = data.example;
         this.imageUrl = data.imageUrl;
         this.audioUrl = data.audioUrl;
+        this.partOfSpeech = data.partOfSpeech || PartOfSpeech.OTHER;
+        this.alternativePartOfSpeech = data.alternativePartOfSpeech || [];
     }
-
 }
 

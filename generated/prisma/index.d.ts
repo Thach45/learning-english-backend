@@ -74,6 +74,22 @@ export const VerificationType: {
 
 export type VerificationType = (typeof VerificationType)[keyof typeof VerificationType]
 
+
+export const PartOfSpeech: {
+  NOUN: 'NOUN',
+  VERB: 'VERB',
+  ADJECTIVE: 'ADJECTIVE',
+  ADVERB: 'ADVERB',
+  PRONOUN: 'PRONOUN',
+  PREPOSITION: 'PREPOSITION',
+  CONJUNCTION: 'CONJUNCTION',
+  INTERJECTION: 'INTERJECTION',
+  DETERMINER: 'DETERMINER',
+  OTHER: 'OTHER'
+};
+
+export type PartOfSpeech = (typeof PartOfSpeech)[keyof typeof PartOfSpeech]
+
 }
 
 export type Level = $Enums.Level
@@ -83,6 +99,10 @@ export const Level: typeof $Enums.Level
 export type VerificationType = $Enums.VerificationType
 
 export const VerificationType: typeof $Enums.VerificationType
+
+export type PartOfSpeech = $Enums.PartOfSpeech
+
+export const PartOfSpeech: typeof $Enums.PartOfSpeech
 
 /**
  * ##  Prisma Client ʲˢ
@@ -5129,6 +5149,7 @@ export namespace Prisma {
     example: string | null
     imageUrl: string | null
     audioUrl: string | null
+    partOfSpeech: $Enums.PartOfSpeech | null
     createdAt: Date | null
     updatedAt: Date | null
     studySetId: string | null
@@ -5144,6 +5165,7 @@ export namespace Prisma {
     example: string | null
     imageUrl: string | null
     audioUrl: string | null
+    partOfSpeech: $Enums.PartOfSpeech | null
     createdAt: Date | null
     updatedAt: Date | null
     studySetId: string | null
@@ -5159,6 +5181,7 @@ export namespace Prisma {
     example: number
     imageUrl: number
     audioUrl: number
+    partOfSpeech: number
     createdAt: number
     updatedAt: number
     studySetId: number
@@ -5176,6 +5199,7 @@ export namespace Prisma {
     example?: true
     imageUrl?: true
     audioUrl?: true
+    partOfSpeech?: true
     createdAt?: true
     updatedAt?: true
     studySetId?: true
@@ -5191,6 +5215,7 @@ export namespace Prisma {
     example?: true
     imageUrl?: true
     audioUrl?: true
+    partOfSpeech?: true
     createdAt?: true
     updatedAt?: true
     studySetId?: true
@@ -5206,6 +5231,7 @@ export namespace Prisma {
     example?: true
     imageUrl?: true
     audioUrl?: true
+    partOfSpeech?: true
     createdAt?: true
     updatedAt?: true
     studySetId?: true
@@ -5294,6 +5320,7 @@ export namespace Prisma {
     example: string | null
     imageUrl: string | null
     audioUrl: string | null
+    partOfSpeech: $Enums.PartOfSpeech
     createdAt: Date
     updatedAt: Date
     studySetId: string
@@ -5326,6 +5353,7 @@ export namespace Prisma {
     example?: boolean
     imageUrl?: boolean
     audioUrl?: boolean
+    partOfSpeech?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     studySetId?: boolean
@@ -5347,13 +5375,14 @@ export namespace Prisma {
     example?: boolean
     imageUrl?: boolean
     audioUrl?: boolean
+    partOfSpeech?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     studySetId?: boolean
     createdById?: boolean
   }
 
-  export type VocabularyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "word" | "pronunciation" | "meaning" | "definition" | "example" | "imageUrl" | "audioUrl" | "createdAt" | "updatedAt" | "studySetId" | "createdById", ExtArgs["result"]["vocabulary"]>
+  export type VocabularyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "word" | "pronunciation" | "meaning" | "definition" | "example" | "imageUrl" | "audioUrl" | "partOfSpeech" | "createdAt" | "updatedAt" | "studySetId" | "createdById", ExtArgs["result"]["vocabulary"]>
   export type VocabularyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studySet?: boolean | StudySetDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
@@ -5377,6 +5406,7 @@ export namespace Prisma {
       example: string | null
       imageUrl: string | null
       audioUrl: string | null
+      partOfSpeech: $Enums.PartOfSpeech
       createdAt: Date
       updatedAt: Date
       studySetId: string
@@ -5784,6 +5814,7 @@ export namespace Prisma {
     readonly example: FieldRef<"Vocabulary", 'String'>
     readonly imageUrl: FieldRef<"Vocabulary", 'String'>
     readonly audioUrl: FieldRef<"Vocabulary", 'String'>
+    readonly partOfSpeech: FieldRef<"Vocabulary", 'PartOfSpeech'>
     readonly createdAt: FieldRef<"Vocabulary", 'DateTime'>
     readonly updatedAt: FieldRef<"Vocabulary", 'DateTime'>
     readonly studySetId: FieldRef<"Vocabulary", 'String'>
@@ -10353,6 +10384,7 @@ export namespace Prisma {
     example: 'example',
     imageUrl: 'imageUrl',
     audioUrl: 'audioUrl',
+    partOfSpeech: 'partOfSpeech',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     studySetId: 'studySetId',
@@ -10499,6 +10531,20 @@ export namespace Prisma {
    * Reference to a field of type 'Level[]'
    */
   export type ListEnumLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Level[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PartOfSpeech'
+   */
+  export type EnumPartOfSpeechFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PartOfSpeech'>
+    
+
+
+  /**
+   * Reference to a field of type 'PartOfSpeech[]'
+   */
+  export type ListEnumPartOfSpeechFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PartOfSpeech[]'>
     
 
 
@@ -10828,6 +10874,7 @@ export namespace Prisma {
     example?: StringNullableFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableFilter<"Vocabulary"> | string | null
+    partOfSpeech?: EnumPartOfSpeechFilter<"Vocabulary"> | $Enums.PartOfSpeech
     createdAt?: DateTimeFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeFilter<"Vocabulary"> | Date | string
     studySetId?: StringFilter<"Vocabulary"> | string
@@ -10846,6 +10893,7 @@ export namespace Prisma {
     example?: SortOrder
     imageUrl?: SortOrder
     audioUrl?: SortOrder
+    partOfSpeech?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     studySetId?: SortOrder
@@ -10868,6 +10916,7 @@ export namespace Prisma {
     example?: StringNullableFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableFilter<"Vocabulary"> | string | null
+    partOfSpeech?: EnumPartOfSpeechFilter<"Vocabulary"> | $Enums.PartOfSpeech
     createdAt?: DateTimeFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeFilter<"Vocabulary"> | Date | string
     studySetId?: StringFilter<"Vocabulary"> | string
@@ -10886,6 +10935,7 @@ export namespace Prisma {
     example?: SortOrder
     imageUrl?: SortOrder
     audioUrl?: SortOrder
+    partOfSpeech?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     studySetId?: SortOrder
@@ -10907,6 +10957,7 @@ export namespace Prisma {
     example?: StringNullableWithAggregatesFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableWithAggregatesFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableWithAggregatesFilter<"Vocabulary"> | string | null
+    partOfSpeech?: EnumPartOfSpeechWithAggregatesFilter<"Vocabulary"> | $Enums.PartOfSpeech
     createdAt?: DateTimeWithAggregatesFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Vocabulary"> | Date | string
     studySetId?: StringWithAggregatesFilter<"Vocabulary"> | string
@@ -11524,6 +11575,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySet: StudySetCreateNestedOneWithoutVocabulariesInput
@@ -11540,6 +11592,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySetId: string
@@ -11555,6 +11608,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySet?: StudySetUpdateOneRequiredWithoutVocabulariesNestedInput
@@ -11570,6 +11624,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
@@ -11586,6 +11641,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySetId: string
@@ -11600,6 +11656,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11612,6 +11669,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
@@ -12312,6 +12370,13 @@ export namespace Prisma {
     _max?: NestedEnumLevelFilter<$PrismaModel>
   }
 
+  export type EnumPartOfSpeechFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    not?: NestedEnumPartOfSpeechFilter<$PrismaModel> | $Enums.PartOfSpeech
+  }
+
   export type StudySetScalarRelationFilter = {
     is?: StudySetWhereInput
     isNot?: StudySetWhereInput
@@ -12331,6 +12396,7 @@ export namespace Prisma {
     example?: SortOrder
     imageUrl?: SortOrder
     audioUrl?: SortOrder
+    partOfSpeech?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     studySetId?: SortOrder
@@ -12346,6 +12412,7 @@ export namespace Prisma {
     example?: SortOrder
     imageUrl?: SortOrder
     audioUrl?: SortOrder
+    partOfSpeech?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     studySetId?: SortOrder
@@ -12361,10 +12428,21 @@ export namespace Prisma {
     example?: SortOrder
     imageUrl?: SortOrder
     audioUrl?: SortOrder
+    partOfSpeech?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     studySetId?: SortOrder
     createdById?: SortOrder
+  }
+
+  export type EnumPartOfSpeechWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    not?: NestedEnumPartOfSpeechWithAggregatesFilter<$PrismaModel> | $Enums.PartOfSpeech
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPartOfSpeechFilter<$PrismaModel>
+    _max?: NestedEnumPartOfSpeechFilter<$PrismaModel>
   }
 
   export type CategoryNameAuthorIdCompoundUniqueInput = {
@@ -13026,6 +13104,10 @@ export namespace Prisma {
     connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
   }
 
+  export type EnumPartOfSpeechFieldUpdateOperationsInput = {
+    set?: $Enums.PartOfSpeech
+  }
+
   export type StudySetUpdateOneRequiredWithoutVocabulariesNestedInput = {
     create?: XOR<StudySetCreateWithoutVocabulariesInput, StudySetUncheckedCreateWithoutVocabulariesInput>
     connectOrCreate?: StudySetCreateOrConnectWithoutVocabulariesInput
@@ -13390,6 +13472,23 @@ export namespace Prisma {
     _max?: NestedEnumLevelFilter<$PrismaModel>
   }
 
+  export type NestedEnumPartOfSpeechFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    not?: NestedEnumPartOfSpeechFilter<$PrismaModel> | $Enums.PartOfSpeech
+  }
+
+  export type NestedEnumPartOfSpeechWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
+    not?: NestedEnumPartOfSpeechWithAggregatesFilter<$PrismaModel> | $Enums.PartOfSpeech
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPartOfSpeechFilter<$PrismaModel>
+    _max?: NestedEnumPartOfSpeechFilter<$PrismaModel>
+  }
+
   export type NestedEnumVerificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.VerificationType | EnumVerificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.VerificationType[] | ListEnumVerificationTypeFieldRefInput<$PrismaModel>
@@ -13455,6 +13554,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySet: StudySetCreateNestedOneWithoutVocabulariesInput
@@ -13470,6 +13570,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySetId: string
@@ -13672,6 +13773,7 @@ export namespace Prisma {
     example?: StringNullableFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableFilter<"Vocabulary"> | string | null
+    partOfSpeech?: EnumPartOfSpeechFilter<"Vocabulary"> | $Enums.PartOfSpeech
     createdAt?: DateTimeFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeFilter<"Vocabulary"> | Date | string
     studySetId?: StringFilter<"Vocabulary"> | string
@@ -14010,6 +14112,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutVocabulariesInput
@@ -14025,6 +14128,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
@@ -14849,6 +14953,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySet: StudySetCreateNestedOneWithoutVocabulariesInput
@@ -14864,6 +14969,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySetId: string
@@ -14953,6 +15059,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySet?: StudySetUpdateOneRequiredWithoutVocabulariesNestedInput
@@ -14967,6 +15074,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
@@ -14989,6 +15097,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     studySetId: string
@@ -15065,6 +15174,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySet?: StudySetUpdateOneRequiredWithoutVocabulariesNestedInput
@@ -15079,6 +15189,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
@@ -15093,6 +15204,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
@@ -15236,6 +15348,7 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
+    partOfSpeech?: $Enums.PartOfSpeech
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
@@ -15255,6 +15368,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutVocabulariesNestedInput
@@ -15269,6 +15383,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
@@ -15283,6 +15398,7 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string

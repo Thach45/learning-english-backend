@@ -164,6 +164,7 @@ exports.Prisma.VocabularyScalarFieldEnum = {
   example: 'example',
   imageUrl: 'imageUrl',
   audioUrl: 'audioUrl',
+  partOfSpeech: 'partOfSpeech',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   studySetId: 'studySetId',
@@ -227,6 +228,19 @@ exports.Level = exports.$Enums.Level = {
   BEGINNER: 'BEGINNER',
   INTERMEDIATE: 'INTERMEDIATE',
   ADVANCED: 'ADVANCED'
+};
+
+exports.PartOfSpeech = exports.$Enums.PartOfSpeech = {
+  NOUN: 'NOUN',
+  VERB: 'VERB',
+  ADJECTIVE: 'ADJECTIVE',
+  ADVERB: 'ADVERB',
+  PRONOUN: 'PRONOUN',
+  PREPOSITION: 'PREPOSITION',
+  CONJUNCTION: 'CONJUNCTION',
+  INTERJECTION: 'INTERJECTION',
+  DETERMINER: 'DETERMINER',
+  OTHER: 'OTHER'
 };
 
 exports.VerificationType = exports.$Enums.VerificationType = {
