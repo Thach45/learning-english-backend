@@ -58,10 +58,10 @@ model StudySet {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
-  author   User   @relation("CreatedStudySets", fields: [authorId], references: [id])
+  author   User   @relation("CreatedStudySets", fields: [authorId], references: [id], onDelete: Cascade)
   authorId String @db.ObjectId
 
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String   @db.ObjectId
 
   vocabularies Vocabulary[]
@@ -71,25 +71,27 @@ model StudySet {
 }
 
 model Vocabulary {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  word          String       @db.String
-  pronunciation String?      @db.String
-  meaning       String       @db.String // tiếng Việt
-  definition    String?      @db.String // tiếng Anh
-  example       String?      @db.String
-  imageUrl      String?      @map("image_url") @db.String
-  audioUrl      String?      @map("audio_url") @db.String
-  partOfSpeech  PartOfSpeech @default(OTHER) @map("part_of_speech")
-  createdAt     DateTime     @default(now()) @map("created_at")
-  updatedAt     DateTime     @updatedAt @map("updated_at")
+  id                      String         @id @default(auto()) @map("_id") @db.ObjectId
+  word                    String         @db.String
+  pronunciation           String?        @db.String
+  meaning                 String         @db.String // tiếng Việt
+  definition              String?        @db.String // tiếng Anh
+  example                 String?        @db.String
+  imageUrl                String?        @map("image_url") @db.String
+  audioUrl                String?        @map("audio_url") @db.String
+  cefrLevel               String?        @map("cefr_level") @db.String
+  partOfSpeech            PartOfSpeech   @default(OTHER) @map("part_of_speech")
+  alternativePartOfSpeech PartOfSpeech[] @default([]) @map("alternative_part_of_speech")
+  createdAt               DateTime       @default(now()) @map("created_at")
+  updatedAt               DateTime       @updatedAt @map("updated_at")
 
   // References
   studySetId  String @db.ObjectId
   createdById String @map("created_by") @db.ObjectId
 
   // Relationships
-  studySet           StudySet                 @relation(fields: [studySetId], references: [id])
-  createdBy          User                     @relation("CreatedVocabularies", fields: [createdById], references: [id])
+  studySet           StudySet                 @relation(fields: [studySetId], references: [id], onDelete: Cascade)
+  createdBy          User                     @relation("CreatedVocabularies", fields: [createdById], references: [id], onDelete: Cascade)
   vocabularyProgress UserVocabularyProgress[]
 
   @@unique([word, studySetId])
@@ -107,7 +109,7 @@ model Category {
 
   studySets StudySet[]
 
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String @db.ObjectId
 
   @@unique([name, authorId])
@@ -152,11 +154,29 @@ model UserVocabularyProgress {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  user       User       @relation(fields: [userId], references: [id])
-  vocabulary Vocabulary @relation(fields: [vocabularyId], references: [id])
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vocabulary Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
 
   @@unique([userId, vocabularyId])
   @@index([userId, nextReviewAt])
+}
+
+model DictionaryWord {
+  id                      String         @id @default(auto()) @map("_id") @db.ObjectId
+  word                    String         @db.String
+  pronunciation           String?        @db.String
+  meaning                 String         @db.String // tiếng Việt
+  definition              String?        @db.String // tiếng Anh
+  example                 String?        @db.String
+  audioUrl                String?        @map("audio_url") @db.String
+  cefrLevel               String?        @map("cefr_level") @db.String
+  partOfSpeech            PartOfSpeech   @map("part_of_speech")
+  alternativePartOfSpeech PartOfSpeech[] @default([]) @map("alternative_part_of_speech")
+  createdAt               DateTime       @default(now()) @map("created_at")
+  updatedAt               DateTime       @updatedAt @map("updated_at")
+
+  @@unique([word, partOfSpeech])
+  @@index([word])
 }
 
 enum Level {

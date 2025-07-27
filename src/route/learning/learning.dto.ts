@@ -26,6 +26,12 @@ export class ReviewVocabularyDto {
   @IsString()
   status: string;
   @IsString()
+  @IsOptional()
+  partOfSpeech?: string;
+  @IsString()
+  @IsOptional()
+  cefrLevel?: string;
+  @IsString()
   nextReviewAt?: string;
   @IsNumber()
   reviewCount: number;

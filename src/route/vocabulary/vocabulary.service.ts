@@ -1,66 +1,126 @@
 import { Injectable } from '@nestjs/common';
-import { PartOfSpeech } from './vocabulary.dto';
-
-import { translate } from 'google-translate-api-x';
+import { PartOfSpeech, VocabularyResponseDto } from './vocabulary.dto';
+import { 
+    crawlCambridgeDictionary, 
+    crawlCambridgeEnglishDictionary,
+    mapCambridgePos,
+    mapToVocabularyDto,
+    processVocabularyData
+} from './vocabulary.helper';
+import { CambridgeResult } from './vocabulary.types';
+import { PrismaService } from '../../shared/service/prisma.service';
 
 @Injectable()
 export class VocabularyService {
-    async getVocabulary(word: string, requestedPartOfSpeech?: PartOfSpeech) {
+    constructor(private prisma: PrismaService) {}
+
+    async getVocabulary(word: string, requestedPartOfSpeech?: PartOfSpeech): Promise<VocabularyResponseDto> {
         try {
-            // 1. Gọi dictionary API
-            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-            const data = await response.json();
-            const entry = data[0];
+            const normalizedWord = word.toLowerCase().trim();      
+            if (requestedPartOfSpeech) {
+                // Tìm từ với POS cụ thể
+                const cached = await this.prisma.dictionaryWord.findUnique({
+                    where: {
+                        word_partOfSpeech: {
+                            word: normalizedWord,
+                            partOfSpeech: requestedPartOfSpeech
+                        }
+                    }
+                });
 
-            // 2. Xử lý dữ liệu từ dictionary API
-            const pronunciation = entry.phonetics?.find(p => p.text)?.text || '';
-            const audioUrl = entry.phonetics?.find(p => p.audio)?.audio || '';
+                if (cached) {
+                    console.log("Tìm thấy từ với POS cụ thể trong database");
+                    return mapToVocabularyDto(cached);
+                }
+            } else {
+                // Tìm tất cả POS của từ
+                const cached = await this.prisma.dictionaryWord.findFirst({
+                    where: {
+                        word: normalizedWord
+                    }
+                });
 
-            // 3. Xác định các loại từ
-            const allPartOfSpeech = (entry.meanings || [])
-                .map(m => m.partOfSpeech?.toUpperCase())
-                .filter(pos => pos && Object.values(PartOfSpeech).includes(pos as PartOfSpeech))
-                .map(pos => pos as PartOfSpeech);
+                if (cached) {
+                    console.log("Tìm thấy từ trong database");
+                    return mapToVocabularyDto(cached);
+                }
+            }
 
-            // 4. Xác định loại từ chính
-            const partOfSpeech = requestedPartOfSpeech && allPartOfSpeech.includes(requestedPartOfSpeech)
-                ? requestedPartOfSpeech
-                : (allPartOfSpeech[0] || PartOfSpeech.OTHER);
+            // Nếu không có trong database, fetch từ Cambridge
+            const [cambridgeData, cambridgeEnglishData] = await Promise.all([
+                crawlCambridgeDictionary(word),
+                crawlCambridgeEnglishDictionary(word)
+            ]);
 
-            // 5. Lấy definition từ loại từ chính
-            const mainMeaning = entry.meanings?.find(m => 
-                m.partOfSpeech?.toUpperCase() === partOfSpeech
-            );
-            const definitions = mainMeaning?.definitions || [];
-            const definition = definitions
-                .slice(0, 3)
-                .map(d => d.definition?.replace(/\.$/, ''))
-                .filter(Boolean)
-                .join(', ');
+            if (cambridgeData.status === 'error' || !cambridgeData.entries?.length) {
+                throw new Error('Word not found in Cambridge Dictionary');
+            }
 
-            // 6. Dịch từ
-            const translation = await translate(word, { from: 'en', to: 'vi' });
-            const meaning = translation.text;
+            // Get all available parts of speech
+            const allPartOfSpeech = cambridgeData.entries
+                .map(entry => mapCambridgePos(entry.part_of_speech))
+                .filter(Boolean) as PartOfSpeech[];
 
-            // 7. Trả về kết quả
-            return {
-                word: entry.word,
-                pronunciation,
-                audioUrl,
-                meaning,
-                definition,
-                partOfSpeech,
-                alternativePartOfSpeech: allPartOfSpeech,
-                meanings: entry.meanings
-            };
+            // Xử lý và lưu từng POS
+            const results: VocabularyResponseDto[] = [];
+
+            for (const pos of allPartOfSpeech) {
+                const entry = cambridgeData.entries.find(
+                    e => mapCambridgePos(e.part_of_speech) === pos
+                );
+                if (!entry) continue;
+                // Xử lý dữ liệu từ Cambridge
+                const processedData = processVocabularyData(
+                    entry,
+                    pos,
+                    allPartOfSpeech,
+                    cambridgeEnglishData
+                );
+
+                // Lưu vào database
+                const result = await this.prisma.dictionaryWord.upsert({
+                    where: {
+                        word_partOfSpeech: {
+                            word: normalizedWord,
+                            partOfSpeech: pos
+                        }
+                    },
+                    update: {
+                        ...processedData,
+                        updatedAt: new Date()
+                    },
+                    create: {
+                        word: normalizedWord,
+                        partOfSpeech: pos,
+                        ...processedData
+                    }
+                });
+
+                results.push(mapToVocabularyDto(result));
+            }
+
+            // Trả về kết quả phù hợp với yêu cầu
+            if (requestedPartOfSpeech) {
+                const requested = results.find(r => r.partOfSpeech === requestedPartOfSpeech);
+                if (!requested) {
+                    throw new Error(`No entry found for part of speech: ${requestedPartOfSpeech}`);
+                }
+                return requested;
+            }
+
+            // Nếu không có yêu cầu POS cụ thể, trả về POS đầu tiên
+            return results[0];
         } catch (error) {
             console.error('Error in getVocabulary:', error);
             throw error;
         }
     }
-    async searchVocabulary(word: string) {
-        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        const data = await response.json();
-        return data;
+
+    async searchVocabulary(word: string): Promise<CambridgeResult> {
+        const data = await crawlCambridgeDictionary(word);
+        const dataEnglish = await crawlCambridgeEnglishDictionary(word);
+        console.log(data);
+        console.log(dataEnglish);
+        return dataEnglish;
     }
 }

@@ -42,6 +42,10 @@ export class VocabularyResponseDto {
     @IsString()
     audioUrl?: string;
 
+    @IsString()
+    @IsOptional()
+    cefrLevel?: string;
+
     @IsEnum(PartOfSpeech)
     @IsOptional()
     partOfSpeech: PartOfSpeech = PartOfSpeech.OTHER;
@@ -59,6 +63,7 @@ export class VocabularyResponseDto {
         this.example = data.example;
         this.imageUrl = data.imageUrl;
         this.audioUrl = data.audioUrl;
+        this.cefrLevel = data.cefrLevel;
         this.partOfSpeech = data.partOfSpeech || PartOfSpeech.OTHER;
         this.alternativePartOfSpeech = data.alternativePartOfSpeech || [];
     }

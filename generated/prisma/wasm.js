@@ -164,7 +164,9 @@ exports.Prisma.VocabularyScalarFieldEnum = {
   example: 'example',
   imageUrl: 'imageUrl',
   audioUrl: 'audioUrl',
+  cefrLevel: 'cefrLevel',
   partOfSpeech: 'partOfSpeech',
+  alternativePartOfSpeech: 'alternativePartOfSpeech',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   studySetId: 'studySetId',
@@ -215,6 +217,21 @@ exports.Prisma.UserVocabularyProgressScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DictionaryWordScalarFieldEnum = {
+  id: 'id',
+  word: 'word',
+  pronunciation: 'pronunciation',
+  meaning: 'meaning',
+  definition: 'definition',
+  example: 'example',
+  audioUrl: 'audioUrl',
+  cefrLevel: 'cefrLevel',
+  partOfSpeech: 'partOfSpeech',
+  alternativePartOfSpeech: 'alternativePartOfSpeech',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -256,7 +273,8 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   VerificationCode: 'VerificationCode',
   UserLikesStudySet: 'UserLikesStudySet',
-  UserVocabularyProgress: 'UserVocabularyProgress'
+  UserVocabularyProgress: 'UserVocabularyProgress',
+  DictionaryWord: 'DictionaryWord'
 };
 
 /**

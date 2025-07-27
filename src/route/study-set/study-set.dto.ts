@@ -14,6 +14,10 @@ class VocabularyDto {
     @IsNotEmpty()
     word: string;
 
+    @IsString()
+    @IsOptional()
+    cefrLevel?: string;
+
     @IsEnum(PartOfSpeech)
     @IsOptional()
     partOfSpeech?: PartOfSpeech;
