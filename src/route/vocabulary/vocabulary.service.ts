@@ -116,11 +116,13 @@ export class VocabularyService {
         }
     }
 
-    async searchVocabulary(word: string): Promise<CambridgeResult> {
-        const data = await crawlCambridgeDictionary(word);
-        const dataEnglish = await crawlCambridgeEnglishDictionary(word);
-        console.log(data);
-        console.log(dataEnglish);
-        return dataEnglish;
+    async searchVocabulary(word: string, language: string): Promise<CambridgeResult> {
+        if (language === 'en') {
+            const data = await crawlCambridgeEnglishDictionary(word) ;
+            return data;
+        } else {
+            const data = await crawlCambridgeDictionary(word);
+            return data;
+        }
     }
 }

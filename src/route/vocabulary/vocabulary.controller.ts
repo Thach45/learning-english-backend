@@ -45,12 +45,13 @@ export class VocabularyController {
     @Get("search")
     async searchVocabulary(
         @Query('word') word: string,
+        @Query("langue") language: string
     ) {
         if (!word) {
             throw new BadRequestException('Word is required');
         }
 
-        const result = await this.vocabularyService.searchVocabulary(word);
+        const result = await this.vocabularyService.searchVocabulary(word, language);
         
         if (result.status === 'error') {
             throw new HttpException(result.message || 'Failed to fetch data', HttpStatus.NOT_FOUND);
