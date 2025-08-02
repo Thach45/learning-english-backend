@@ -8,6 +8,7 @@ import { StudySetModule } from './route/study-set/study-set.module';
 import { VocabularyModule } from './route/vocabulary/vocabulary.module';
 import { LearningModule } from './route/learning/learning.module';
 import { TranslateModule } from './route/translate/translate.module';
+import { GamificationModule } from './route/gamification/gamification.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TranslateModule } from './route/translate/translate.module';
     VocabularyModule,
     LearningModule,
     TranslateModule,
+    GamificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -36,6 +36,9 @@ model User {
   likedStudySets     UserLikesStudySet[]
   categories         Category[]
   vocabularyProgress UserVocabularyProgress[]
+  uniqueWordsLearned UserUniqueWord[]
+  xpEvents           XPEvent[]
+  dailyActivities    DailyActivity[]
 }
 
 model RefreshToken {
@@ -159,6 +162,50 @@ model UserVocabularyProgress {
 
   @@unique([userId, vocabularyId])
   @@index([userId, nextReviewAt])
+}
+
+// New model to track unique words learned by user
+model UserUniqueWord {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String   @db.ObjectId
+  word           String   @db.String // The actual word (not vocabularyId)
+  firstLearnedAt DateTime @default(now()) @map("first_learned_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, word])
+  @@index([userId, firstLearnedAt])
+}
+
+// New model to track XP events
+model XPEvent {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  eventType String   @map("event_type") // 'new_word_learned', 'word_reviewed'
+  xpAmount  Int      @map("xp_amount")
+  metadata  Json? // Additional data like word, studySetId, etc.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, eventType, createdAt])
+}
+
+// New model to track daily activities
+model DailyActivity {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   @db.ObjectId
+  date          DateTime
+  wordsLearned  Int      @default(0) @map("words_learned")
+  wordsReviewed Int      @default(0) @map("words_reviewed")
+  xpEarned      Int      @default(0) @map("xp_earned")
+  streakCount   Int      @default(0) @map("streak_count")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
 }
 
 model DictionaryWord {

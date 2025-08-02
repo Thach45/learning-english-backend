@@ -217,6 +217,34 @@ exports.Prisma.UserVocabularyProgressScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserUniqueWordScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  word: 'word',
+  firstLearnedAt: 'firstLearnedAt'
+};
+
+exports.Prisma.XPEventScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventType: 'eventType',
+  xpAmount: 'xpAmount',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DailyActivityScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  wordsLearned: 'wordsLearned',
+  wordsReviewed: 'wordsReviewed',
+  xpEarned: 'xpEarned',
+  streakCount: 'streakCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DictionaryWordScalarFieldEnum = {
   id: 'id',
   word: 'word',
@@ -274,6 +302,9 @@ exports.Prisma.ModelName = {
   VerificationCode: 'VerificationCode',
   UserLikesStudySet: 'UserLikesStudySet',
   UserVocabularyProgress: 'UserVocabularyProgress',
+  UserUniqueWord: 'UserUniqueWord',
+  XPEvent: 'XPEvent',
+  DailyActivity: 'DailyActivity',
   DictionaryWord: 'DictionaryWord'
 };
 

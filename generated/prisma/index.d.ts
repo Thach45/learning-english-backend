@@ -54,6 +54,21 @@ export type UserLikesStudySet = $Result.DefaultSelection<Prisma.$UserLikesStudyS
  */
 export type UserVocabularyProgress = $Result.DefaultSelection<Prisma.$UserVocabularyProgressPayload>
 /**
+ * Model UserUniqueWord
+ * 
+ */
+export type UserUniqueWord = $Result.DefaultSelection<Prisma.$UserUniqueWordPayload>
+/**
+ * Model XPEvent
+ * 
+ */
+export type XPEvent = $Result.DefaultSelection<Prisma.$XPEventPayload>
+/**
+ * Model DailyActivity
+ * 
+ */
+export type DailyActivity = $Result.DefaultSelection<Prisma.$DailyActivityPayload>
+/**
  * Model DictionaryWord
  * 
  */
@@ -280,6 +295,36 @@ export class PrismaClient<
     * ```
     */
   get userVocabularyProgress(): Prisma.UserVocabularyProgressDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userUniqueWord`: Exposes CRUD operations for the **UserUniqueWord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserUniqueWords
+    * const userUniqueWords = await prisma.userUniqueWord.findMany()
+    * ```
+    */
+  get userUniqueWord(): Prisma.UserUniqueWordDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.xPEvent`: Exposes CRUD operations for the **XPEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more XPEvents
+    * const xPEvents = await prisma.xPEvent.findMany()
+    * ```
+    */
+  get xPEvent(): Prisma.XPEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dailyActivity`: Exposes CRUD operations for the **DailyActivity** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DailyActivities
+    * const dailyActivities = await prisma.dailyActivity.findMany()
+    * ```
+    */
+  get dailyActivity(): Prisma.DailyActivityDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.dictionaryWord`: Exposes CRUD operations for the **DictionaryWord** model.
@@ -738,6 +783,9 @@ export namespace Prisma {
     VerificationCode: 'VerificationCode',
     UserLikesStudySet: 'UserLikesStudySet',
     UserVocabularyProgress: 'UserVocabularyProgress',
+    UserUniqueWord: 'UserUniqueWord',
+    XPEvent: 'XPEvent',
+    DailyActivity: 'DailyActivity',
     DictionaryWord: 'DictionaryWord'
   };
 
@@ -757,7 +805,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "refreshToken" | "studySet" | "vocabulary" | "category" | "verificationCode" | "userLikesStudySet" | "userVocabularyProgress" | "dictionaryWord"
+      modelProps: "user" | "refreshToken" | "studySet" | "vocabulary" | "category" | "verificationCode" | "userLikesStudySet" | "userVocabularyProgress" | "userUniqueWord" | "xPEvent" | "dailyActivity" | "dictionaryWord"
       txIsolationLevel: never
     }
     model: {
@@ -1353,6 +1401,228 @@ export namespace Prisma {
           }
         }
       }
+      UserUniqueWord: {
+        payload: Prisma.$UserUniqueWordPayload<ExtArgs>
+        fields: Prisma.UserUniqueWordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserUniqueWordFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserUniqueWordFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload>
+          }
+          findFirst: {
+            args: Prisma.UserUniqueWordFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserUniqueWordFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload>
+          }
+          findMany: {
+            args: Prisma.UserUniqueWordFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload>[]
+          }
+          create: {
+            args: Prisma.UserUniqueWordCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload>
+          }
+          createMany: {
+            args: Prisma.UserUniqueWordCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserUniqueWordDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload>
+          }
+          update: {
+            args: Prisma.UserUniqueWordUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserUniqueWordDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserUniqueWordUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserUniqueWordUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserUniqueWordPayload>
+          }
+          aggregate: {
+            args: Prisma.UserUniqueWordAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserUniqueWord>
+          }
+          groupBy: {
+            args: Prisma.UserUniqueWordGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserUniqueWordGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.UserUniqueWordFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.UserUniqueWordAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.UserUniqueWordCountArgs<ExtArgs>
+            result: $Utils.Optional<UserUniqueWordCountAggregateOutputType> | number
+          }
+        }
+      }
+      XPEvent: {
+        payload: Prisma.$XPEventPayload<ExtArgs>
+        fields: Prisma.XPEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.XPEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.XPEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload>
+          }
+          findFirst: {
+            args: Prisma.XPEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.XPEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload>
+          }
+          findMany: {
+            args: Prisma.XPEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload>[]
+          }
+          create: {
+            args: Prisma.XPEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload>
+          }
+          createMany: {
+            args: Prisma.XPEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.XPEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload>
+          }
+          update: {
+            args: Prisma.XPEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.XPEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.XPEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.XPEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$XPEventPayload>
+          }
+          aggregate: {
+            args: Prisma.XPEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateXPEvent>
+          }
+          groupBy: {
+            args: Prisma.XPEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<XPEventGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.XPEventFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.XPEventAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.XPEventCountArgs<ExtArgs>
+            result: $Utils.Optional<XPEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      DailyActivity: {
+        payload: Prisma.$DailyActivityPayload<ExtArgs>
+        fields: Prisma.DailyActivityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DailyActivityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DailyActivityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          findFirst: {
+            args: Prisma.DailyActivityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DailyActivityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          findMany: {
+            args: Prisma.DailyActivityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>[]
+          }
+          create: {
+            args: Prisma.DailyActivityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          createMany: {
+            args: Prisma.DailyActivityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DailyActivityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          update: {
+            args: Prisma.DailyActivityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          deleteMany: {
+            args: Prisma.DailyActivityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DailyActivityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DailyActivityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          aggregate: {
+            args: Prisma.DailyActivityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDailyActivity>
+          }
+          groupBy: {
+            args: Prisma.DailyActivityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DailyActivityGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.DailyActivityFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.DailyActivityAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.DailyActivityCountArgs<ExtArgs>
+            result: $Utils.Optional<DailyActivityCountAggregateOutputType> | number
+          }
+        }
+      }
       DictionaryWord: {
         payload: Prisma.$DictionaryWordPayload<ExtArgs>
         fields: Prisma.DictionaryWordFieldRefs
@@ -1506,6 +1776,9 @@ export namespace Prisma {
     verificationCode?: VerificationCodeOmit
     userLikesStudySet?: UserLikesStudySetOmit
     userVocabularyProgress?: UserVocabularyProgressOmit
+    userUniqueWord?: UserUniqueWordOmit
+    xPEvent?: XPEventOmit
+    dailyActivity?: DailyActivityOmit
     dictionaryWord?: DictionaryWordOmit
   }
 
@@ -1607,6 +1880,9 @@ export namespace Prisma {
     likedStudySets: number
     categories: number
     vocabularyProgress: number
+    uniqueWordsLearned: number
+    xpEvents: number
+    dailyActivities: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1616,6 +1892,9 @@ export namespace Prisma {
     likedStudySets?: boolean | UserCountOutputTypeCountLikedStudySetsArgs
     categories?: boolean | UserCountOutputTypeCountCategoriesArgs
     vocabularyProgress?: boolean | UserCountOutputTypeCountVocabularyProgressArgs
+    uniqueWordsLearned?: boolean | UserCountOutputTypeCountUniqueWordsLearnedArgs
+    xpEvents?: boolean | UserCountOutputTypeCountXpEventsArgs
+    dailyActivities?: boolean | UserCountOutputTypeCountDailyActivitiesArgs
   }
 
   // Custom InputTypes
@@ -1669,6 +1948,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountVocabularyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserVocabularyProgressWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUniqueWordsLearnedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserUniqueWordWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountXpEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: XPEventWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDailyActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyActivityWhereInput
   }
 
 
@@ -2094,6 +2394,9 @@ export namespace Prisma {
     likedStudySets?: boolean | User$likedStudySetsArgs<ExtArgs>
     categories?: boolean | User$categoriesArgs<ExtArgs>
     vocabularyProgress?: boolean | User$vocabularyProgressArgs<ExtArgs>
+    uniqueWordsLearned?: boolean | User$uniqueWordsLearnedArgs<ExtArgs>
+    xpEvents?: boolean | User$xpEventsArgs<ExtArgs>
+    dailyActivities?: boolean | User$dailyActivitiesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2127,6 +2430,9 @@ export namespace Prisma {
     likedStudySets?: boolean | User$likedStudySetsArgs<ExtArgs>
     categories?: boolean | User$categoriesArgs<ExtArgs>
     vocabularyProgress?: boolean | User$vocabularyProgressArgs<ExtArgs>
+    uniqueWordsLearned?: boolean | User$uniqueWordsLearnedArgs<ExtArgs>
+    xpEvents?: boolean | User$xpEventsArgs<ExtArgs>
+    dailyActivities?: boolean | User$dailyActivitiesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2139,6 +2445,9 @@ export namespace Prisma {
       likedStudySets: Prisma.$UserLikesStudySetPayload<ExtArgs>[]
       categories: Prisma.$CategoryPayload<ExtArgs>[]
       vocabularyProgress: Prisma.$UserVocabularyProgressPayload<ExtArgs>[]
+      uniqueWordsLearned: Prisma.$UserUniqueWordPayload<ExtArgs>[]
+      xpEvents: Prisma.$XPEventPayload<ExtArgs>[]
+      dailyActivities: Prisma.$DailyActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2527,6 +2836,9 @@ export namespace Prisma {
     likedStudySets<T extends User$likedStudySetsArgs<ExtArgs> = {}>(args?: Subset<T, User$likedStudySetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLikesStudySetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     categories<T extends User$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, User$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     vocabularyProgress<T extends User$vocabularyProgressArgs<ExtArgs> = {}>(args?: Subset<T, User$vocabularyProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    uniqueWordsLearned<T extends User$uniqueWordsLearnedArgs<ExtArgs> = {}>(args?: Subset<T, User$uniqueWordsLearnedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    xpEvents<T extends User$xpEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$xpEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dailyActivities<T extends User$dailyActivitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3084,6 +3396,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserVocabularyProgressScalarFieldEnum | UserVocabularyProgressScalarFieldEnum[]
+  }
+
+  /**
+   * User.uniqueWordsLearned
+   */
+  export type User$uniqueWordsLearnedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    where?: UserUniqueWordWhereInput
+    orderBy?: UserUniqueWordOrderByWithRelationInput | UserUniqueWordOrderByWithRelationInput[]
+    cursor?: UserUniqueWordWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserUniqueWordScalarFieldEnum | UserUniqueWordScalarFieldEnum[]
+  }
+
+  /**
+   * User.xpEvents
+   */
+  export type User$xpEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    where?: XPEventWhereInput
+    orderBy?: XPEventOrderByWithRelationInput | XPEventOrderByWithRelationInput[]
+    cursor?: XPEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: XPEventScalarFieldEnum | XPEventScalarFieldEnum[]
+  }
+
+  /**
+   * User.dailyActivities
+   */
+  export type User$dailyActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    where?: DailyActivityWhereInput
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    cursor?: DailyActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
   }
 
   /**
@@ -10430,6 +10814,3063 @@ export namespace Prisma {
 
 
   /**
+   * Model UserUniqueWord
+   */
+
+  export type AggregateUserUniqueWord = {
+    _count: UserUniqueWordCountAggregateOutputType | null
+    _min: UserUniqueWordMinAggregateOutputType | null
+    _max: UserUniqueWordMaxAggregateOutputType | null
+  }
+
+  export type UserUniqueWordMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    word: string | null
+    firstLearnedAt: Date | null
+  }
+
+  export type UserUniqueWordMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    word: string | null
+    firstLearnedAt: Date | null
+  }
+
+  export type UserUniqueWordCountAggregateOutputType = {
+    id: number
+    userId: number
+    word: number
+    firstLearnedAt: number
+    _all: number
+  }
+
+
+  export type UserUniqueWordMinAggregateInputType = {
+    id?: true
+    userId?: true
+    word?: true
+    firstLearnedAt?: true
+  }
+
+  export type UserUniqueWordMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    word?: true
+    firstLearnedAt?: true
+  }
+
+  export type UserUniqueWordCountAggregateInputType = {
+    id?: true
+    userId?: true
+    word?: true
+    firstLearnedAt?: true
+    _all?: true
+  }
+
+  export type UserUniqueWordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserUniqueWord to aggregate.
+     */
+    where?: UserUniqueWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserUniqueWords to fetch.
+     */
+    orderBy?: UserUniqueWordOrderByWithRelationInput | UserUniqueWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserUniqueWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserUniqueWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserUniqueWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserUniqueWords
+    **/
+    _count?: true | UserUniqueWordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserUniqueWordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserUniqueWordMaxAggregateInputType
+  }
+
+  export type GetUserUniqueWordAggregateType<T extends UserUniqueWordAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserUniqueWord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserUniqueWord[P]>
+      : GetScalarType<T[P], AggregateUserUniqueWord[P]>
+  }
+
+
+
+
+  export type UserUniqueWordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserUniqueWordWhereInput
+    orderBy?: UserUniqueWordOrderByWithAggregationInput | UserUniqueWordOrderByWithAggregationInput[]
+    by: UserUniqueWordScalarFieldEnum[] | UserUniqueWordScalarFieldEnum
+    having?: UserUniqueWordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserUniqueWordCountAggregateInputType | true
+    _min?: UserUniqueWordMinAggregateInputType
+    _max?: UserUniqueWordMaxAggregateInputType
+  }
+
+  export type UserUniqueWordGroupByOutputType = {
+    id: string
+    userId: string
+    word: string
+    firstLearnedAt: Date
+    _count: UserUniqueWordCountAggregateOutputType | null
+    _min: UserUniqueWordMinAggregateOutputType | null
+    _max: UserUniqueWordMaxAggregateOutputType | null
+  }
+
+  type GetUserUniqueWordGroupByPayload<T extends UserUniqueWordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserUniqueWordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserUniqueWordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserUniqueWordGroupByOutputType[P]>
+            : GetScalarType<T[P], UserUniqueWordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserUniqueWordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    word?: boolean
+    firstLearnedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userUniqueWord"]>
+
+
+
+  export type UserUniqueWordSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    word?: boolean
+    firstLearnedAt?: boolean
+  }
+
+  export type UserUniqueWordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "word" | "firstLearnedAt", ExtArgs["result"]["userUniqueWord"]>
+  export type UserUniqueWordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserUniqueWordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserUniqueWord"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      word: string
+      firstLearnedAt: Date
+    }, ExtArgs["result"]["userUniqueWord"]>
+    composites: {}
+  }
+
+  type UserUniqueWordGetPayload<S extends boolean | null | undefined | UserUniqueWordDefaultArgs> = $Result.GetResult<Prisma.$UserUniqueWordPayload, S>
+
+  type UserUniqueWordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserUniqueWordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserUniqueWordCountAggregateInputType | true
+    }
+
+  export interface UserUniqueWordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserUniqueWord'], meta: { name: 'UserUniqueWord' } }
+    /**
+     * Find zero or one UserUniqueWord that matches the filter.
+     * @param {UserUniqueWordFindUniqueArgs} args - Arguments to find a UserUniqueWord
+     * @example
+     * // Get one UserUniqueWord
+     * const userUniqueWord = await prisma.userUniqueWord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserUniqueWordFindUniqueArgs>(args: SelectSubset<T, UserUniqueWordFindUniqueArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserUniqueWord that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserUniqueWordFindUniqueOrThrowArgs} args - Arguments to find a UserUniqueWord
+     * @example
+     * // Get one UserUniqueWord
+     * const userUniqueWord = await prisma.userUniqueWord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserUniqueWordFindUniqueOrThrowArgs>(args: SelectSubset<T, UserUniqueWordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserUniqueWord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUniqueWordFindFirstArgs} args - Arguments to find a UserUniqueWord
+     * @example
+     * // Get one UserUniqueWord
+     * const userUniqueWord = await prisma.userUniqueWord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserUniqueWordFindFirstArgs>(args?: SelectSubset<T, UserUniqueWordFindFirstArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserUniqueWord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUniqueWordFindFirstOrThrowArgs} args - Arguments to find a UserUniqueWord
+     * @example
+     * // Get one UserUniqueWord
+     * const userUniqueWord = await prisma.userUniqueWord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserUniqueWordFindFirstOrThrowArgs>(args?: SelectSubset<T, UserUniqueWordFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserUniqueWords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUniqueWordFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserUniqueWords
+     * const userUniqueWords = await prisma.userUniqueWord.findMany()
+     * 
+     * // Get first 10 UserUniqueWords
+     * const userUniqueWords = await prisma.userUniqueWord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userUniqueWordWithIdOnly = await prisma.userUniqueWord.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserUniqueWordFindManyArgs>(args?: SelectSubset<T, UserUniqueWordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserUniqueWord.
+     * @param {UserUniqueWordCreateArgs} args - Arguments to create a UserUniqueWord.
+     * @example
+     * // Create one UserUniqueWord
+     * const UserUniqueWord = await prisma.userUniqueWord.create({
+     *   data: {
+     *     // ... data to create a UserUniqueWord
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserUniqueWordCreateArgs>(args: SelectSubset<T, UserUniqueWordCreateArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserUniqueWords.
+     * @param {UserUniqueWordCreateManyArgs} args - Arguments to create many UserUniqueWords.
+     * @example
+     * // Create many UserUniqueWords
+     * const userUniqueWord = await prisma.userUniqueWord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserUniqueWordCreateManyArgs>(args?: SelectSubset<T, UserUniqueWordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a UserUniqueWord.
+     * @param {UserUniqueWordDeleteArgs} args - Arguments to delete one UserUniqueWord.
+     * @example
+     * // Delete one UserUniqueWord
+     * const UserUniqueWord = await prisma.userUniqueWord.delete({
+     *   where: {
+     *     // ... filter to delete one UserUniqueWord
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserUniqueWordDeleteArgs>(args: SelectSubset<T, UserUniqueWordDeleteArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserUniqueWord.
+     * @param {UserUniqueWordUpdateArgs} args - Arguments to update one UserUniqueWord.
+     * @example
+     * // Update one UserUniqueWord
+     * const userUniqueWord = await prisma.userUniqueWord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserUniqueWordUpdateArgs>(args: SelectSubset<T, UserUniqueWordUpdateArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserUniqueWords.
+     * @param {UserUniqueWordDeleteManyArgs} args - Arguments to filter UserUniqueWords to delete.
+     * @example
+     * // Delete a few UserUniqueWords
+     * const { count } = await prisma.userUniqueWord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserUniqueWordDeleteManyArgs>(args?: SelectSubset<T, UserUniqueWordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserUniqueWords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUniqueWordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserUniqueWords
+     * const userUniqueWord = await prisma.userUniqueWord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserUniqueWordUpdateManyArgs>(args: SelectSubset<T, UserUniqueWordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserUniqueWord.
+     * @param {UserUniqueWordUpsertArgs} args - Arguments to update or create a UserUniqueWord.
+     * @example
+     * // Update or create a UserUniqueWord
+     * const userUniqueWord = await prisma.userUniqueWord.upsert({
+     *   create: {
+     *     // ... data to create a UserUniqueWord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserUniqueWord we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUniqueWordUpsertArgs>(args: SelectSubset<T, UserUniqueWordUpsertArgs<ExtArgs>>): Prisma__UserUniqueWordClient<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserUniqueWords that matches the filter.
+     * @param {UserUniqueWordFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const userUniqueWord = await prisma.userUniqueWord.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: UserUniqueWordFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a UserUniqueWord.
+     * @param {UserUniqueWordAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const userUniqueWord = await prisma.userUniqueWord.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: UserUniqueWordAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of UserUniqueWords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUniqueWordCountArgs} args - Arguments to filter UserUniqueWords to count.
+     * @example
+     * // Count the number of UserUniqueWords
+     * const count = await prisma.userUniqueWord.count({
+     *   where: {
+     *     // ... the filter for the UserUniqueWords we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserUniqueWordCountArgs>(
+      args?: Subset<T, UserUniqueWordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserUniqueWordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserUniqueWord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUniqueWordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserUniqueWordAggregateArgs>(args: Subset<T, UserUniqueWordAggregateArgs>): Prisma.PrismaPromise<GetUserUniqueWordAggregateType<T>>
+
+    /**
+     * Group by UserUniqueWord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUniqueWordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserUniqueWordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserUniqueWordGroupByArgs['orderBy'] }
+        : { orderBy?: UserUniqueWordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserUniqueWordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserUniqueWordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserUniqueWord model
+   */
+  readonly fields: UserUniqueWordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserUniqueWord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserUniqueWordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserUniqueWord model
+   */
+  interface UserUniqueWordFieldRefs {
+    readonly id: FieldRef<"UserUniqueWord", 'String'>
+    readonly userId: FieldRef<"UserUniqueWord", 'String'>
+    readonly word: FieldRef<"UserUniqueWord", 'String'>
+    readonly firstLearnedAt: FieldRef<"UserUniqueWord", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserUniqueWord findUnique
+   */
+  export type UserUniqueWordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * Filter, which UserUniqueWord to fetch.
+     */
+    where: UserUniqueWordWhereUniqueInput
+  }
+
+  /**
+   * UserUniqueWord findUniqueOrThrow
+   */
+  export type UserUniqueWordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * Filter, which UserUniqueWord to fetch.
+     */
+    where: UserUniqueWordWhereUniqueInput
+  }
+
+  /**
+   * UserUniqueWord findFirst
+   */
+  export type UserUniqueWordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * Filter, which UserUniqueWord to fetch.
+     */
+    where?: UserUniqueWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserUniqueWords to fetch.
+     */
+    orderBy?: UserUniqueWordOrderByWithRelationInput | UserUniqueWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserUniqueWords.
+     */
+    cursor?: UserUniqueWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserUniqueWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserUniqueWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserUniqueWords.
+     */
+    distinct?: UserUniqueWordScalarFieldEnum | UserUniqueWordScalarFieldEnum[]
+  }
+
+  /**
+   * UserUniqueWord findFirstOrThrow
+   */
+  export type UserUniqueWordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * Filter, which UserUniqueWord to fetch.
+     */
+    where?: UserUniqueWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserUniqueWords to fetch.
+     */
+    orderBy?: UserUniqueWordOrderByWithRelationInput | UserUniqueWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserUniqueWords.
+     */
+    cursor?: UserUniqueWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserUniqueWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserUniqueWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserUniqueWords.
+     */
+    distinct?: UserUniqueWordScalarFieldEnum | UserUniqueWordScalarFieldEnum[]
+  }
+
+  /**
+   * UserUniqueWord findMany
+   */
+  export type UserUniqueWordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * Filter, which UserUniqueWords to fetch.
+     */
+    where?: UserUniqueWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserUniqueWords to fetch.
+     */
+    orderBy?: UserUniqueWordOrderByWithRelationInput | UserUniqueWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserUniqueWords.
+     */
+    cursor?: UserUniqueWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserUniqueWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserUniqueWords.
+     */
+    skip?: number
+    distinct?: UserUniqueWordScalarFieldEnum | UserUniqueWordScalarFieldEnum[]
+  }
+
+  /**
+   * UserUniqueWord create
+   */
+  export type UserUniqueWordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserUniqueWord.
+     */
+    data: XOR<UserUniqueWordCreateInput, UserUniqueWordUncheckedCreateInput>
+  }
+
+  /**
+   * UserUniqueWord createMany
+   */
+  export type UserUniqueWordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserUniqueWords.
+     */
+    data: UserUniqueWordCreateManyInput | UserUniqueWordCreateManyInput[]
+  }
+
+  /**
+   * UserUniqueWord update
+   */
+  export type UserUniqueWordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserUniqueWord.
+     */
+    data: XOR<UserUniqueWordUpdateInput, UserUniqueWordUncheckedUpdateInput>
+    /**
+     * Choose, which UserUniqueWord to update.
+     */
+    where: UserUniqueWordWhereUniqueInput
+  }
+
+  /**
+   * UserUniqueWord updateMany
+   */
+  export type UserUniqueWordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserUniqueWords.
+     */
+    data: XOR<UserUniqueWordUpdateManyMutationInput, UserUniqueWordUncheckedUpdateManyInput>
+    /**
+     * Filter which UserUniqueWords to update
+     */
+    where?: UserUniqueWordWhereInput
+    /**
+     * Limit how many UserUniqueWords to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserUniqueWord upsert
+   */
+  export type UserUniqueWordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserUniqueWord to update in case it exists.
+     */
+    where: UserUniqueWordWhereUniqueInput
+    /**
+     * In case the UserUniqueWord found by the `where` argument doesn't exist, create a new UserUniqueWord with this data.
+     */
+    create: XOR<UserUniqueWordCreateInput, UserUniqueWordUncheckedCreateInput>
+    /**
+     * In case the UserUniqueWord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserUniqueWordUpdateInput, UserUniqueWordUncheckedUpdateInput>
+  }
+
+  /**
+   * UserUniqueWord delete
+   */
+  export type UserUniqueWordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+    /**
+     * Filter which UserUniqueWord to delete.
+     */
+    where: UserUniqueWordWhereUniqueInput
+  }
+
+  /**
+   * UserUniqueWord deleteMany
+   */
+  export type UserUniqueWordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserUniqueWords to delete
+     */
+    where?: UserUniqueWordWhereInput
+    /**
+     * Limit how many UserUniqueWords to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserUniqueWord findRaw
+   */
+  export type UserUniqueWordFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserUniqueWord aggregateRaw
+   */
+  export type UserUniqueWordAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserUniqueWord without action
+   */
+  export type UserUniqueWordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserUniqueWord
+     */
+    select?: UserUniqueWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserUniqueWord
+     */
+    omit?: UserUniqueWordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserUniqueWordInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model XPEvent
+   */
+
+  export type AggregateXPEvent = {
+    _count: XPEventCountAggregateOutputType | null
+    _avg: XPEventAvgAggregateOutputType | null
+    _sum: XPEventSumAggregateOutputType | null
+    _min: XPEventMinAggregateOutputType | null
+    _max: XPEventMaxAggregateOutputType | null
+  }
+
+  export type XPEventAvgAggregateOutputType = {
+    xpAmount: number | null
+  }
+
+  export type XPEventSumAggregateOutputType = {
+    xpAmount: number | null
+  }
+
+  export type XPEventMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    eventType: string | null
+    xpAmount: number | null
+    createdAt: Date | null
+  }
+
+  export type XPEventMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    eventType: string | null
+    xpAmount: number | null
+    createdAt: Date | null
+  }
+
+  export type XPEventCountAggregateOutputType = {
+    id: number
+    userId: number
+    eventType: number
+    xpAmount: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type XPEventAvgAggregateInputType = {
+    xpAmount?: true
+  }
+
+  export type XPEventSumAggregateInputType = {
+    xpAmount?: true
+  }
+
+  export type XPEventMinAggregateInputType = {
+    id?: true
+    userId?: true
+    eventType?: true
+    xpAmount?: true
+    createdAt?: true
+  }
+
+  export type XPEventMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    eventType?: true
+    xpAmount?: true
+    createdAt?: true
+  }
+
+  export type XPEventCountAggregateInputType = {
+    id?: true
+    userId?: true
+    eventType?: true
+    xpAmount?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type XPEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which XPEvent to aggregate.
+     */
+    where?: XPEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of XPEvents to fetch.
+     */
+    orderBy?: XPEventOrderByWithRelationInput | XPEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: XPEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` XPEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` XPEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned XPEvents
+    **/
+    _count?: true | XPEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: XPEventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: XPEventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: XPEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: XPEventMaxAggregateInputType
+  }
+
+  export type GetXPEventAggregateType<T extends XPEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateXPEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateXPEvent[P]>
+      : GetScalarType<T[P], AggregateXPEvent[P]>
+  }
+
+
+
+
+  export type XPEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: XPEventWhereInput
+    orderBy?: XPEventOrderByWithAggregationInput | XPEventOrderByWithAggregationInput[]
+    by: XPEventScalarFieldEnum[] | XPEventScalarFieldEnum
+    having?: XPEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: XPEventCountAggregateInputType | true
+    _avg?: XPEventAvgAggregateInputType
+    _sum?: XPEventSumAggregateInputType
+    _min?: XPEventMinAggregateInputType
+    _max?: XPEventMaxAggregateInputType
+  }
+
+  export type XPEventGroupByOutputType = {
+    id: string
+    userId: string
+    eventType: string
+    xpAmount: number
+    metadata: JsonValue | null
+    createdAt: Date
+    _count: XPEventCountAggregateOutputType | null
+    _avg: XPEventAvgAggregateOutputType | null
+    _sum: XPEventSumAggregateOutputType | null
+    _min: XPEventMinAggregateOutputType | null
+    _max: XPEventMaxAggregateOutputType | null
+  }
+
+  type GetXPEventGroupByPayload<T extends XPEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<XPEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof XPEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], XPEventGroupByOutputType[P]>
+            : GetScalarType<T[P], XPEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type XPEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    eventType?: boolean
+    xpAmount?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["xPEvent"]>
+
+
+
+  export type XPEventSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    eventType?: boolean
+    xpAmount?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type XPEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventType" | "xpAmount" | "metadata" | "createdAt", ExtArgs["result"]["xPEvent"]>
+  export type XPEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $XPEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "XPEvent"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      eventType: string
+      xpAmount: number
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["xPEvent"]>
+    composites: {}
+  }
+
+  type XPEventGetPayload<S extends boolean | null | undefined | XPEventDefaultArgs> = $Result.GetResult<Prisma.$XPEventPayload, S>
+
+  type XPEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<XPEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: XPEventCountAggregateInputType | true
+    }
+
+  export interface XPEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['XPEvent'], meta: { name: 'XPEvent' } }
+    /**
+     * Find zero or one XPEvent that matches the filter.
+     * @param {XPEventFindUniqueArgs} args - Arguments to find a XPEvent
+     * @example
+     * // Get one XPEvent
+     * const xPEvent = await prisma.xPEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends XPEventFindUniqueArgs>(args: SelectSubset<T, XPEventFindUniqueArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one XPEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {XPEventFindUniqueOrThrowArgs} args - Arguments to find a XPEvent
+     * @example
+     * // Get one XPEvent
+     * const xPEvent = await prisma.xPEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends XPEventFindUniqueOrThrowArgs>(args: SelectSubset<T, XPEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first XPEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {XPEventFindFirstArgs} args - Arguments to find a XPEvent
+     * @example
+     * // Get one XPEvent
+     * const xPEvent = await prisma.xPEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends XPEventFindFirstArgs>(args?: SelectSubset<T, XPEventFindFirstArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first XPEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {XPEventFindFirstOrThrowArgs} args - Arguments to find a XPEvent
+     * @example
+     * // Get one XPEvent
+     * const xPEvent = await prisma.xPEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends XPEventFindFirstOrThrowArgs>(args?: SelectSubset<T, XPEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more XPEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {XPEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all XPEvents
+     * const xPEvents = await prisma.xPEvent.findMany()
+     * 
+     * // Get first 10 XPEvents
+     * const xPEvents = await prisma.xPEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const xPEventWithIdOnly = await prisma.xPEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends XPEventFindManyArgs>(args?: SelectSubset<T, XPEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a XPEvent.
+     * @param {XPEventCreateArgs} args - Arguments to create a XPEvent.
+     * @example
+     * // Create one XPEvent
+     * const XPEvent = await prisma.xPEvent.create({
+     *   data: {
+     *     // ... data to create a XPEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends XPEventCreateArgs>(args: SelectSubset<T, XPEventCreateArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many XPEvents.
+     * @param {XPEventCreateManyArgs} args - Arguments to create many XPEvents.
+     * @example
+     * // Create many XPEvents
+     * const xPEvent = await prisma.xPEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends XPEventCreateManyArgs>(args?: SelectSubset<T, XPEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a XPEvent.
+     * @param {XPEventDeleteArgs} args - Arguments to delete one XPEvent.
+     * @example
+     * // Delete one XPEvent
+     * const XPEvent = await prisma.xPEvent.delete({
+     *   where: {
+     *     // ... filter to delete one XPEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends XPEventDeleteArgs>(args: SelectSubset<T, XPEventDeleteArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one XPEvent.
+     * @param {XPEventUpdateArgs} args - Arguments to update one XPEvent.
+     * @example
+     * // Update one XPEvent
+     * const xPEvent = await prisma.xPEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends XPEventUpdateArgs>(args: SelectSubset<T, XPEventUpdateArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more XPEvents.
+     * @param {XPEventDeleteManyArgs} args - Arguments to filter XPEvents to delete.
+     * @example
+     * // Delete a few XPEvents
+     * const { count } = await prisma.xPEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends XPEventDeleteManyArgs>(args?: SelectSubset<T, XPEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more XPEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {XPEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many XPEvents
+     * const xPEvent = await prisma.xPEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends XPEventUpdateManyArgs>(args: SelectSubset<T, XPEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one XPEvent.
+     * @param {XPEventUpsertArgs} args - Arguments to update or create a XPEvent.
+     * @example
+     * // Update or create a XPEvent
+     * const xPEvent = await prisma.xPEvent.upsert({
+     *   create: {
+     *     // ... data to create a XPEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the XPEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends XPEventUpsertArgs>(args: SelectSubset<T, XPEventUpsertArgs<ExtArgs>>): Prisma__XPEventClient<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more XPEvents that matches the filter.
+     * @param {XPEventFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const xPEvent = await prisma.xPEvent.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: XPEventFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a XPEvent.
+     * @param {XPEventAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const xPEvent = await prisma.xPEvent.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: XPEventAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of XPEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {XPEventCountArgs} args - Arguments to filter XPEvents to count.
+     * @example
+     * // Count the number of XPEvents
+     * const count = await prisma.xPEvent.count({
+     *   where: {
+     *     // ... the filter for the XPEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends XPEventCountArgs>(
+      args?: Subset<T, XPEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], XPEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a XPEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {XPEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends XPEventAggregateArgs>(args: Subset<T, XPEventAggregateArgs>): Prisma.PrismaPromise<GetXPEventAggregateType<T>>
+
+    /**
+     * Group by XPEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {XPEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends XPEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: XPEventGroupByArgs['orderBy'] }
+        : { orderBy?: XPEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, XPEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetXPEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the XPEvent model
+   */
+  readonly fields: XPEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for XPEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__XPEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the XPEvent model
+   */
+  interface XPEventFieldRefs {
+    readonly id: FieldRef<"XPEvent", 'String'>
+    readonly userId: FieldRef<"XPEvent", 'String'>
+    readonly eventType: FieldRef<"XPEvent", 'String'>
+    readonly xpAmount: FieldRef<"XPEvent", 'Int'>
+    readonly metadata: FieldRef<"XPEvent", 'Json'>
+    readonly createdAt: FieldRef<"XPEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * XPEvent findUnique
+   */
+  export type XPEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * Filter, which XPEvent to fetch.
+     */
+    where: XPEventWhereUniqueInput
+  }
+
+  /**
+   * XPEvent findUniqueOrThrow
+   */
+  export type XPEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * Filter, which XPEvent to fetch.
+     */
+    where: XPEventWhereUniqueInput
+  }
+
+  /**
+   * XPEvent findFirst
+   */
+  export type XPEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * Filter, which XPEvent to fetch.
+     */
+    where?: XPEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of XPEvents to fetch.
+     */
+    orderBy?: XPEventOrderByWithRelationInput | XPEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for XPEvents.
+     */
+    cursor?: XPEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` XPEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` XPEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of XPEvents.
+     */
+    distinct?: XPEventScalarFieldEnum | XPEventScalarFieldEnum[]
+  }
+
+  /**
+   * XPEvent findFirstOrThrow
+   */
+  export type XPEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * Filter, which XPEvent to fetch.
+     */
+    where?: XPEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of XPEvents to fetch.
+     */
+    orderBy?: XPEventOrderByWithRelationInput | XPEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for XPEvents.
+     */
+    cursor?: XPEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` XPEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` XPEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of XPEvents.
+     */
+    distinct?: XPEventScalarFieldEnum | XPEventScalarFieldEnum[]
+  }
+
+  /**
+   * XPEvent findMany
+   */
+  export type XPEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * Filter, which XPEvents to fetch.
+     */
+    where?: XPEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of XPEvents to fetch.
+     */
+    orderBy?: XPEventOrderByWithRelationInput | XPEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing XPEvents.
+     */
+    cursor?: XPEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` XPEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` XPEvents.
+     */
+    skip?: number
+    distinct?: XPEventScalarFieldEnum | XPEventScalarFieldEnum[]
+  }
+
+  /**
+   * XPEvent create
+   */
+  export type XPEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a XPEvent.
+     */
+    data: XOR<XPEventCreateInput, XPEventUncheckedCreateInput>
+  }
+
+  /**
+   * XPEvent createMany
+   */
+  export type XPEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many XPEvents.
+     */
+    data: XPEventCreateManyInput | XPEventCreateManyInput[]
+  }
+
+  /**
+   * XPEvent update
+   */
+  export type XPEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a XPEvent.
+     */
+    data: XOR<XPEventUpdateInput, XPEventUncheckedUpdateInput>
+    /**
+     * Choose, which XPEvent to update.
+     */
+    where: XPEventWhereUniqueInput
+  }
+
+  /**
+   * XPEvent updateMany
+   */
+  export type XPEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update XPEvents.
+     */
+    data: XOR<XPEventUpdateManyMutationInput, XPEventUncheckedUpdateManyInput>
+    /**
+     * Filter which XPEvents to update
+     */
+    where?: XPEventWhereInput
+    /**
+     * Limit how many XPEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * XPEvent upsert
+   */
+  export type XPEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the XPEvent to update in case it exists.
+     */
+    where: XPEventWhereUniqueInput
+    /**
+     * In case the XPEvent found by the `where` argument doesn't exist, create a new XPEvent with this data.
+     */
+    create: XOR<XPEventCreateInput, XPEventUncheckedCreateInput>
+    /**
+     * In case the XPEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<XPEventUpdateInput, XPEventUncheckedUpdateInput>
+  }
+
+  /**
+   * XPEvent delete
+   */
+  export type XPEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+    /**
+     * Filter which XPEvent to delete.
+     */
+    where: XPEventWhereUniqueInput
+  }
+
+  /**
+   * XPEvent deleteMany
+   */
+  export type XPEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which XPEvents to delete
+     */
+    where?: XPEventWhereInput
+    /**
+     * Limit how many XPEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * XPEvent findRaw
+   */
+  export type XPEventFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * XPEvent aggregateRaw
+   */
+  export type XPEventAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * XPEvent without action
+   */
+  export type XPEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the XPEvent
+     */
+    select?: XPEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the XPEvent
+     */
+    omit?: XPEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: XPEventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DailyActivity
+   */
+
+  export type AggregateDailyActivity = {
+    _count: DailyActivityCountAggregateOutputType | null
+    _avg: DailyActivityAvgAggregateOutputType | null
+    _sum: DailyActivitySumAggregateOutputType | null
+    _min: DailyActivityMinAggregateOutputType | null
+    _max: DailyActivityMaxAggregateOutputType | null
+  }
+
+  export type DailyActivityAvgAggregateOutputType = {
+    wordsLearned: number | null
+    wordsReviewed: number | null
+    xpEarned: number | null
+    streakCount: number | null
+  }
+
+  export type DailyActivitySumAggregateOutputType = {
+    wordsLearned: number | null
+    wordsReviewed: number | null
+    xpEarned: number | null
+    streakCount: number | null
+  }
+
+  export type DailyActivityMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    wordsLearned: number | null
+    wordsReviewed: number | null
+    xpEarned: number | null
+    streakCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyActivityMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    wordsLearned: number | null
+    wordsReviewed: number | null
+    xpEarned: number | null
+    streakCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyActivityCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    wordsLearned: number
+    wordsReviewed: number
+    xpEarned: number
+    streakCount: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DailyActivityAvgAggregateInputType = {
+    wordsLearned?: true
+    wordsReviewed?: true
+    xpEarned?: true
+    streakCount?: true
+  }
+
+  export type DailyActivitySumAggregateInputType = {
+    wordsLearned?: true
+    wordsReviewed?: true
+    xpEarned?: true
+    streakCount?: true
+  }
+
+  export type DailyActivityMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    wordsLearned?: true
+    wordsReviewed?: true
+    xpEarned?: true
+    streakCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyActivityMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    wordsLearned?: true
+    wordsReviewed?: true
+    xpEarned?: true
+    streakCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyActivityCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    wordsLearned?: true
+    wordsReviewed?: true
+    xpEarned?: true
+    streakCount?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DailyActivityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyActivity to aggregate.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DailyActivities
+    **/
+    _count?: true | DailyActivityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DailyActivityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DailyActivitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DailyActivityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DailyActivityMaxAggregateInputType
+  }
+
+  export type GetDailyActivityAggregateType<T extends DailyActivityAggregateArgs> = {
+        [P in keyof T & keyof AggregateDailyActivity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDailyActivity[P]>
+      : GetScalarType<T[P], AggregateDailyActivity[P]>
+  }
+
+
+
+
+  export type DailyActivityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyActivityWhereInput
+    orderBy?: DailyActivityOrderByWithAggregationInput | DailyActivityOrderByWithAggregationInput[]
+    by: DailyActivityScalarFieldEnum[] | DailyActivityScalarFieldEnum
+    having?: DailyActivityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DailyActivityCountAggregateInputType | true
+    _avg?: DailyActivityAvgAggregateInputType
+    _sum?: DailyActivitySumAggregateInputType
+    _min?: DailyActivityMinAggregateInputType
+    _max?: DailyActivityMaxAggregateInputType
+  }
+
+  export type DailyActivityGroupByOutputType = {
+    id: string
+    userId: string
+    date: Date
+    wordsLearned: number
+    wordsReviewed: number
+    xpEarned: number
+    streakCount: number
+    createdAt: Date
+    updatedAt: Date
+    _count: DailyActivityCountAggregateOutputType | null
+    _avg: DailyActivityAvgAggregateOutputType | null
+    _sum: DailyActivitySumAggregateOutputType | null
+    _min: DailyActivityMinAggregateOutputType | null
+    _max: DailyActivityMaxAggregateOutputType | null
+  }
+
+  type GetDailyActivityGroupByPayload<T extends DailyActivityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DailyActivityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DailyActivityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DailyActivityGroupByOutputType[P]>
+            : GetScalarType<T[P], DailyActivityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DailyActivitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    wordsLearned?: boolean
+    wordsReviewed?: boolean
+    xpEarned?: boolean
+    streakCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyActivity"]>
+
+
+
+  export type DailyActivitySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    wordsLearned?: boolean
+    wordsReviewed?: boolean
+    xpEarned?: boolean
+    streakCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DailyActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "wordsLearned" | "wordsReviewed" | "xpEarned" | "streakCount" | "createdAt" | "updatedAt", ExtArgs["result"]["dailyActivity"]>
+  export type DailyActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DailyActivityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DailyActivity"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: Date
+      wordsLearned: number
+      wordsReviewed: number
+      xpEarned: number
+      streakCount: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dailyActivity"]>
+    composites: {}
+  }
+
+  type DailyActivityGetPayload<S extends boolean | null | undefined | DailyActivityDefaultArgs> = $Result.GetResult<Prisma.$DailyActivityPayload, S>
+
+  type DailyActivityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DailyActivityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DailyActivityCountAggregateInputType | true
+    }
+
+  export interface DailyActivityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DailyActivity'], meta: { name: 'DailyActivity' } }
+    /**
+     * Find zero or one DailyActivity that matches the filter.
+     * @param {DailyActivityFindUniqueArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DailyActivityFindUniqueArgs>(args: SelectSubset<T, DailyActivityFindUniqueArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DailyActivity that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DailyActivityFindUniqueOrThrowArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DailyActivityFindUniqueOrThrowArgs>(args: SelectSubset<T, DailyActivityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyActivity that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityFindFirstArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DailyActivityFindFirstArgs>(args?: SelectSubset<T, DailyActivityFindFirstArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyActivity that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityFindFirstOrThrowArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DailyActivityFindFirstOrThrowArgs>(args?: SelectSubset<T, DailyActivityFindFirstOrThrowArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DailyActivities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DailyActivities
+     * const dailyActivities = await prisma.dailyActivity.findMany()
+     * 
+     * // Get first 10 DailyActivities
+     * const dailyActivities = await prisma.dailyActivity.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dailyActivityWithIdOnly = await prisma.dailyActivity.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DailyActivityFindManyArgs>(args?: SelectSubset<T, DailyActivityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DailyActivity.
+     * @param {DailyActivityCreateArgs} args - Arguments to create a DailyActivity.
+     * @example
+     * // Create one DailyActivity
+     * const DailyActivity = await prisma.dailyActivity.create({
+     *   data: {
+     *     // ... data to create a DailyActivity
+     *   }
+     * })
+     * 
+     */
+    create<T extends DailyActivityCreateArgs>(args: SelectSubset<T, DailyActivityCreateArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DailyActivities.
+     * @param {DailyActivityCreateManyArgs} args - Arguments to create many DailyActivities.
+     * @example
+     * // Create many DailyActivities
+     * const dailyActivity = await prisma.dailyActivity.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DailyActivityCreateManyArgs>(args?: SelectSubset<T, DailyActivityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a DailyActivity.
+     * @param {DailyActivityDeleteArgs} args - Arguments to delete one DailyActivity.
+     * @example
+     * // Delete one DailyActivity
+     * const DailyActivity = await prisma.dailyActivity.delete({
+     *   where: {
+     *     // ... filter to delete one DailyActivity
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DailyActivityDeleteArgs>(args: SelectSubset<T, DailyActivityDeleteArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DailyActivity.
+     * @param {DailyActivityUpdateArgs} args - Arguments to update one DailyActivity.
+     * @example
+     * // Update one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DailyActivityUpdateArgs>(args: SelectSubset<T, DailyActivityUpdateArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DailyActivities.
+     * @param {DailyActivityDeleteManyArgs} args - Arguments to filter DailyActivities to delete.
+     * @example
+     * // Delete a few DailyActivities
+     * const { count } = await prisma.dailyActivity.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DailyActivityDeleteManyArgs>(args?: SelectSubset<T, DailyActivityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DailyActivities
+     * const dailyActivity = await prisma.dailyActivity.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DailyActivityUpdateManyArgs>(args: SelectSubset<T, DailyActivityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DailyActivity.
+     * @param {DailyActivityUpsertArgs} args - Arguments to update or create a DailyActivity.
+     * @example
+     * // Update or create a DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.upsert({
+     *   create: {
+     *     // ... data to create a DailyActivity
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DailyActivity we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DailyActivityUpsertArgs>(args: SelectSubset<T, DailyActivityUpsertArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DailyActivities that matches the filter.
+     * @param {DailyActivityFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const dailyActivity = await prisma.dailyActivity.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: DailyActivityFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a DailyActivity.
+     * @param {DailyActivityAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const dailyActivity = await prisma.dailyActivity.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: DailyActivityAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of DailyActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityCountArgs} args - Arguments to filter DailyActivities to count.
+     * @example
+     * // Count the number of DailyActivities
+     * const count = await prisma.dailyActivity.count({
+     *   where: {
+     *     // ... the filter for the DailyActivities we want to count
+     *   }
+     * })
+    **/
+    count<T extends DailyActivityCountArgs>(
+      args?: Subset<T, DailyActivityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DailyActivityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DailyActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DailyActivityAggregateArgs>(args: Subset<T, DailyActivityAggregateArgs>): Prisma.PrismaPromise<GetDailyActivityAggregateType<T>>
+
+    /**
+     * Group by DailyActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DailyActivityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DailyActivityGroupByArgs['orderBy'] }
+        : { orderBy?: DailyActivityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DailyActivityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDailyActivityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DailyActivity model
+   */
+  readonly fields: DailyActivityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DailyActivity.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DailyActivityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DailyActivity model
+   */
+  interface DailyActivityFieldRefs {
+    readonly id: FieldRef<"DailyActivity", 'String'>
+    readonly userId: FieldRef<"DailyActivity", 'String'>
+    readonly date: FieldRef<"DailyActivity", 'DateTime'>
+    readonly wordsLearned: FieldRef<"DailyActivity", 'Int'>
+    readonly wordsReviewed: FieldRef<"DailyActivity", 'Int'>
+    readonly xpEarned: FieldRef<"DailyActivity", 'Int'>
+    readonly streakCount: FieldRef<"DailyActivity", 'Int'>
+    readonly createdAt: FieldRef<"DailyActivity", 'DateTime'>
+    readonly updatedAt: FieldRef<"DailyActivity", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DailyActivity findUnique
+   */
+  export type DailyActivityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity findUniqueOrThrow
+   */
+  export type DailyActivityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity findFirst
+   */
+  export type DailyActivityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyActivities.
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyActivities.
+     */
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
+  }
+
+  /**
+   * DailyActivity findFirstOrThrow
+   */
+  export type DailyActivityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyActivities.
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyActivities.
+     */
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
+  }
+
+  /**
+   * DailyActivity findMany
+   */
+  export type DailyActivityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivities to fetch.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DailyActivities.
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
+  }
+
+  /**
+   * DailyActivity create
+   */
+  export type DailyActivityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DailyActivity.
+     */
+    data: XOR<DailyActivityCreateInput, DailyActivityUncheckedCreateInput>
+  }
+
+  /**
+   * DailyActivity createMany
+   */
+  export type DailyActivityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DailyActivities.
+     */
+    data: DailyActivityCreateManyInput | DailyActivityCreateManyInput[]
+  }
+
+  /**
+   * DailyActivity update
+   */
+  export type DailyActivityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DailyActivity.
+     */
+    data: XOR<DailyActivityUpdateInput, DailyActivityUncheckedUpdateInput>
+    /**
+     * Choose, which DailyActivity to update.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity updateMany
+   */
+  export type DailyActivityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DailyActivities.
+     */
+    data: XOR<DailyActivityUpdateManyMutationInput, DailyActivityUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyActivities to update
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * Limit how many DailyActivities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyActivity upsert
+   */
+  export type DailyActivityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DailyActivity to update in case it exists.
+     */
+    where: DailyActivityWhereUniqueInput
+    /**
+     * In case the DailyActivity found by the `where` argument doesn't exist, create a new DailyActivity with this data.
+     */
+    create: XOR<DailyActivityCreateInput, DailyActivityUncheckedCreateInput>
+    /**
+     * In case the DailyActivity was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DailyActivityUpdateInput, DailyActivityUncheckedUpdateInput>
+  }
+
+  /**
+   * DailyActivity delete
+   */
+  export type DailyActivityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter which DailyActivity to delete.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity deleteMany
+   */
+  export type DailyActivityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyActivities to delete
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * Limit how many DailyActivities to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyActivity findRaw
+   */
+  export type DailyActivityFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * DailyActivity aggregateRaw
+   */
+  export type DailyActivityAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * DailyActivity without action
+   */
+  export type DailyActivityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyActivity
+     */
+    omit?: DailyActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model DictionaryWord
    */
 
@@ -11566,6 +15007,43 @@ export namespace Prisma {
   export type UserVocabularyProgressScalarFieldEnum = (typeof UserVocabularyProgressScalarFieldEnum)[keyof typeof UserVocabularyProgressScalarFieldEnum]
 
 
+  export const UserUniqueWordScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    word: 'word',
+    firstLearnedAt: 'firstLearnedAt'
+  };
+
+  export type UserUniqueWordScalarFieldEnum = (typeof UserUniqueWordScalarFieldEnum)[keyof typeof UserUniqueWordScalarFieldEnum]
+
+
+  export const XPEventScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    eventType: 'eventType',
+    xpAmount: 'xpAmount',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type XPEventScalarFieldEnum = (typeof XPEventScalarFieldEnum)[keyof typeof XPEventScalarFieldEnum]
+
+
+  export const DailyActivityScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date',
+    wordsLearned: 'wordsLearned',
+    wordsReviewed: 'wordsReviewed',
+    xpEarned: 'xpEarned',
+    streakCount: 'streakCount',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DailyActivityScalarFieldEnum = (typeof DailyActivityScalarFieldEnum)[keyof typeof DailyActivityScalarFieldEnum]
+
+
   export const DictionaryWordScalarFieldEnum: {
     id: 'id',
     word: 'word',
@@ -11708,6 +15186,13 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
   /**
    * Deep Input Types
    */
@@ -11740,6 +15225,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetListRelationFilter
     categories?: CategoryListRelationFilter
     vocabularyProgress?: UserVocabularyProgressListRelationFilter
+    uniqueWordsLearned?: UserUniqueWordListRelationFilter
+    xpEvents?: XPEventListRelationFilter
+    dailyActivities?: DailyActivityListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11766,6 +15254,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetOrderByRelationAggregateInput
     categories?: CategoryOrderByRelationAggregateInput
     vocabularyProgress?: UserVocabularyProgressOrderByRelationAggregateInput
+    uniqueWordsLearned?: UserUniqueWordOrderByRelationAggregateInput
+    xpEvents?: XPEventOrderByRelationAggregateInput
+    dailyActivities?: DailyActivityOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11795,6 +15286,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetListRelationFilter
     categories?: CategoryListRelationFilter
     vocabularyProgress?: UserVocabularyProgressListRelationFilter
+    uniqueWordsLearned?: UserUniqueWordListRelationFilter
+    xpEvents?: XPEventListRelationFilter
+    dailyActivities?: DailyActivityListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -12399,6 +15893,197 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"UserVocabularyProgress"> | Date | string
   }
 
+  export type UserUniqueWordWhereInput = {
+    AND?: UserUniqueWordWhereInput | UserUniqueWordWhereInput[]
+    OR?: UserUniqueWordWhereInput[]
+    NOT?: UserUniqueWordWhereInput | UserUniqueWordWhereInput[]
+    id?: StringFilter<"UserUniqueWord"> | string
+    userId?: StringFilter<"UserUniqueWord"> | string
+    word?: StringFilter<"UserUniqueWord"> | string
+    firstLearnedAt?: DateTimeFilter<"UserUniqueWord"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserUniqueWordOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    word?: SortOrder
+    firstLearnedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserUniqueWordWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_word?: UserUniqueWordUserIdWordCompoundUniqueInput
+    AND?: UserUniqueWordWhereInput | UserUniqueWordWhereInput[]
+    OR?: UserUniqueWordWhereInput[]
+    NOT?: UserUniqueWordWhereInput | UserUniqueWordWhereInput[]
+    userId?: StringFilter<"UserUniqueWord"> | string
+    word?: StringFilter<"UserUniqueWord"> | string
+    firstLearnedAt?: DateTimeFilter<"UserUniqueWord"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_word">
+
+  export type UserUniqueWordOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    word?: SortOrder
+    firstLearnedAt?: SortOrder
+    _count?: UserUniqueWordCountOrderByAggregateInput
+    _max?: UserUniqueWordMaxOrderByAggregateInput
+    _min?: UserUniqueWordMinOrderByAggregateInput
+  }
+
+  export type UserUniqueWordScalarWhereWithAggregatesInput = {
+    AND?: UserUniqueWordScalarWhereWithAggregatesInput | UserUniqueWordScalarWhereWithAggregatesInput[]
+    OR?: UserUniqueWordScalarWhereWithAggregatesInput[]
+    NOT?: UserUniqueWordScalarWhereWithAggregatesInput | UserUniqueWordScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserUniqueWord"> | string
+    userId?: StringWithAggregatesFilter<"UserUniqueWord"> | string
+    word?: StringWithAggregatesFilter<"UserUniqueWord"> | string
+    firstLearnedAt?: DateTimeWithAggregatesFilter<"UserUniqueWord"> | Date | string
+  }
+
+  export type XPEventWhereInput = {
+    AND?: XPEventWhereInput | XPEventWhereInput[]
+    OR?: XPEventWhereInput[]
+    NOT?: XPEventWhereInput | XPEventWhereInput[]
+    id?: StringFilter<"XPEvent"> | string
+    userId?: StringFilter<"XPEvent"> | string
+    eventType?: StringFilter<"XPEvent"> | string
+    xpAmount?: IntFilter<"XPEvent"> | number
+    metadata?: JsonNullableFilter<"XPEvent">
+    createdAt?: DateTimeFilter<"XPEvent"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type XPEventOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    xpAmount?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type XPEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: XPEventWhereInput | XPEventWhereInput[]
+    OR?: XPEventWhereInput[]
+    NOT?: XPEventWhereInput | XPEventWhereInput[]
+    userId?: StringFilter<"XPEvent"> | string
+    eventType?: StringFilter<"XPEvent"> | string
+    xpAmount?: IntFilter<"XPEvent"> | number
+    metadata?: JsonNullableFilter<"XPEvent">
+    createdAt?: DateTimeFilter<"XPEvent"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type XPEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    xpAmount?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    _count?: XPEventCountOrderByAggregateInput
+    _avg?: XPEventAvgOrderByAggregateInput
+    _max?: XPEventMaxOrderByAggregateInput
+    _min?: XPEventMinOrderByAggregateInput
+    _sum?: XPEventSumOrderByAggregateInput
+  }
+
+  export type XPEventScalarWhereWithAggregatesInput = {
+    AND?: XPEventScalarWhereWithAggregatesInput | XPEventScalarWhereWithAggregatesInput[]
+    OR?: XPEventScalarWhereWithAggregatesInput[]
+    NOT?: XPEventScalarWhereWithAggregatesInput | XPEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"XPEvent"> | string
+    userId?: StringWithAggregatesFilter<"XPEvent"> | string
+    eventType?: StringWithAggregatesFilter<"XPEvent"> | string
+    xpAmount?: IntWithAggregatesFilter<"XPEvent"> | number
+    metadata?: JsonNullableWithAggregatesFilter<"XPEvent">
+    createdAt?: DateTimeWithAggregatesFilter<"XPEvent"> | Date | string
+  }
+
+  export type DailyActivityWhereInput = {
+    AND?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    OR?: DailyActivityWhereInput[]
+    NOT?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    id?: StringFilter<"DailyActivity"> | string
+    userId?: StringFilter<"DailyActivity"> | string
+    date?: DateTimeFilter<"DailyActivity"> | Date | string
+    wordsLearned?: IntFilter<"DailyActivity"> | number
+    wordsReviewed?: IntFilter<"DailyActivity"> | number
+    xpEarned?: IntFilter<"DailyActivity"> | number
+    streakCount?: IntFilter<"DailyActivity"> | number
+    createdAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DailyActivityOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    wordsLearned?: SortOrder
+    wordsReviewed?: SortOrder
+    xpEarned?: SortOrder
+    streakCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DailyActivityWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_date?: DailyActivityUserIdDateCompoundUniqueInput
+    AND?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    OR?: DailyActivityWhereInput[]
+    NOT?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    userId?: StringFilter<"DailyActivity"> | string
+    date?: DateTimeFilter<"DailyActivity"> | Date | string
+    wordsLearned?: IntFilter<"DailyActivity"> | number
+    wordsReviewed?: IntFilter<"DailyActivity"> | number
+    xpEarned?: IntFilter<"DailyActivity"> | number
+    streakCount?: IntFilter<"DailyActivity"> | number
+    createdAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_date">
+
+  export type DailyActivityOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    wordsLearned?: SortOrder
+    wordsReviewed?: SortOrder
+    xpEarned?: SortOrder
+    streakCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DailyActivityCountOrderByAggregateInput
+    _avg?: DailyActivityAvgOrderByAggregateInput
+    _max?: DailyActivityMaxOrderByAggregateInput
+    _min?: DailyActivityMinOrderByAggregateInput
+    _sum?: DailyActivitySumOrderByAggregateInput
+  }
+
+  export type DailyActivityScalarWhereWithAggregatesInput = {
+    AND?: DailyActivityScalarWhereWithAggregatesInput | DailyActivityScalarWhereWithAggregatesInput[]
+    OR?: DailyActivityScalarWhereWithAggregatesInput[]
+    NOT?: DailyActivityScalarWhereWithAggregatesInput | DailyActivityScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DailyActivity"> | string
+    userId?: StringWithAggregatesFilter<"DailyActivity"> | string
+    date?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
+    wordsLearned?: IntWithAggregatesFilter<"DailyActivity"> | number
+    wordsReviewed?: IntWithAggregatesFilter<"DailyActivity"> | number
+    xpEarned?: IntWithAggregatesFilter<"DailyActivity"> | number
+    streakCount?: IntWithAggregatesFilter<"DailyActivity"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
+  }
+
   export type DictionaryWordWhereInput = {
     AND?: DictionaryWordWhereInput | DictionaryWordWhereInput[]
     OR?: DictionaryWordWhereInput[]
@@ -12511,6 +16196,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -12537,6 +16225,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -12562,6 +16253,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -12587,6 +16281,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -13213,6 +16910,187 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUniqueWordCreateInput = {
+    id?: string
+    word: string
+    firstLearnedAt?: Date | string
+    user: UserCreateNestedOneWithoutUniqueWordsLearnedInput
+  }
+
+  export type UserUniqueWordUncheckedCreateInput = {
+    id?: string
+    userId: string
+    word: string
+    firstLearnedAt?: Date | string
+  }
+
+  export type UserUniqueWordUpdateInput = {
+    word?: StringFieldUpdateOperationsInput | string
+    firstLearnedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUniqueWordsLearnedNestedInput
+  }
+
+  export type UserUniqueWordUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    firstLearnedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUniqueWordCreateManyInput = {
+    id?: string
+    userId: string
+    word: string
+    firstLearnedAt?: Date | string
+  }
+
+  export type UserUniqueWordUpdateManyMutationInput = {
+    word?: StringFieldUpdateOperationsInput | string
+    firstLearnedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUniqueWordUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    firstLearnedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type XPEventCreateInput = {
+    id?: string
+    eventType: string
+    xpAmount: number
+    metadata?: InputJsonValue | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutXpEventsInput
+  }
+
+  export type XPEventUncheckedCreateInput = {
+    id?: string
+    userId: string
+    eventType: string
+    xpAmount: number
+    metadata?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type XPEventUpdateInput = {
+    eventType?: StringFieldUpdateOperationsInput | string
+    xpAmount?: IntFieldUpdateOperationsInput | number
+    metadata?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutXpEventsNestedInput
+  }
+
+  export type XPEventUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    xpAmount?: IntFieldUpdateOperationsInput | number
+    metadata?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type XPEventCreateManyInput = {
+    id?: string
+    userId: string
+    eventType: string
+    xpAmount: number
+    metadata?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type XPEventUpdateManyMutationInput = {
+    eventType?: StringFieldUpdateOperationsInput | string
+    xpAmount?: IntFieldUpdateOperationsInput | number
+    metadata?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type XPEventUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    xpAmount?: IntFieldUpdateOperationsInput | number
+    metadata?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityCreateInput = {
+    id?: string
+    date: Date | string
+    wordsLearned?: number
+    wordsReviewed?: number
+    xpEarned?: number
+    streakCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDailyActivitiesInput
+  }
+
+  export type DailyActivityUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    wordsLearned?: number
+    wordsReviewed?: number
+    xpEarned?: number
+    streakCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wordsLearned?: IntFieldUpdateOperationsInput | number
+    wordsReviewed?: IntFieldUpdateOperationsInput | number
+    xpEarned?: IntFieldUpdateOperationsInput | number
+    streakCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDailyActivitiesNestedInput
+  }
+
+  export type DailyActivityUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wordsLearned?: IntFieldUpdateOperationsInput | number
+    wordsReviewed?: IntFieldUpdateOperationsInput | number
+    xpEarned?: IntFieldUpdateOperationsInput | number
+    streakCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityCreateManyInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    wordsLearned?: number
+    wordsReviewed?: number
+    xpEarned?: number
+    streakCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wordsLearned?: IntFieldUpdateOperationsInput | number
+    wordsReviewed?: IntFieldUpdateOperationsInput | number
+    xpEarned?: IntFieldUpdateOperationsInput | number
+    streakCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wordsLearned?: IntFieldUpdateOperationsInput | number
+    wordsReviewed?: IntFieldUpdateOperationsInput | number
+    xpEarned?: IntFieldUpdateOperationsInput | number
+    streakCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DictionaryWordCreateInput = {
     id?: string
     word: string
@@ -13420,6 +17298,24 @@ export namespace Prisma {
     none?: UserVocabularyProgressWhereInput
   }
 
+  export type UserUniqueWordListRelationFilter = {
+    every?: UserUniqueWordWhereInput
+    some?: UserUniqueWordWhereInput
+    none?: UserUniqueWordWhereInput
+  }
+
+  export type XPEventListRelationFilter = {
+    every?: XPEventWhereInput
+    some?: XPEventWhereInput
+    none?: XPEventWhereInput
+  }
+
+  export type DailyActivityListRelationFilter = {
+    every?: DailyActivityWhereInput
+    some?: DailyActivityWhereInput
+    none?: DailyActivityWhereInput
+  }
+
   export type RefreshTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -13441,6 +17337,18 @@ export namespace Prisma {
   }
 
   export type UserVocabularyProgressOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserUniqueWordOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type XPEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DailyActivityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14016,6 +17924,147 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type UserUniqueWordUserIdWordCompoundUniqueInput = {
+    userId: string
+    word: string
+  }
+
+  export type UserUniqueWordCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    word?: SortOrder
+    firstLearnedAt?: SortOrder
+  }
+
+  export type UserUniqueWordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    word?: SortOrder
+    firstLearnedAt?: SortOrder
+  }
+
+  export type UserUniqueWordMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    word?: SortOrder
+    firstLearnedAt?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    isSet?: boolean
+  }
+
+  export type XPEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    xpAmount?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type XPEventAvgOrderByAggregateInput = {
+    xpAmount?: SortOrder
+  }
+
+  export type XPEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    xpAmount?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type XPEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    xpAmount?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type XPEventSumOrderByAggregateInput = {
+    xpAmount?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type DailyActivityUserIdDateCompoundUniqueInput = {
+    userId: string
+    date: Date | string
+  }
+
+  export type DailyActivityCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    wordsLearned?: SortOrder
+    wordsReviewed?: SortOrder
+    xpEarned?: SortOrder
+    streakCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyActivityAvgOrderByAggregateInput = {
+    wordsLearned?: SortOrder
+    wordsReviewed?: SortOrder
+    xpEarned?: SortOrder
+    streakCount?: SortOrder
+  }
+
+  export type DailyActivityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    wordsLearned?: SortOrder
+    wordsReviewed?: SortOrder
+    xpEarned?: SortOrder
+    streakCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyActivityMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    wordsLearned?: SortOrder
+    wordsReviewed?: SortOrder
+    xpEarned?: SortOrder
+    streakCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyActivitySumOrderByAggregateInput = {
+    wordsLearned?: SortOrder
+    wordsReviewed?: SortOrder
+    xpEarned?: SortOrder
+    streakCount?: SortOrder
+  }
+
   export type DictionaryWordWordPartOfSpeechCompoundUniqueInput = {
     word: string
     partOfSpeech: $Enums.PartOfSpeech
@@ -14106,6 +18155,27 @@ export namespace Prisma {
     connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
   }
 
+  export type UserUniqueWordCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserUniqueWordCreateWithoutUserInput, UserUniqueWordUncheckedCreateWithoutUserInput> | UserUniqueWordCreateWithoutUserInput[] | UserUniqueWordUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserUniqueWordCreateOrConnectWithoutUserInput | UserUniqueWordCreateOrConnectWithoutUserInput[]
+    createMany?: UserUniqueWordCreateManyUserInputEnvelope
+    connect?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+  }
+
+  export type XPEventCreateNestedManyWithoutUserInput = {
+    create?: XOR<XPEventCreateWithoutUserInput, XPEventUncheckedCreateWithoutUserInput> | XPEventCreateWithoutUserInput[] | XPEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: XPEventCreateOrConnectWithoutUserInput | XPEventCreateOrConnectWithoutUserInput[]
+    createMany?: XPEventCreateManyUserInputEnvelope
+    connect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+  }
+
+  export type DailyActivityCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -14146,6 +18216,27 @@ export namespace Prisma {
     connectOrCreate?: UserVocabularyProgressCreateOrConnectWithoutUserInput | UserVocabularyProgressCreateOrConnectWithoutUserInput[]
     createMany?: UserVocabularyProgressCreateManyUserInputEnvelope
     connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
+  }
+
+  export type UserUniqueWordUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserUniqueWordCreateWithoutUserInput, UserUniqueWordUncheckedCreateWithoutUserInput> | UserUniqueWordCreateWithoutUserInput[] | UserUniqueWordUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserUniqueWordCreateOrConnectWithoutUserInput | UserUniqueWordCreateOrConnectWithoutUserInput[]
+    createMany?: UserUniqueWordCreateManyUserInputEnvelope
+    connect?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+  }
+
+  export type XPEventUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<XPEventCreateWithoutUserInput, XPEventUncheckedCreateWithoutUserInput> | XPEventCreateWithoutUserInput[] | XPEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: XPEventCreateOrConnectWithoutUserInput | XPEventCreateOrConnectWithoutUserInput[]
+    createMany?: XPEventCreateManyUserInputEnvelope
+    connect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+  }
+
+  export type DailyActivityUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -14262,6 +18353,48 @@ export namespace Prisma {
     deleteMany?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
   }
 
+  export type UserUniqueWordUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserUniqueWordCreateWithoutUserInput, UserUniqueWordUncheckedCreateWithoutUserInput> | UserUniqueWordCreateWithoutUserInput[] | UserUniqueWordUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserUniqueWordCreateOrConnectWithoutUserInput | UserUniqueWordCreateOrConnectWithoutUserInput[]
+    upsert?: UserUniqueWordUpsertWithWhereUniqueWithoutUserInput | UserUniqueWordUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserUniqueWordCreateManyUserInputEnvelope
+    set?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    disconnect?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    delete?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    connect?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    update?: UserUniqueWordUpdateWithWhereUniqueWithoutUserInput | UserUniqueWordUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserUniqueWordUpdateManyWithWhereWithoutUserInput | UserUniqueWordUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserUniqueWordScalarWhereInput | UserUniqueWordScalarWhereInput[]
+  }
+
+  export type XPEventUpdateManyWithoutUserNestedInput = {
+    create?: XOR<XPEventCreateWithoutUserInput, XPEventUncheckedCreateWithoutUserInput> | XPEventCreateWithoutUserInput[] | XPEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: XPEventCreateOrConnectWithoutUserInput | XPEventCreateOrConnectWithoutUserInput[]
+    upsert?: XPEventUpsertWithWhereUniqueWithoutUserInput | XPEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: XPEventCreateManyUserInputEnvelope
+    set?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    disconnect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    delete?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    connect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    update?: XPEventUpdateWithWhereUniqueWithoutUserInput | XPEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: XPEventUpdateManyWithWhereWithoutUserInput | XPEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: XPEventScalarWhereInput | XPEventScalarWhereInput[]
+  }
+
+  export type DailyActivityUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    upsert?: DailyActivityUpsertWithWhereUniqueWithoutUserInput | DailyActivityUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    set?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    disconnect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    delete?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    update?: DailyActivityUpdateWithWhereUniqueWithoutUserInput | DailyActivityUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyActivityUpdateManyWithWhereWithoutUserInput | DailyActivityUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -14344,6 +18477,48 @@ export namespace Prisma {
     update?: UserVocabularyProgressUpdateWithWhereUniqueWithoutUserInput | UserVocabularyProgressUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserVocabularyProgressUpdateManyWithWhereWithoutUserInput | UserVocabularyProgressUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserVocabularyProgressScalarWhereInput | UserVocabularyProgressScalarWhereInput[]
+  }
+
+  export type UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserUniqueWordCreateWithoutUserInput, UserUniqueWordUncheckedCreateWithoutUserInput> | UserUniqueWordCreateWithoutUserInput[] | UserUniqueWordUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserUniqueWordCreateOrConnectWithoutUserInput | UserUniqueWordCreateOrConnectWithoutUserInput[]
+    upsert?: UserUniqueWordUpsertWithWhereUniqueWithoutUserInput | UserUniqueWordUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserUniqueWordCreateManyUserInputEnvelope
+    set?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    disconnect?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    delete?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    connect?: UserUniqueWordWhereUniqueInput | UserUniqueWordWhereUniqueInput[]
+    update?: UserUniqueWordUpdateWithWhereUniqueWithoutUserInput | UserUniqueWordUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserUniqueWordUpdateManyWithWhereWithoutUserInput | UserUniqueWordUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserUniqueWordScalarWhereInput | UserUniqueWordScalarWhereInput[]
+  }
+
+  export type XPEventUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<XPEventCreateWithoutUserInput, XPEventUncheckedCreateWithoutUserInput> | XPEventCreateWithoutUserInput[] | XPEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: XPEventCreateOrConnectWithoutUserInput | XPEventCreateOrConnectWithoutUserInput[]
+    upsert?: XPEventUpsertWithWhereUniqueWithoutUserInput | XPEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: XPEventCreateManyUserInputEnvelope
+    set?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    disconnect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    delete?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    connect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
+    update?: XPEventUpdateWithWhereUniqueWithoutUserInput | XPEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: XPEventUpdateManyWithWhereWithoutUserInput | XPEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: XPEventScalarWhereInput | XPEventScalarWhereInput[]
+  }
+
+  export type DailyActivityUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    upsert?: DailyActivityUpsertWithWhereUniqueWithoutUserInput | DailyActivityUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    set?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    disconnect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    delete?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    update?: DailyActivityUpdateWithWhereUniqueWithoutUserInput | DailyActivityUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyActivityUpdateManyWithWhereWithoutUserInput | DailyActivityUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutTokensInput = {
@@ -14692,6 +18867,48 @@ export namespace Prisma {
     update?: XOR<XOR<VocabularyUpdateToOneWithWhereWithoutVocabularyProgressInput, VocabularyUpdateWithoutVocabularyProgressInput>, VocabularyUncheckedUpdateWithoutVocabularyProgressInput>
   }
 
+  export type UserCreateNestedOneWithoutUniqueWordsLearnedInput = {
+    create?: XOR<UserCreateWithoutUniqueWordsLearnedInput, UserUncheckedCreateWithoutUniqueWordsLearnedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUniqueWordsLearnedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUniqueWordsLearnedNestedInput = {
+    create?: XOR<UserCreateWithoutUniqueWordsLearnedInput, UserUncheckedCreateWithoutUniqueWordsLearnedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUniqueWordsLearnedInput
+    upsert?: UserUpsertWithoutUniqueWordsLearnedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUniqueWordsLearnedInput, UserUpdateWithoutUniqueWordsLearnedInput>, UserUncheckedUpdateWithoutUniqueWordsLearnedInput>
+  }
+
+  export type UserCreateNestedOneWithoutXpEventsInput = {
+    create?: XOR<UserCreateWithoutXpEventsInput, UserUncheckedCreateWithoutXpEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutXpEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutXpEventsNestedInput = {
+    create?: XOR<UserCreateWithoutXpEventsInput, UserUncheckedCreateWithoutXpEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutXpEventsInput
+    upsert?: UserUpsertWithoutXpEventsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutXpEventsInput, UserUpdateWithoutXpEventsInput>, UserUncheckedUpdateWithoutXpEventsInput>
+  }
+
+  export type UserCreateNestedOneWithoutDailyActivitiesInput = {
+    create?: XOR<UserCreateWithoutDailyActivitiesInput, UserUncheckedCreateWithoutDailyActivitiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyActivitiesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutDailyActivitiesNestedInput = {
+    create?: XOR<UserCreateWithoutDailyActivitiesInput, UserUncheckedCreateWithoutDailyActivitiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyActivitiesInput
+    upsert?: UserUpsertWithoutDailyActivitiesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyActivitiesInput, UserUpdateWithoutDailyActivitiesInput>, UserUncheckedUpdateWithoutDailyActivitiesInput>
+  }
+
   export type DictionaryWordCreatealternativePartOfSpeechInput = {
     set: $Enums.PartOfSpeech[]
   }
@@ -14946,6 +19163,18 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    isSet?: boolean
+  }
 
   export type RefreshTokenCreateWithoutUserInput = {
     id?: string
@@ -15147,6 +19376,83 @@ export namespace Prisma {
     data: UserVocabularyProgressCreateManyUserInput | UserVocabularyProgressCreateManyUserInput[]
   }
 
+  export type UserUniqueWordCreateWithoutUserInput = {
+    id?: string
+    word: string
+    firstLearnedAt?: Date | string
+  }
+
+  export type UserUniqueWordUncheckedCreateWithoutUserInput = {
+    id?: string
+    word: string
+    firstLearnedAt?: Date | string
+  }
+
+  export type UserUniqueWordCreateOrConnectWithoutUserInput = {
+    where: UserUniqueWordWhereUniqueInput
+    create: XOR<UserUniqueWordCreateWithoutUserInput, UserUniqueWordUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserUniqueWordCreateManyUserInputEnvelope = {
+    data: UserUniqueWordCreateManyUserInput | UserUniqueWordCreateManyUserInput[]
+  }
+
+  export type XPEventCreateWithoutUserInput = {
+    id?: string
+    eventType: string
+    xpAmount: number
+    metadata?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type XPEventUncheckedCreateWithoutUserInput = {
+    id?: string
+    eventType: string
+    xpAmount: number
+    metadata?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type XPEventCreateOrConnectWithoutUserInput = {
+    where: XPEventWhereUniqueInput
+    create: XOR<XPEventCreateWithoutUserInput, XPEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type XPEventCreateManyUserInputEnvelope = {
+    data: XPEventCreateManyUserInput | XPEventCreateManyUserInput[]
+  }
+
+  export type DailyActivityCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    wordsLearned?: number
+    wordsReviewed?: number
+    xpEarned?: number
+    streakCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    wordsLearned?: number
+    wordsReviewed?: number
+    xpEarned?: number
+    streakCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityCreateOrConnectWithoutUserInput = {
+    where: DailyActivityWhereUniqueInput
+    create: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyActivityCreateManyUserInputEnvelope = {
+    data: DailyActivityCreateManyUserInput | DailyActivityCreateManyUserInput[]
+  }
+
   export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: RefreshTokenWhereUniqueInput
     update: XOR<RefreshTokenUpdateWithoutUserInput, RefreshTokenUncheckedUpdateWithoutUserInput>
@@ -15336,6 +19642,91 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserVocabularyProgress"> | Date | string
   }
 
+  export type UserUniqueWordUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserUniqueWordWhereUniqueInput
+    update: XOR<UserUniqueWordUpdateWithoutUserInput, UserUniqueWordUncheckedUpdateWithoutUserInput>
+    create: XOR<UserUniqueWordCreateWithoutUserInput, UserUniqueWordUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserUniqueWordUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserUniqueWordWhereUniqueInput
+    data: XOR<UserUniqueWordUpdateWithoutUserInput, UserUniqueWordUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserUniqueWordUpdateManyWithWhereWithoutUserInput = {
+    where: UserUniqueWordScalarWhereInput
+    data: XOR<UserUniqueWordUpdateManyMutationInput, UserUniqueWordUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserUniqueWordScalarWhereInput = {
+    AND?: UserUniqueWordScalarWhereInput | UserUniqueWordScalarWhereInput[]
+    OR?: UserUniqueWordScalarWhereInput[]
+    NOT?: UserUniqueWordScalarWhereInput | UserUniqueWordScalarWhereInput[]
+    id?: StringFilter<"UserUniqueWord"> | string
+    userId?: StringFilter<"UserUniqueWord"> | string
+    word?: StringFilter<"UserUniqueWord"> | string
+    firstLearnedAt?: DateTimeFilter<"UserUniqueWord"> | Date | string
+  }
+
+  export type XPEventUpsertWithWhereUniqueWithoutUserInput = {
+    where: XPEventWhereUniqueInput
+    update: XOR<XPEventUpdateWithoutUserInput, XPEventUncheckedUpdateWithoutUserInput>
+    create: XOR<XPEventCreateWithoutUserInput, XPEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type XPEventUpdateWithWhereUniqueWithoutUserInput = {
+    where: XPEventWhereUniqueInput
+    data: XOR<XPEventUpdateWithoutUserInput, XPEventUncheckedUpdateWithoutUserInput>
+  }
+
+  export type XPEventUpdateManyWithWhereWithoutUserInput = {
+    where: XPEventScalarWhereInput
+    data: XOR<XPEventUpdateManyMutationInput, XPEventUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type XPEventScalarWhereInput = {
+    AND?: XPEventScalarWhereInput | XPEventScalarWhereInput[]
+    OR?: XPEventScalarWhereInput[]
+    NOT?: XPEventScalarWhereInput | XPEventScalarWhereInput[]
+    id?: StringFilter<"XPEvent"> | string
+    userId?: StringFilter<"XPEvent"> | string
+    eventType?: StringFilter<"XPEvent"> | string
+    xpAmount?: IntFilter<"XPEvent"> | number
+    metadata?: JsonNullableFilter<"XPEvent">
+    createdAt?: DateTimeFilter<"XPEvent"> | Date | string
+  }
+
+  export type DailyActivityUpsertWithWhereUniqueWithoutUserInput = {
+    where: DailyActivityWhereUniqueInput
+    update: XOR<DailyActivityUpdateWithoutUserInput, DailyActivityUncheckedUpdateWithoutUserInput>
+    create: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyActivityUpdateWithWhereUniqueWithoutUserInput = {
+    where: DailyActivityWhereUniqueInput
+    data: XOR<DailyActivityUpdateWithoutUserInput, DailyActivityUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DailyActivityUpdateManyWithWhereWithoutUserInput = {
+    where: DailyActivityScalarWhereInput
+    data: XOR<DailyActivityUpdateManyMutationInput, DailyActivityUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DailyActivityScalarWhereInput = {
+    AND?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+    OR?: DailyActivityScalarWhereInput[]
+    NOT?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+    id?: StringFilter<"DailyActivity"> | string
+    userId?: StringFilter<"DailyActivity"> | string
+    date?: DateTimeFilter<"DailyActivity"> | Date | string
+    wordsLearned?: IntFilter<"DailyActivity"> | number
+    wordsReviewed?: IntFilter<"DailyActivity"> | number
+    xpEarned?: IntFilter<"DailyActivity"> | number
+    streakCount?: IntFilter<"DailyActivity"> | number
+    createdAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyActivity"> | Date | string
+  }
+
   export type UserCreateWithoutTokensInput = {
     id?: string
     name: string
@@ -15359,6 +19750,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -15384,6 +19778,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -15424,6 +19821,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -15448,6 +19848,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutStudySetsInput = {
@@ -15473,6 +19876,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStudySetsInput = {
@@ -15498,6 +19904,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudySetsInput = {
@@ -15633,6 +20042,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudySetsInput = {
@@ -15657,6 +20069,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithoutStudySetsInput = {
@@ -15782,6 +20197,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVocabulariesInput = {
@@ -15807,6 +20225,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVocabulariesInput = {
@@ -15925,6 +20346,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVocabulariesInput = {
@@ -15949,6 +20373,9 @@ export namespace Prisma {
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserVocabularyProgressUpsertWithWhereUniqueWithoutVocabularyInput = {
@@ -16029,6 +20456,9 @@ export namespace Prisma {
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -16054,6 +20484,9 @@ export namespace Prisma {
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -16110,6 +20543,9 @@ export namespace Prisma {
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -16134,6 +20570,9 @@ export namespace Prisma {
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLikedStudySetsInput = {
@@ -16159,6 +20598,9 @@ export namespace Prisma {
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikedStudySetsInput = {
@@ -16184,6 +20626,9 @@ export namespace Prisma {
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikedStudySetsInput = {
@@ -16259,6 +20704,9 @@ export namespace Prisma {
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikedStudySetsInput = {
@@ -16283,6 +20731,9 @@ export namespace Prisma {
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StudySetUpsertWithoutLikedByInput = {
@@ -16347,6 +20798,9 @@ export namespace Prisma {
     studySets?: StudySetCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
     categories?: CategoryCreateNestedManyWithoutAuthorInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVocabularyProgressInput = {
@@ -16372,6 +20826,9 @@ export namespace Prisma {
     studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
     likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVocabularyProgressInput = {
@@ -16453,6 +20910,9 @@ export namespace Prisma {
     studySets?: StudySetUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVocabularyProgressInput = {
@@ -16477,6 +20937,9 @@ export namespace Prisma {
     studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
     likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VocabularyUpsertWithoutVocabularyProgressInput = {
@@ -16522,6 +20985,384 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studySetId?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserCreateWithoutUniqueWordsLearnedInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
+    categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUniqueWordsLearnedInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUniqueWordsLearnedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUniqueWordsLearnedInput, UserUncheckedCreateWithoutUniqueWordsLearnedInput>
+  }
+
+  export type UserUpsertWithoutUniqueWordsLearnedInput = {
+    update: XOR<UserUpdateWithoutUniqueWordsLearnedInput, UserUncheckedUpdateWithoutUniqueWordsLearnedInput>
+    create: XOR<UserCreateWithoutUniqueWordsLearnedInput, UserUncheckedCreateWithoutUniqueWordsLearnedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUniqueWordsLearnedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUniqueWordsLearnedInput, UserUncheckedUpdateWithoutUniqueWordsLearnedInput>
+  }
+
+  export type UserUpdateWithoutUniqueWordsLearnedInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
+    categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUniqueWordsLearnedInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutXpEventsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
+    categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutXpEventsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutXpEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutXpEventsInput, UserUncheckedCreateWithoutXpEventsInput>
+  }
+
+  export type UserUpsertWithoutXpEventsInput = {
+    update: XOR<UserUpdateWithoutXpEventsInput, UserUncheckedUpdateWithoutXpEventsInput>
+    create: XOR<UserCreateWithoutXpEventsInput, UserUncheckedCreateWithoutXpEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutXpEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutXpEventsInput, UserUncheckedUpdateWithoutXpEventsInput>
+  }
+
+  export type UserUpdateWithoutXpEventsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
+    categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutXpEventsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutDailyActivitiesInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
+    categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDailyActivitiesInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDailyActivitiesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDailyActivitiesInput, UserUncheckedCreateWithoutDailyActivitiesInput>
+  }
+
+  export type UserUpsertWithoutDailyActivitiesInput = {
+    update: XOR<UserUpdateWithoutDailyActivitiesInput, UserUncheckedUpdateWithoutDailyActivitiesInput>
+    create: XOR<UserCreateWithoutDailyActivitiesInput, UserUncheckedCreateWithoutDailyActivitiesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDailyActivitiesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDailyActivitiesInput, UserUncheckedUpdateWithoutDailyActivitiesInput>
+  }
+
+  export type UserUpdateWithoutDailyActivitiesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
+    categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDailyActivitiesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RefreshTokenCreateManyUserInput = {
@@ -16589,6 +21430,31 @@ export namespace Prisma {
     incorrectCount?: number
     easeFactor?: number
     interval?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUniqueWordCreateManyUserInput = {
+    id?: string
+    word: string
+    firstLearnedAt?: Date | string
+  }
+
+  export type XPEventCreateManyUserInput = {
+    id?: string
+    eventType: string
+    xpAmount: number
+    metadata?: InputJsonValue | null
+    createdAt?: Date | string
+  }
+
+  export type DailyActivityCreateManyUserInput = {
+    id?: string
+    date: Date | string
+    wordsLearned?: number
+    wordsReviewed?: number
+    xpEarned?: number
+    streakCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16786,6 +21652,72 @@ export namespace Prisma {
     incorrectCount?: IntFieldUpdateOperationsInput | number
     easeFactor?: FloatFieldUpdateOperationsInput | number
     interval?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUniqueWordUpdateWithoutUserInput = {
+    word?: StringFieldUpdateOperationsInput | string
+    firstLearnedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUniqueWordUncheckedUpdateWithoutUserInput = {
+    word?: StringFieldUpdateOperationsInput | string
+    firstLearnedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUniqueWordUncheckedUpdateManyWithoutUserInput = {
+    word?: StringFieldUpdateOperationsInput | string
+    firstLearnedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type XPEventUpdateWithoutUserInput = {
+    eventType?: StringFieldUpdateOperationsInput | string
+    xpAmount?: IntFieldUpdateOperationsInput | number
+    metadata?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type XPEventUncheckedUpdateWithoutUserInput = {
+    eventType?: StringFieldUpdateOperationsInput | string
+    xpAmount?: IntFieldUpdateOperationsInput | number
+    metadata?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type XPEventUncheckedUpdateManyWithoutUserInput = {
+    eventType?: StringFieldUpdateOperationsInput | string
+    xpAmount?: IntFieldUpdateOperationsInput | number
+    metadata?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUpdateWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wordsLearned?: IntFieldUpdateOperationsInput | number
+    wordsReviewed?: IntFieldUpdateOperationsInput | number
+    xpEarned?: IntFieldUpdateOperationsInput | number
+    streakCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUncheckedUpdateWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wordsLearned?: IntFieldUpdateOperationsInput | number
+    wordsReviewed?: IntFieldUpdateOperationsInput | number
+    xpEarned?: IntFieldUpdateOperationsInput | number
+    streakCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUncheckedUpdateManyWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wordsLearned?: IntFieldUpdateOperationsInput | number
+    wordsReviewed?: IntFieldUpdateOperationsInput | number
+    xpEarned?: IntFieldUpdateOperationsInput | number
+    streakCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

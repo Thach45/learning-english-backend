@@ -64,6 +64,13 @@ export class LearningRepo {
     });
   }
 
+  // Get vocabulary by ID
+  getVocabularyById(vocabularyId: string) {
+    return this.prisma.vocabulary.findUnique({
+      where: { id: vocabularyId }
+    });
+  }
+
   // Study Set Stats
   async getStudySetStats(studySetId: string, userId: string) {
     const now = new Date();
@@ -72,7 +79,7 @@ export class LearningRepo {
     const total = await this.prisma.vocabulary.count({
       where: { studySetId }
     });
-
+    
     // Get progress counts by status
     const learned = await this.prisma.userVocabularyProgress.count({
       where: {
@@ -102,9 +109,17 @@ export class LearningRepo {
       where: {
         userId,
         vocabulary: { studySetId },
-        status: 'review'
+    
       }
     });
+    const detail = await this.prisma.userVocabularyProgress.findMany({
+      where: {
+        userId,
+        vocabulary: { studySetId },
+      
+      }
+    });
+    console.log("detail", detail);
     return {
       total,
       learned,

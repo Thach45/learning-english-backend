@@ -43,6 +43,7 @@ export class LearningController {
     @ActiveUser() user: TokenPayload
   ) {
     const stats = await this.learningService.getStudySetStats(studySetId, user.userId);
+    console.log("stats", stats);
     return new StudySetStatsResponseDto(stats);
   }
 
