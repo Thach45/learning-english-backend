@@ -80,15 +80,16 @@ export class LearningRepo {
       where: { studySetId }
     });
     
-    // Get progress counts by status
-    const learned = await this.prisma.userVocabularyProgress.count({
+    // từng đã học trong study set này
+    const review = await this.prisma.userVocabularyProgress.count({
       where: {
         userId,
         vocabulary: { studySetId },
-        status: 'learned'
+        status: 'review' 
       }
     });
 
+    // từng đã học trong study set này và đã học xong
     const mastered = await this.prisma.userVocabularyProgress.count({
       where: {
         userId,
@@ -97,7 +98,7 @@ export class LearningRepo {
       }
     });
 
-    // Get count of words needing review
+    // từng cần học lại trong study set này
     const needReview = await this.prisma.userVocabularyProgress.count({
       where: {
         userId,
@@ -105,27 +106,25 @@ export class LearningRepo {
         nextReviewAt: { lte: now }
       }
     });
-    const allReview = await this.prisma.userVocabularyProgress.count({
+    const needReviewDetail = await this.prisma.userVocabularyProgress.findMany({
       where: {
         userId,
         vocabulary: { studySetId },
+        nextReviewAt: { lte: now }
+      }
+    });
+    console.log("needReviewDetail", needReviewDetail);
+
+    // tổng số từ đã học trong study set này
     
-      }
-    });
-    const detail = await this.prisma.userVocabularyProgress.findMany({
-      where: {
-        userId,
-        vocabulary: { studySetId },
-      
-      }
-    });
-    console.log("detail", detail);
+    
+  
     return {
       total,
-      learned,
+      review, // Thay đổi: learned -> review
       needReview,
       mastered,
-      allReview
+     
     };
   }
 }

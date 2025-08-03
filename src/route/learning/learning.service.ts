@@ -23,20 +23,28 @@ function calculateSR(progress, result: string) {
   } else {
     // fallback cho các giá trị khác (nếu có)
     interval = 1;
+    correctCount = 0;
   }
 
   const nextReviewAt = new Date();
   nextReviewAt.setDate(nextReviewAt.getDate() + interval);
 
-  // Logic chuyển trạng thái
+  // Logic chuyển trạng thái - cải thiện
   let status = progress.status;
+  
+  // Chuyển từ review sang mastered
   if (status === 'review' && correctCount >= 3 && interval >= 7) {
-    status = 'learned';
-  }
-  if (status === 'learned' && correctCount >= 5 && interval >= 30) {
     status = 'mastered';
   }
-  if (result === 'hard') {
+  
+  // Quay lại review nếu mastered mà trả lời hard
+  if (status === 'mastered' && result === 'hard') {
+    status = 'review';
+    correctCount = 0; // Reset correct count khi quay lại review
+  }
+  
+  // Đảm bảo từ mới bắt đầu với status 'review'
+  if (!progress.status) {
     status = 'review';
   }
 
@@ -75,21 +83,22 @@ export class LearningService {
   }
 
   async updateVocabularyProgress(userId: string, vocabId: string, result: string) {
-    let progress = await this.repo.getProgressList(userId, [vocabId]);
-    let updated;
-    
-    // Get vocabulary details for XP calculation
+    // Get vocabulary details first
     const vocabulary = await this.repo.getVocabularyById(vocabId);
     if (!vocabulary) {
       throw new NotFoundException('Vocabulary not found');
     }
 
+   
+    let progress = await this.repo.getProgressList(userId, [vocabId]);
+    let updated;
+    
     if (!progress || progress.length === 0) {
-      // Tạo mới progress
+      // Tạo mới progress cho từ chưa học trong study set này
       const base = {
         userId,
         vocabularyId: vocabId,
-        status: 'review',
+        status: 'review', // Bắt đầu với review
         lastReviewedAt: new Date(),
         nextReviewAt: undefined,
         reviewCount: 0,
@@ -104,18 +113,18 @@ export class LearningService {
         ...sr,
         nextReviewAt: sr.nextReviewAt,
         correctCount: sr.correctCount,
-        incorrectCount: result === 'incorrect' ? 1 : 0,
+        incorrectCount: result === 'hard' ? 1 : 0,
         status: sr.status,
       });
-      console.log("sr.statusdd", sr.status);
-      // Award XP for new word learned
+
       await this.gamificationService.awardXPForNewWord(
         userId, 
         vocabulary.word, 
         vocabulary.studySetId
       );
+      
     } else {
-      // Update progress
+      // Update progress cho từ đã học trong study set này
       const p = progress[0];
       const sr = calculateSR(p, result);
       updated = await this.repo.updateProgress(p.id, {
@@ -125,17 +134,17 @@ export class LearningService {
         easeFactor: sr.easeFactor,
         reviewCount: sr.reviewCount,
         correctCount: sr.correctCount,
-        incorrectCount: p.incorrectCount + (result === 'incorrect' ? 1 : 0),
+        incorrectCount: p.incorrectCount + (result === 'hard' ? 1 : 0),
         status: sr.status,
       });
 
-      // Award XP for reviewing word
+      // Award XP cho review
       await this.gamificationService.awardXPForReview(
         userId, 
         vocabulary.word, 
         vocabulary.studySetId
       );
-      console.log("sr.status", sr.status);
+      
       // Check if word is mastered
       if (sr.status === 'mastered' && p.status !== 'mastered') {
         await this.gamificationService.awardXPForMasteredWord(
@@ -156,10 +165,9 @@ export class LearningService {
   }
 
   async getUserProgress(userId: string): Promise<UserProgressDto> {
-    const [total, learned, review, mastered, sum] = await Promise.all([
+    const [total, review, mastered, sum] = await Promise.all([
       this.repo.countAllProgress(userId),
-      this.repo.countByStatus(userId, 'learned'),
-      this.repo.countByStatus(userId, 'review'),
+      this.repo.countByStatus(userId, 'review'), // Chỉ giữ review
       this.repo.countByStatus(userId, 'mastered'),
       this.repo.sumCorrectIncorrect(userId),
     ]);
@@ -168,8 +176,7 @@ export class LearningService {
     const accuracy = correct + incorrect > 0 ? Math.round((correct / (correct + incorrect)) * 100) : 0;
     return {
       total,
-      learned,
-      review,
+      review, // Thay đổi: learned -> review
       mastered,
       accuracy,
     };
@@ -254,6 +261,7 @@ export class LearningService {
       }));
     }
   }
+  
   async getStudySetStats(studySetId: string, userId: string): Promise<StudySetStatsDto> {
     return this.repo.getStudySetStats(studySetId, userId);
   }

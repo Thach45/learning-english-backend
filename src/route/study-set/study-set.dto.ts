@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { Type } from "class-transformer";
 import { IsArray, IsEnum, IsOptional, IsString, ValidateNested, IsNotEmpty, IsMongoId, IsBoolean } from "class-validator";
-import { PartOfSpeech } from "../vocabulary/vocabulary.dto";
+import { CefrLevel, PartOfSpeech } from 'src/types/vocabulary-shared.type';
 
 enum Level {
     BEGINNER = 'BEGINNER',
@@ -16,7 +16,7 @@ class VocabularyDto {
 
     @IsString()
     @IsOptional()
-    cefrLevel?: string;
+    cefrLevel?: CefrLevel;
 
     @IsEnum(PartOfSpeech)
     @IsOptional()

@@ -1,17 +1,5 @@
 import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-
-export enum PartOfSpeech {
-    NOUN = 'NOUN',
-    VERB = 'VERB',
-    ADJECTIVE = 'ADJECTIVE',
-    ADVERB = 'ADVERB',
-    PRONOUN = 'PRONOUN',
-    PREPOSITION = 'PREPOSITION',
-    CONJUNCTION = 'CONJUNCTION',
-    INTERJECTION = 'INTERJECTION',
-    DETERMINER = 'DETERMINER',
-    OTHER = 'OTHER'
-}
+import { CefrLevel, PartOfSpeech } from "src/types/vocabulary-shared.type";
 
 export class VocabularyResponseDto {
     @IsString()
@@ -42,9 +30,9 @@ export class VocabularyResponseDto {
     @IsString()
     audioUrl?: string;
 
-    @IsString()
+    @IsEnum(CefrLevel)
     @IsOptional()
-    cefrLevel?: string;
+    cefrLevel?: CefrLevel;
 
     @IsEnum(PartOfSpeech)
     @IsOptional()

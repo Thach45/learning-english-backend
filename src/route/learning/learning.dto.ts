@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsNumber, IsDate, IsBoolean, IsEnum } from 'class-validator';
-import { Level } from 'generated/prisma';
+import { CefrLevel, PartOfSpeech } from 'src/types/vocabulary-shared.type';
 
 export class ReviewVocabularyDto {
   @IsString()
@@ -25,12 +25,12 @@ export class ReviewVocabularyDto {
   audioUrl?: string;
   @IsString()
   status: string;
-  @IsString()
+  @IsEnum(PartOfSpeech)
   @IsOptional()
-  partOfSpeech?: string;
-  @IsString()
+  partOfSpeech?: PartOfSpeech;
+  @IsEnum(CefrLevel)
   @IsOptional()
-  cefrLevel?: string;
+  cefrLevel?: CefrLevel;
   @IsString()
   nextReviewAt?: string;
   @IsNumber()
@@ -61,8 +61,6 @@ export class UpdateProgressDto {
 export class UserProgressDto {
   @IsNumber()
   total: number;
-  @IsNumber()
-  learned: number;
   @IsNumber()
   review: number;
   @IsNumber()
@@ -104,7 +102,7 @@ export class StudySetStatsDto {
   total: number;
 
   @IsNumber()
-  learned: number;
+  review: number;
 
   @IsNumber()
   needReview: number;
@@ -112,8 +110,6 @@ export class StudySetStatsDto {
   @IsNumber()
   mastered: number;
 
-  @IsNumber()
-  allReview: number;
 }
 
 export class StudySetStatsResponseDto {
