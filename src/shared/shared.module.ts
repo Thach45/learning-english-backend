@@ -1,27 +1,29 @@
-import { Global, Module } from '@nestjs/common';
-import { PrismaService } from './service/prisma.service';
-import { HashingService } from './service/hashing.service';
-import { TokenService } from './service/token.service';
-import { JwtModule } from '@nestjs/jwt';
-import { ApiKeyGuard } from './guards/api-key.guard';
-import { AccessTokenGuard } from './guards/auth.guard';
-import { AuthenticationGuard } from './guards/authentication.guard';
-import { SendEmailService } from './service/send-email.service';
-import { SharedUserRepo } from './repo/shared-user';
+import { Global, Module } from "@nestjs/common";
+import { PrismaService } from "./service/prisma.service";
+import { HashingService } from "./service/hashing.service";
+import { TokenService } from "./service/token.service";
+import { JwtModule } from "@nestjs/jwt";
+import { ApiKeyGuard } from "./guards/api-key.guard";
+import { AccessTokenGuard } from "./guards/auth.guard";
+import { AuthenticationGuard } from "./guards/authentication.guard";
+import { SendEmailService } from "./service/send-email.service";
+import { SharedUserRepo } from "./repo/shared-user";
 
-const sharedServices = [PrismaService, 
-    HashingService, 
-    TokenService, 
-    SharedUserRepo,
-    ApiKeyGuard, 
-    SendEmailService, 
-    AccessTokenGuard, 
-    AuthenticationGuard, 
-    SharedUserRepo];
+const sharedServices = [
+  PrismaService,
+  HashingService,
+  TokenService,
+  SharedUserRepo,
+  ApiKeyGuard,
+  SendEmailService,
+  AccessTokenGuard,
+  AuthenticationGuard,
+  SharedUserRepo,
+];
 @Global()
 @Module({
-    providers: sharedServices,
-    exports: sharedServices,
-    imports: [JwtModule],
+  providers: sharedServices,
+  exports: sharedServices,
+  imports: [JwtModule],
 })
 export class SharedModule {}

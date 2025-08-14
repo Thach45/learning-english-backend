@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../shared/service/prisma.service';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../../shared/service/prisma.service";
 
 @Injectable()
 export class LearningRepo {
   constructor(private readonly prisma: PrismaService) {}
 
   async getVocabulariesByStudySet(studySetId: string) {
-    const vocabularies = await this.prisma.vocabulary.findMany({ where: { studySetId } });
+    const vocabularies = await this.prisma.vocabulary.findMany({
+      where: { studySetId },
+    });
     console.log("vocabularies", vocabularies);
     return vocabularies;
   }
@@ -28,7 +30,12 @@ export class LearningRepo {
     });
   }
 
-  getReviewVocabulary(userId: string, now: Date, limit: number, status?: string) {
+  getReviewVocabulary(
+    userId: string,
+    now: Date,
+    limit: number,
+    status?: string,
+  ) {
     const where: any = {
       userId,
       nextReviewAt: { lte: now },
@@ -36,7 +43,7 @@ export class LearningRepo {
     if (status) where.status = status;
     return this.prisma.userVocabularyProgress.findMany({
       where,
-      orderBy: { nextReviewAt: 'asc' },
+      orderBy: { nextReviewAt: "asc" },
       take: limit,
       include: { vocabulary: true },
     });
@@ -55,7 +62,9 @@ export class LearningRepo {
     return this.prisma.userVocabularyProgress.count({ where: { userId } });
   }
   countByStatus(userId: string, status: string) {
-    return this.prisma.userVocabularyProgress.count({ where: { userId, status } });
+    return this.prisma.userVocabularyProgress.count({
+      where: { userId, status },
+    });
   }
   sumCorrectIncorrect(userId: string) {
     return this.prisma.userVocabularyProgress.aggregate({
@@ -67,26 +76,26 @@ export class LearningRepo {
   // Get vocabulary by ID
   getVocabularyById(vocabularyId: string) {
     return this.prisma.vocabulary.findUnique({
-      where: { id: vocabularyId }
+      where: { id: vocabularyId },
     });
   }
 
   // Study Set Stats
   async getStudySetStats(studySetId: string, userId: string) {
     const now = new Date();
-    
+
     // Get total vocabulary count
     const total = await this.prisma.vocabulary.count({
-      where: { studySetId }
+      where: { studySetId },
     });
-    
+
     // từng đã học trong study set này
     const review = await this.prisma.userVocabularyProgress.count({
       where: {
         userId,
         vocabulary: { studySetId },
-        status: 'review' 
-      }
+        status: "review",
+      },
     });
 
     // từng đã học trong study set này và đã học xong
@@ -94,8 +103,8 @@ export class LearningRepo {
       where: {
         userId,
         vocabulary: { studySetId },
-        status: 'mastered'
-      }
+        status: "mastered",
+      },
     });
 
     // từng cần học lại trong study set này
@@ -103,28 +112,25 @@ export class LearningRepo {
       where: {
         userId,
         vocabulary: { studySetId },
-        nextReviewAt: { lte: now }
-      }
+        nextReviewAt: { lte: now },
+      },
     });
     const needReviewDetail = await this.prisma.userVocabularyProgress.findMany({
       where: {
         userId,
         vocabulary: { studySetId },
-        nextReviewAt: { lte: now }
-      }
+        nextReviewAt: { lte: now },
+      },
     });
     console.log("needReviewDetail", needReviewDetail);
 
     // tổng số từ đã học trong study set này
-    
-    
-  
+
     return {
       total,
       review, // Thay đổi: learned -> review
       needReview,
       mastered,
-     
     };
   }
 }

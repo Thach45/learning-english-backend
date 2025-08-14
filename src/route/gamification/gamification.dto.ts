@@ -1,4 +1,4 @@
-import { Expose, Transform } from 'class-transformer';
+import { Expose, Transform } from "class-transformer";
 
 export class GamificationStatsResponseDto {
   @Expose()
@@ -114,4 +114,4 @@ export class LevelUpResponseDto {
   constructor(partial: Partial<LevelUpResponseDto>) {
     Object.assign(this, partial);
   }
-} 
+}

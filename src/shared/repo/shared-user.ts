@@ -4,13 +4,12 @@ import { User } from "generated/prisma";
 
 @Injectable()
 export class SharedUserRepo {
-    constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-    async findUserByEmail(email: string): Promise<User | null> {
-        const user = await this.prisma.user.findUnique({
-            where: { email }
-        });
-        return user;
-    }
-    
+  async findUserByEmail(email: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    return user;
+  }
 }

@@ -1,59 +1,69 @@
-import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { CefrLevel, PartOfSpeech } from "src/types/vocabulary-shared.type";
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from "class-validator";
+import { CefrLevel, PartOfSpeech } from "generated/prisma";
+
 
 export class VocabularyResponseDto {
-    @IsString()
-    @IsNotEmpty()
-    word: string;
+  @IsString()
+  @IsNotEmpty()
+  word: string;
 
-    @IsString()
-    @IsOptional()
-    pronunciation?: string;
+  @IsString()
+  @IsOptional()
+  pronunciation?: string;
 
-    @IsString()
-    @IsNotEmpty()
-    meaning: string;
-    
-    @IsString()
-    @IsOptional()
-    definition?: string;
+  @IsString()
+  @IsNotEmpty()
+  meaning: string;
 
-    @IsString()
-    @IsOptional()
-    example?: string;
+  @IsString()
+  @IsOptional()
+  definition?: string;
 
-    @IsOptional()
-    @IsString()
-    imageUrl?: string;
+  @IsString()
+  @IsOptional()
+  example?: string;
 
-    @IsOptional()
-    @IsString()
-    audioUrl?: string;
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
 
-    @IsEnum(CefrLevel)
-    @IsOptional()
-    cefrLevel?: CefrLevel;
+  @IsOptional()
+  @IsString()
+  audioUrl?: string;
 
-    @IsEnum(PartOfSpeech)
-    @IsOptional()
-    partOfSpeech: PartOfSpeech = PartOfSpeech.OTHER;
+  @IsEnum(CefrLevel)
+  @IsOptional()
+  cefrLevel?: CefrLevel;
 
-    @IsArray()
-    @IsEnum(PartOfSpeech, { each: true })
-    @IsOptional()
-    alternativePartOfSpeech: PartOfSpeech[] = [];
+  @IsEnum(PartOfSpeech)
+  @IsOptional()
+  partOfSpeech: PartOfSpeech = PartOfSpeech.OTHER;
 
-    constructor(data: { word: string; meaning: string } & Partial<Omit<VocabularyResponseDto, 'word' | 'meaning'>>) {
-        this.word = data.word;
-        this.pronunciation = data.pronunciation;
-        this.meaning = data.meaning;
-        this.definition = data.definition;
-        this.example = data.example;
-        this.imageUrl = data.imageUrl;
-        this.audioUrl = data.audioUrl;
-        this.cefrLevel = data.cefrLevel;
-        this.partOfSpeech = data.partOfSpeech || PartOfSpeech.OTHER;
-        this.alternativePartOfSpeech = data.alternativePartOfSpeech || [];
-    }
+  @IsArray()
+  @IsEnum(PartOfSpeech, { each: true })
+  @IsOptional()
+  alternativePartOfSpeech: PartOfSpeech[] = [];
+
+  constructor(
+    data: { word: string; meaning: string } & Partial<
+      Omit<VocabularyResponseDto, "word" | "meaning">
+    >,
+  ) {
+    this.word = data.word;
+    this.pronunciation = data.pronunciation;
+    this.meaning = data.meaning;
+    this.definition = data.definition;
+    this.example = data.example;
+    this.imageUrl = data.imageUrl;
+    this.audioUrl = data.audioUrl;
+    this.cefrLevel = data.cefrLevel;
+    this.partOfSpeech = data.partOfSpeech || PartOfSpeech.OTHER;
+    this.alternativePartOfSpeech = data.alternativePartOfSpeech || [];
+  }
 }
-

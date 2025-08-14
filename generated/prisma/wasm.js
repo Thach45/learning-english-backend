@@ -275,6 +275,17 @@ exports.Level = exports.$Enums.Level = {
   ADVANCED: 'ADVANCED'
 };
 
+exports.CefrLevel = exports.$Enums.CefrLevel = {
+  A1: 'A1',
+  A2: 'A2',
+  B1: 'B1',
+  B2: 'B2',
+  C1: 'C1',
+  C2: 'C2',
+  UNKNOWN: 'UNKNOWN',
+  OTHER: 'OTHER'
+};
+
 exports.PartOfSpeech = exports.$Enums.PartOfSpeech = {
   NOUN: 'NOUN',
   VERB: 'VERB',

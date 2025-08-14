@@ -1,6 +1,6 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/shared/service/prisma.service';
-import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { PrismaService } from "src/shared/service/prisma.service";
+import { CreateCategoryDto, UpdateCategoryDto } from "./category.dto";
 
 @Injectable()
 export class CategoryService {
@@ -13,7 +13,6 @@ export class CategoryService {
         author: {
           connect: { id: userId },
         },
-        
       },
     });
   }
@@ -22,10 +21,10 @@ export class CategoryService {
     try {
       return this.prisma.category.findMany({
         where: { authorId: userId },
-        include: { _count: { select: { studySets: true } } }
+        include: { _count: { select: { studySets: true } } },
       });
     } catch (error) {
-      throw new BadRequestException('Failed to get categories');
+      throw new BadRequestException("Failed to get categories");
     }
   }
 
@@ -35,7 +34,7 @@ export class CategoryService {
         where: { id },
       });
     } catch (error) {
-      throw new BadRequestException('Failed to get category');
+      throw new BadRequestException("Failed to get category");
     }
   }
 
@@ -46,7 +45,7 @@ export class CategoryService {
         data: updateCategoryDto,
       });
     } catch (error) {
-      throw new BadRequestException('Failed to update category');
+      throw new BadRequestException("Failed to update category");
     }
   }
 
@@ -56,7 +55,7 @@ export class CategoryService {
         where: { id },
       });
     } catch (error) {
-      throw new BadRequestException('Failed to delete category');
+      throw new BadRequestException("Failed to delete category");
     }
   }
 }

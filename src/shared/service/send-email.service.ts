@@ -1,26 +1,29 @@
-import { Injectable } from '@nestjs/common';
-import { generateTemplate } from '../helper/template-email';
+import { Injectable } from "@nestjs/common";
+import { generateTemplate } from "../helper/template-email";
 
 @Injectable()
 export class SendEmailService {
-
   async sendOtpEmail({
     recipientEmail,
-    otp
+    otp,
   }: {
-    recipientEmail: string,
-    otp : string,
+    recipientEmail: string;
+    otp: string;
   }) {
     const url = `${process.env.URL_EMAIL}/api/email/send`;
-    const content = generateTemplate(otp, "Vocab", "123 Nguyen Van Linh, Q9, TP.HCM");
+    const content = generateTemplate(
+      otp,
+      "Vocab",
+      "123 Nguyen Van Linh, Q9, TP.HCM",
+    );
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         recipientEmail,
-        content
+        content,
       }),
     });
     const data = await response.json();

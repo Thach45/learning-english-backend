@@ -1,5 +1,13 @@
-import { IsString, IsOptional, IsNumber, IsDate, IsBoolean, IsEnum } from 'class-validator';
-import { CefrLevel, PartOfSpeech } from 'src/types/vocabulary-shared.type';
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsDate,
+  IsBoolean,
+  IsEnum,
+} from "class-validator";
+import { CefrLevel, PartOfSpeech } from "generated/prisma";
+
 
 export class ReviewVocabularyDto {
   @IsString()
@@ -45,11 +53,11 @@ export class ReviewVocabularyDto {
   interval: number;
 }
 export class ReviewVocabularyListResponseDto {
-    data: ReviewVocabularyDto[];
-    constructor(data: ReviewVocabularyDto[]) {
-      this.data = data;
-    }
+  data: ReviewVocabularyDto[];
+  constructor(data: ReviewVocabularyDto[]) {
+    this.data = data;
   }
+}
 
 export class UpdateProgressDto {
   @IsString()
@@ -92,7 +100,7 @@ export class UpdateVocabularyProgressResponseDto {
   ok: boolean;
   @IsString()
   message: string;
-  constructor(data: { ok: boolean, message: string}) {
+  constructor(data: { ok: boolean; message: string }) {
     Object.assign(this, data);
   }
 }
@@ -109,7 +117,6 @@ export class StudySetStatsDto {
 
   @IsNumber()
   mastered: number;
-
 }
 
 export class StudySetStatsResponseDto {
@@ -122,5 +129,4 @@ export class StudySetStatsResponseDto {
 export class GetVocabularyQueryDto {
   @IsString()
   mode: string;
-  
 }

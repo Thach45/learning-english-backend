@@ -110,6 +110,20 @@ export const PartOfSpeech: {
 
 export type PartOfSpeech = (typeof PartOfSpeech)[keyof typeof PartOfSpeech]
 
+
+export const CefrLevel: {
+  A1: 'A1',
+  A2: 'A2',
+  B1: 'B1',
+  B2: 'B2',
+  C1: 'C1',
+  C2: 'C2',
+  UNKNOWN: 'UNKNOWN',
+  OTHER: 'OTHER'
+};
+
+export type CefrLevel = (typeof CefrLevel)[keyof typeof CefrLevel]
+
 }
 
 export type Level = $Enums.Level
@@ -123,6 +137,10 @@ export const VerificationType: typeof $Enums.VerificationType
 export type PartOfSpeech = $Enums.PartOfSpeech
 
 export const PartOfSpeech: typeof $Enums.PartOfSpeech
+
+export type CefrLevel = $Enums.CefrLevel
+
+export const CefrLevel: typeof $Enums.CefrLevel
 
 /**
  * ##  Prisma Client ʲˢ
@@ -5624,7 +5642,7 @@ export namespace Prisma {
     example: string | null
     imageUrl: string | null
     audioUrl: string | null
-    cefrLevel: string | null
+    cefrLevel: $Enums.CefrLevel | null
     partOfSpeech: $Enums.PartOfSpeech | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5641,7 +5659,7 @@ export namespace Prisma {
     example: string | null
     imageUrl: string | null
     audioUrl: string | null
-    cefrLevel: string | null
+    cefrLevel: $Enums.CefrLevel | null
     partOfSpeech: $Enums.PartOfSpeech | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5803,8 +5821,8 @@ export namespace Prisma {
     example: string | null
     imageUrl: string | null
     audioUrl: string | null
-    cefrLevel: string | null
-    partOfSpeech: $Enums.PartOfSpeech
+    cefrLevel: $Enums.CefrLevel | null
+    partOfSpeech: $Enums.PartOfSpeech | null
     alternativePartOfSpeech: $Enums.PartOfSpeech[]
     createdAt: Date
     updatedAt: Date
@@ -5895,8 +5913,8 @@ export namespace Prisma {
       example: string | null
       imageUrl: string | null
       audioUrl: string | null
-      cefrLevel: string | null
-      partOfSpeech: $Enums.PartOfSpeech
+      cefrLevel: $Enums.CefrLevel | null
+      partOfSpeech: $Enums.PartOfSpeech | null
       alternativePartOfSpeech: $Enums.PartOfSpeech[]
       createdAt: Date
       updatedAt: Date
@@ -6305,7 +6323,7 @@ export namespace Prisma {
     readonly example: FieldRef<"Vocabulary", 'String'>
     readonly imageUrl: FieldRef<"Vocabulary", 'String'>
     readonly audioUrl: FieldRef<"Vocabulary", 'String'>
-    readonly cefrLevel: FieldRef<"Vocabulary", 'String'>
+    readonly cefrLevel: FieldRef<"Vocabulary", 'CefrLevel'>
     readonly partOfSpeech: FieldRef<"Vocabulary", 'PartOfSpeech'>
     readonly alternativePartOfSpeech: FieldRef<"Vocabulary", 'PartOfSpeech[]'>
     readonly createdAt: FieldRef<"Vocabulary", 'DateTime'>
@@ -13888,7 +13906,7 @@ export namespace Prisma {
     definition: string | null
     example: string | null
     audioUrl: string | null
-    cefrLevel: string | null
+    cefrLevel: $Enums.CefrLevel | null
     partOfSpeech: $Enums.PartOfSpeech | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -13902,7 +13920,7 @@ export namespace Prisma {
     definition: string | null
     example: string | null
     audioUrl: string | null
-    cefrLevel: string | null
+    cefrLevel: $Enums.CefrLevel | null
     partOfSpeech: $Enums.PartOfSpeech | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -14049,8 +14067,8 @@ export namespace Prisma {
     definition: string | null
     example: string | null
     audioUrl: string | null
-    cefrLevel: string | null
-    partOfSpeech: $Enums.PartOfSpeech
+    cefrLevel: $Enums.CefrLevel | null
+    partOfSpeech: $Enums.PartOfSpeech | null
     alternativePartOfSpeech: $Enums.PartOfSpeech[]
     createdAt: Date
     updatedAt: Date
@@ -14118,8 +14136,8 @@ export namespace Prisma {
       definition: string | null
       example: string | null
       audioUrl: string | null
-      cefrLevel: string | null
-      partOfSpeech: $Enums.PartOfSpeech
+      cefrLevel: $Enums.CefrLevel | null
+      partOfSpeech: $Enums.PartOfSpeech | null
       alternativePartOfSpeech: $Enums.PartOfSpeech[]
       createdAt: Date
       updatedAt: Date
@@ -14522,7 +14540,7 @@ export namespace Prisma {
     readonly definition: FieldRef<"DictionaryWord", 'String'>
     readonly example: FieldRef<"DictionaryWord", 'String'>
     readonly audioUrl: FieldRef<"DictionaryWord", 'String'>
-    readonly cefrLevel: FieldRef<"DictionaryWord", 'String'>
+    readonly cefrLevel: FieldRef<"DictionaryWord", 'CefrLevel'>
     readonly partOfSpeech: FieldRef<"DictionaryWord", 'PartOfSpeech'>
     readonly alternativePartOfSpeech: FieldRef<"DictionaryWord", 'PartOfSpeech[]'>
     readonly createdAt: FieldRef<"DictionaryWord", 'DateTime'>
@@ -15147,6 +15165,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CefrLevel'
+   */
+  export type EnumCefrLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CefrLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'CefrLevel[]'
+   */
+  export type ListEnumCefrLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CefrLevel[]'>
+    
+
+
+  /**
    * Reference to a field of type 'PartOfSpeech'
    */
   export type EnumPartOfSpeechFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PartOfSpeech'>
@@ -15502,8 +15534,8 @@ export namespace Prisma {
     example?: StringNullableFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableFilter<"Vocabulary"> | string | null
-    cefrLevel?: StringNullableFilter<"Vocabulary"> | string | null
-    partOfSpeech?: EnumPartOfSpeechFilter<"Vocabulary"> | $Enums.PartOfSpeech
+    cefrLevel?: EnumCefrLevelNullableFilter<"Vocabulary"> | $Enums.CefrLevel | null
+    partOfSpeech?: EnumPartOfSpeechNullableFilter<"Vocabulary"> | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: EnumPartOfSpeechNullableListFilter<"Vocabulary">
     createdAt?: DateTimeFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeFilter<"Vocabulary"> | Date | string
@@ -15548,8 +15580,8 @@ export namespace Prisma {
     example?: StringNullableFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableFilter<"Vocabulary"> | string | null
-    cefrLevel?: StringNullableFilter<"Vocabulary"> | string | null
-    partOfSpeech?: EnumPartOfSpeechFilter<"Vocabulary"> | $Enums.PartOfSpeech
+    cefrLevel?: EnumCefrLevelNullableFilter<"Vocabulary"> | $Enums.CefrLevel | null
+    partOfSpeech?: EnumPartOfSpeechNullableFilter<"Vocabulary"> | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: EnumPartOfSpeechNullableListFilter<"Vocabulary">
     createdAt?: DateTimeFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeFilter<"Vocabulary"> | Date | string
@@ -15593,8 +15625,8 @@ export namespace Prisma {
     example?: StringNullableWithAggregatesFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableWithAggregatesFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableWithAggregatesFilter<"Vocabulary"> | string | null
-    cefrLevel?: StringNullableWithAggregatesFilter<"Vocabulary"> | string | null
-    partOfSpeech?: EnumPartOfSpeechWithAggregatesFilter<"Vocabulary"> | $Enums.PartOfSpeech
+    cefrLevel?: EnumCefrLevelNullableWithAggregatesFilter<"Vocabulary"> | $Enums.CefrLevel | null
+    partOfSpeech?: EnumPartOfSpeechNullableWithAggregatesFilter<"Vocabulary"> | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: EnumPartOfSpeechNullableListFilter<"Vocabulary">
     createdAt?: DateTimeWithAggregatesFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Vocabulary"> | Date | string
@@ -16095,8 +16127,8 @@ export namespace Prisma {
     definition?: StringNullableFilter<"DictionaryWord"> | string | null
     example?: StringNullableFilter<"DictionaryWord"> | string | null
     audioUrl?: StringNullableFilter<"DictionaryWord"> | string | null
-    cefrLevel?: StringNullableFilter<"DictionaryWord"> | string | null
-    partOfSpeech?: EnumPartOfSpeechFilter<"DictionaryWord"> | $Enums.PartOfSpeech
+    cefrLevel?: EnumCefrLevelNullableFilter<"DictionaryWord"> | $Enums.CefrLevel | null
+    partOfSpeech?: EnumPartOfSpeechNullableFilter<"DictionaryWord"> | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: EnumPartOfSpeechNullableListFilter<"DictionaryWord">
     createdAt?: DateTimeFilter<"DictionaryWord"> | Date | string
     updatedAt?: DateTimeFilter<"DictionaryWord"> | Date | string
@@ -16129,8 +16161,8 @@ export namespace Prisma {
     definition?: StringNullableFilter<"DictionaryWord"> | string | null
     example?: StringNullableFilter<"DictionaryWord"> | string | null
     audioUrl?: StringNullableFilter<"DictionaryWord"> | string | null
-    cefrLevel?: StringNullableFilter<"DictionaryWord"> | string | null
-    partOfSpeech?: EnumPartOfSpeechFilter<"DictionaryWord"> | $Enums.PartOfSpeech
+    cefrLevel?: EnumCefrLevelNullableFilter<"DictionaryWord"> | $Enums.CefrLevel | null
+    partOfSpeech?: EnumPartOfSpeechNullableFilter<"DictionaryWord"> | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: EnumPartOfSpeechNullableListFilter<"DictionaryWord">
     createdAt?: DateTimeFilter<"DictionaryWord"> | Date | string
     updatedAt?: DateTimeFilter<"DictionaryWord"> | Date | string
@@ -16165,8 +16197,8 @@ export namespace Prisma {
     definition?: StringNullableWithAggregatesFilter<"DictionaryWord"> | string | null
     example?: StringNullableWithAggregatesFilter<"DictionaryWord"> | string | null
     audioUrl?: StringNullableWithAggregatesFilter<"DictionaryWord"> | string | null
-    cefrLevel?: StringNullableWithAggregatesFilter<"DictionaryWord"> | string | null
-    partOfSpeech?: EnumPartOfSpeechWithAggregatesFilter<"DictionaryWord"> | $Enums.PartOfSpeech
+    cefrLevel?: EnumCefrLevelNullableWithAggregatesFilter<"DictionaryWord"> | $Enums.CefrLevel | null
+    partOfSpeech?: EnumPartOfSpeechNullableWithAggregatesFilter<"DictionaryWord"> | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: EnumPartOfSpeechNullableListFilter<"DictionaryWord">
     createdAt?: DateTimeWithAggregatesFilter<"DictionaryWord"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"DictionaryWord"> | Date | string
@@ -16504,8 +16536,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16523,8 +16555,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16541,8 +16573,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16559,8 +16591,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16578,8 +16610,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16595,8 +16627,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16610,8 +16642,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17099,8 +17131,8 @@ export namespace Prisma {
     definition?: string | null
     example?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: DictionaryWordCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17114,8 +17146,8 @@ export namespace Prisma {
     definition?: string | null
     example?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: DictionaryWordCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17128,8 +17160,8 @@ export namespace Prisma {
     definition?: NullableStringFieldUpdateOperationsInput | string | null
     example?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: DictionaryWordUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17142,8 +17174,8 @@ export namespace Prisma {
     definition?: NullableStringFieldUpdateOperationsInput | string | null
     example?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: DictionaryWordUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17157,8 +17189,8 @@ export namespace Prisma {
     definition?: string | null
     example?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: DictionaryWordCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17171,8 +17203,8 @@ export namespace Prisma {
     definition?: NullableStringFieldUpdateOperationsInput | string | null
     example?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: DictionaryWordUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17185,8 +17217,8 @@ export namespace Prisma {
     definition?: NullableStringFieldUpdateOperationsInput | string | null
     example?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: DictionaryWordUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17625,11 +17657,20 @@ export namespace Prisma {
     _max?: NestedEnumLevelFilter<$PrismaModel>
   }
 
-  export type EnumPartOfSpeechFilter<$PrismaModel = never> = {
-    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
-    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    not?: NestedEnumPartOfSpeechFilter<$PrismaModel> | $Enums.PartOfSpeech
+  export type EnumCefrLevelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.CefrLevel | EnumCefrLevelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCefrLevelNullableFilter<$PrismaModel> | $Enums.CefrLevel | null
+    isSet?: boolean
+  }
+
+  export type EnumPartOfSpeechNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPartOfSpeechNullableFilter<$PrismaModel> | $Enums.PartOfSpeech | null
+    isSet?: boolean
   }
 
   export type EnumPartOfSpeechNullableListFilter<$PrismaModel = never> = {
@@ -17702,14 +17743,26 @@ export namespace Prisma {
     createdById?: SortOrder
   }
 
-  export type EnumPartOfSpeechWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
-    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    not?: NestedEnumPartOfSpeechWithAggregatesFilter<$PrismaModel> | $Enums.PartOfSpeech
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPartOfSpeechFilter<$PrismaModel>
-    _max?: NestedEnumPartOfSpeechFilter<$PrismaModel>
+  export type EnumCefrLevelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CefrLevel | EnumCefrLevelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCefrLevelNullableWithAggregatesFilter<$PrismaModel> | $Enums.CefrLevel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumCefrLevelNullableFilter<$PrismaModel>
+    _max?: NestedEnumCefrLevelNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type EnumPartOfSpeechNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPartOfSpeechNullableWithAggregatesFilter<$PrismaModel> | $Enums.PartOfSpeech | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPartOfSpeechNullableFilter<$PrismaModel>
+    _max?: NestedEnumPartOfSpeechNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type CategoryNameAuthorIdCompoundUniqueInput = {
@@ -18690,8 +18743,14 @@ export namespace Prisma {
     connect?: UserVocabularyProgressWhereUniqueInput | UserVocabularyProgressWhereUniqueInput[]
   }
 
-  export type EnumPartOfSpeechFieldUpdateOperationsInput = {
-    set?: $Enums.PartOfSpeech
+  export type NullableEnumCefrLevelFieldUpdateOperationsInput = {
+    set?: $Enums.CefrLevel | null
+    unset?: boolean
+  }
+
+  export type NullableEnumPartOfSpeechFieldUpdateOperationsInput = {
+    set?: $Enums.PartOfSpeech | null
+    unset?: boolean
   }
 
   export type VocabularyUpdatealternativePartOfSpeechInput = {
@@ -19114,21 +19173,42 @@ export namespace Prisma {
     _max?: NestedEnumLevelFilter<$PrismaModel>
   }
 
-  export type NestedEnumPartOfSpeechFilter<$PrismaModel = never> = {
-    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
-    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    not?: NestedEnumPartOfSpeechFilter<$PrismaModel> | $Enums.PartOfSpeech
+  export type NestedEnumCefrLevelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.CefrLevel | EnumCefrLevelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCefrLevelNullableFilter<$PrismaModel> | $Enums.CefrLevel | null
+    isSet?: boolean
   }
 
-  export type NestedEnumPartOfSpeechWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel>
-    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel>
-    not?: NestedEnumPartOfSpeechWithAggregatesFilter<$PrismaModel> | $Enums.PartOfSpeech
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPartOfSpeechFilter<$PrismaModel>
-    _max?: NestedEnumPartOfSpeechFilter<$PrismaModel>
+  export type NestedEnumPartOfSpeechNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPartOfSpeechNullableFilter<$PrismaModel> | $Enums.PartOfSpeech | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumCefrLevelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CefrLevel | EnumCefrLevelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CefrLevel[] | ListEnumCefrLevelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCefrLevelNullableWithAggregatesFilter<$PrismaModel> | $Enums.CefrLevel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumCefrLevelNullableFilter<$PrismaModel>
+    _max?: NestedEnumCefrLevelNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedEnumPartOfSpeechNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PartOfSpeech | EnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PartOfSpeech[] | ListEnumPartOfSpeechFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPartOfSpeechNullableWithAggregatesFilter<$PrismaModel> | $Enums.PartOfSpeech | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPartOfSpeechNullableFilter<$PrismaModel>
+    _max?: NestedEnumPartOfSpeechNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type NestedEnumVerificationTypeFilter<$PrismaModel = never> = {
@@ -19208,8 +19288,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19226,8 +19306,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19508,8 +19588,8 @@ export namespace Prisma {
     example?: StringNullableFilter<"Vocabulary"> | string | null
     imageUrl?: StringNullableFilter<"Vocabulary"> | string | null
     audioUrl?: StringNullableFilter<"Vocabulary"> | string | null
-    cefrLevel?: StringNullableFilter<"Vocabulary"> | string | null
-    partOfSpeech?: EnumPartOfSpeechFilter<"Vocabulary"> | $Enums.PartOfSpeech
+    cefrLevel?: EnumCefrLevelNullableFilter<"Vocabulary"> | $Enums.CefrLevel | null
+    partOfSpeech?: EnumPartOfSpeechNullableFilter<"Vocabulary"> | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: EnumPartOfSpeechNullableListFilter<"Vocabulary">
     createdAt?: DateTimeFilter<"Vocabulary"> | Date | string
     updatedAt?: DateTimeFilter<"Vocabulary"> | Date | string
@@ -19952,8 +20032,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19970,8 +20050,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20845,8 +20925,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20863,8 +20943,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20961,8 +21041,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20978,8 +21058,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21381,8 +21461,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -21485,8 +21565,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21502,8 +21582,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21519,8 +21599,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21731,8 +21811,8 @@ export namespace Prisma {
     example?: string | null
     imageUrl?: string | null
     audioUrl?: string | null
-    cefrLevel?: string | null
-    partOfSpeech?: $Enums.PartOfSpeech
+    cefrLevel?: $Enums.CefrLevel | null
+    partOfSpeech?: $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyCreatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -21753,8 +21833,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21770,8 +21850,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21787,8 +21867,8 @@ export namespace Prisma {
     example?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     audioUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    cefrLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    partOfSpeech?: EnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech
+    cefrLevel?: NullableEnumCefrLevelFieldUpdateOperationsInput | $Enums.CefrLevel | null
+    partOfSpeech?: NullableEnumPartOfSpeechFieldUpdateOperationsInput | $Enums.PartOfSpeech | null
     alternativePartOfSpeech?: VocabularyUpdatealternativePartOfSpeechInput | $Enums.PartOfSpeech[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

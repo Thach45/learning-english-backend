@@ -1,5 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { TranslateService } from './translate.service';
+import { Body, Controller, Post } from "@nestjs/common";
+import { TranslateService } from "./translate.service";
 
 interface TranslateRequest {
   text: string;
@@ -7,7 +7,7 @@ interface TranslateRequest {
   to: string;
 }
 
-@Controller('translate')
+@Controller("translate")
 export class TranslateController {
   constructor(private readonly translateService: TranslateService) {}
 
@@ -16,4 +16,4 @@ export class TranslateController {
     const result = await this.translateService.translate(text, from, to);
     return { text: result };
   }
-} 
+}

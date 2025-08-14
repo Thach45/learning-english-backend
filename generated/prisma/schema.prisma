@@ -82,8 +82,8 @@ model Vocabulary {
   example                 String?        @db.String
   imageUrl                String?        @map("image_url") @db.String
   audioUrl                String?        @map("audio_url") @db.String
-  cefrLevel               String?        @map("cefr_level") @db.String
-  partOfSpeech            PartOfSpeech   @default(OTHER) @map("part_of_speech")
+  cefrLevel               CefrLevel?     @map("cefr_level")
+  partOfSpeech            PartOfSpeech?  @map("part_of_speech")
   alternativePartOfSpeech PartOfSpeech[] @default([]) @map("alternative_part_of_speech")
   createdAt               DateTime       @default(now()) @map("created_at")
   updatedAt               DateTime       @updatedAt @map("updated_at")
@@ -216,8 +216,8 @@ model DictionaryWord {
   definition              String?        @db.String // tiếng Anh
   example                 String?        @db.String
   audioUrl                String?        @map("audio_url") @db.String
-  cefrLevel               String?        @map("cefr_level") @db.String
-  partOfSpeech            PartOfSpeech   @map("part_of_speech")
+  cefrLevel               CefrLevel?     @map("cefr_level")
+  partOfSpeech            PartOfSpeech?  @map("part_of_speech")
   alternativePartOfSpeech PartOfSpeech[] @default([]) @map("alternative_part_of_speech")
   createdAt               DateTime       @default(now()) @map("created_at")
   updatedAt               DateTime       @updatedAt @map("updated_at")
@@ -247,5 +247,16 @@ enum PartOfSpeech {
   CONJUNCTION
   INTERJECTION
   DETERMINER
+  OTHER
+}
+
+enum CefrLevel {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+  UNKNOWN
   OTHER
 }

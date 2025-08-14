@@ -38,7 +38,7 @@ export class StudySetService {
     category?: string,
     search?: string,
     pageStr?: string,
-    pageSizeStr?: string
+    pageSizeStr?: string,
   ) {
     const where: Prisma.StudySetWhereInput = {};
 
@@ -57,7 +57,7 @@ export class StudySetService {
     const page = Math.max(1, parseInt(pageStr || "1", 10));
     const pageSize = Math.max(
       1,
-      Math.min(50, parseInt(pageSizeStr || "6", 10))
+      Math.min(50, parseInt(pageSizeStr || "6", 10)),
     ); // default 12/page, max 50
     const skip = (page - 1) * pageSize;
 
@@ -167,7 +167,7 @@ export class StudySetService {
   async addVocabulary(
     studySetId: string,
     vocabDto: AddVocabularyDto,
-    userId: string
+    userId: string,
   ) {
     if (!vocabDto.word || typeof vocabDto.word !== "string") {
       throw new BadRequestException("Từ vựng không hợp lệ");
@@ -216,7 +216,7 @@ export class StudySetService {
     studySetId: string,
     vocabularyId: string,
     vocabDto: UpdateVocabularyDto,
-    userId: string
+    userId: string,
   ) {
     // Check if the user is the author of the study set
     const studySet = await this.prisma.studySet.findUnique({
@@ -241,7 +241,7 @@ export class StudySetService {
   async removeVocabulary(
     studySetId: string,
     vocabularyId: string,
-    userId: string
+    userId: string,
   ) {
     // Check if the user is the author of the study set
     const studySet = await this.prisma.studySet.findUnique({

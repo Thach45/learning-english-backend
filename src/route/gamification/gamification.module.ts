@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { GamificationController } from './gamification.controller';
-import { GamificationService } from './gamification.service';
-import { SharedModule } from '../../shared/shared.module';
+import { Module } from "@nestjs/common";
+import { GamificationController } from "./gamification.controller";
+import { GamificationService } from "./gamification.service";
+import { SharedModule } from "../../shared/shared.module";
 
 @Module({
   imports: [SharedModule],
@@ -9,4 +9,4 @@ import { SharedModule } from '../../shared/shared.module';
   providers: [GamificationService],
   exports: [GamificationService],
 })
-export class GamificationModule {} 
+export class GamificationModule {}

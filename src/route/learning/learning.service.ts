@@ -1,22 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { ReviewVocabularyDto, UserProgressDto } from './learning.dto';
-import { LearningRepo } from './learning.repo';
-import { StudySetStatsDto } from './learning.dto';
-import { GamificationService } from '../gamification/gamification.service';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { ReviewVocabularyDto, UserProgressDto } from "./learning.dto";
+import { LearningRepo } from "./learning.repo";
+import { StudySetStatsDto } from "./learning.dto";
+import { GamificationService } from "../gamification/gamification.service";
+
 
 function calculateSR(progress, result: string) {
   let { interval, easeFactor, reviewCount, correctCount } = progress;
   reviewCount += 1;
 
-  if (result === 'easy') {
+  if (result === "easy") {
     correctCount += 1;
     easeFactor = Math.max(1.3, easeFactor + 0.15);
     interval = Math.round(interval * easeFactor * 1.5);
-  } else if (result === 'good') {
+  } else if (result === "good") {
     correctCount += 1;
     easeFactor = Math.max(1.3, easeFactor + 0.05);
     interval = Math.round(interval * easeFactor);
-  } else if (result === 'hard') {
+  } else if (result === "hard") {
     easeFactor = Math.max(1.3, easeFactor - 0.25);
     interval = 1;
     correctCount = 0; // reset chuỗi đúng liên tiếp
@@ -31,36 +32,48 @@ function calculateSR(progress, result: string) {
 
   // Logic chuyển trạng thái - cải thiện
   let status = progress.status;
-  
+
   // Chuyển từ review sang mastered
-  if (status === 'review' && correctCount >= 3 && interval >= 7) {
-    status = 'mastered';
-  }
-  
-  // Quay lại review nếu mastered mà trả lời hard
-  if (status === 'mastered' && result === 'hard') {
-    status = 'review';
-    correctCount = 0; // Reset correct count khi quay lại review
-  }
-  
-  // Đảm bảo từ mới bắt đầu với status 'review'
-  if (!progress.status) {
-    status = 'review';
+  if (status === "review" && correctCount >= 3 && interval >= 7) {
+    status = "mastered";
   }
 
-  return { interval, easeFactor, reviewCount, nextReviewAt, status, correctCount };
+  // Quay lại review nếu mastered mà trả lời hard
+  if (status === "mastered" && result === "hard") {
+    status = "review";
+    correctCount = 0; // Reset correct count khi quay lại review
+  }
+
+  // Đảm bảo từ mới bắt đầu với status 'review'
+  if (!progress.status) {
+    status = "review";
+  }
+
+  return {
+    interval,
+    easeFactor,
+    reviewCount,
+    nextReviewAt,
+    status,
+    correctCount,
+  };
 }
 
 @Injectable()
 export class LearningService {
   constructor(
     private readonly repo: LearningRepo,
-    private readonly gamificationService: GamificationService
+    private readonly gamificationService: GamificationService,
   ) {}
 
   async getReviewVocabulary(userId: string, limit?: number, status?: string) {
     const now = new Date();
-    const progressList = await this.repo.getReviewVocabulary(userId, now, limit ? Number(limit) : 20, status);
+    const progressList = await this.repo.getReviewVocabulary(
+      userId,
+      now,
+      limit ? Number(limit) : 20,
+      status,
+    );
     return progressList.map((progress) => ({
       vocabularyId: progress.vocabularyId,
       word: progress.vocabulary.word,
@@ -82,23 +95,26 @@ export class LearningService {
     }));
   }
 
-  async updateVocabularyProgress(userId: string, vocabId: string, result: string) {
+  async updateVocabularyProgress(
+    userId: string,
+    vocabId: string,
+    result: string,
+  ) {
     // Get vocabulary details first
     const vocabulary = await this.repo.getVocabularyById(vocabId);
     if (!vocabulary) {
-      throw new NotFoundException('Vocabulary not found');
+      throw new NotFoundException("Vocabulary not found");
     }
 
-   
-    let progress = await this.repo.getProgressList(userId, [vocabId]);
+    const progress = await this.repo.getProgressList(userId, [vocabId]);
     let updated;
-    
+
     if (!progress || progress.length === 0) {
       // Tạo mới progress cho từ chưa học trong study set này
       const base = {
         userId,
         vocabularyId: vocabId,
-        status: 'review', // Bắt đầu với review
+        status: "review", // Bắt đầu với review
         lastReviewedAt: new Date(),
         nextReviewAt: undefined,
         reviewCount: 0,
@@ -113,16 +129,15 @@ export class LearningService {
         ...sr,
         nextReviewAt: sr.nextReviewAt,
         correctCount: sr.correctCount,
-        incorrectCount: result === 'hard' ? 1 : 0,
+        incorrectCount: result === "hard" ? 1 : 0,
         status: sr.status,
       });
 
       await this.gamificationService.awardXPForNewWord(
-        userId, 
-        vocabulary.word, 
-        vocabulary.studySetId
+        userId,
+        vocabulary.word,
+        vocabulary.studySetId,
       );
-      
     } else {
       // Update progress cho từ đã học trong study set này
       const p = progress[0];
@@ -134,23 +149,23 @@ export class LearningService {
         easeFactor: sr.easeFactor,
         reviewCount: sr.reviewCount,
         correctCount: sr.correctCount,
-        incorrectCount: p.incorrectCount + (result === 'hard' ? 1 : 0),
+        incorrectCount: p.incorrectCount + (result === "hard" ? 1 : 0),
         status: sr.status,
       });
 
       // Award XP cho review
       await this.gamificationService.awardXPForReview(
-        userId, 
-        vocabulary.word, 
-        vocabulary.studySetId
+        userId,
+        vocabulary.word,
+        vocabulary.studySetId,
       );
-      
+
       // Check if word is mastered
-      if (sr.status === 'mastered' && p.status !== 'mastered') {
+      if (sr.status === "mastered" && p.status !== "mastered") {
         await this.gamificationService.awardXPForMasteredWord(
-          userId, 
-          vocabulary.word, 
-          vocabulary.studySetId
+          userId,
+          vocabulary.word,
+          vocabulary.studySetId,
         );
       }
     }
@@ -159,7 +174,7 @@ export class LearningService {
     await this.gamificationService.updateStreak(userId);
 
     return {
-      message: 'Progress updated',
+      message: "Progress updated",
       ok: true,
     };
   }
@@ -167,13 +182,16 @@ export class LearningService {
   async getUserProgress(userId: string): Promise<UserProgressDto> {
     const [total, review, mastered, sum] = await Promise.all([
       this.repo.countAllProgress(userId),
-      this.repo.countByStatus(userId, 'review'), // Chỉ giữ review
-      this.repo.countByStatus(userId, 'mastered'),
+      this.repo.countByStatus(userId, "review"), // Chỉ giữ review
+      this.repo.countByStatus(userId, "mastered"),
       this.repo.sumCorrectIncorrect(userId),
     ]);
     const correct = sum._sum.correctCount || 0;
     const incorrect = sum._sum.incorrectCount || 0;
-    const accuracy = correct + incorrect > 0 ? Math.round((correct / (correct + incorrect)) * 100) : 0;
+    const accuracy =
+      correct + incorrect > 0
+        ? Math.round((correct / (correct + incorrect)) * 100)
+        : 0;
     return {
       total,
       review, // Thay đổi: learned -> review
@@ -182,14 +200,20 @@ export class LearningService {
     };
   }
 
-  async getStudySetVocabulary(studySetId: string, userId: string, mode?: string): Promise<ReviewVocabularyDto[]> {
+  async getStudySetVocabulary(
+    studySetId: string,
+    userId: string,
+    mode?: string,
+  ): Promise<ReviewVocabularyDto[]> {
     const vocabularies = await this.repo.getVocabulariesByStudySet(studySetId);
-    const progressList = await this.repo.getProgressList(userId, vocabularies.map(v => v.id));
-    const progressMap = new Map(progressList.map(p => [p.vocabularyId, p]));
+    const progressList = await this.repo.getProgressList(
+      userId,
+      vocabularies.map((v) => v.id),
+    );
+    const progressMap = new Map(progressList.map((p) => [p.vocabularyId, p]));
 
-    if (mode === 'review') {
-      // Mode review: Trả về TẤT CẢ từ để user xem lại
-      return vocabularies.map(vocab => {
+    if (mode === "review") {
+      return vocabularies.map((vocab) => {
         const progress = progressMap.get(vocab.id);
         return {
           vocabularyId: vocab.id,
@@ -200,7 +224,7 @@ export class LearningService {
           example: vocab.example ?? undefined,
           imageUrl: vocab.imageUrl ?? undefined,
           audioUrl: vocab.audioUrl ?? undefined,
-          status: progress ? progress.status : 'new',
+          status: progress ? progress.status : "new",
           cefrLevel: vocab.cefrLevel ?? undefined,
           partOfSpeech: vocab.partOfSpeech ?? undefined,
           nextReviewAt: progress?.nextReviewAt?.toISOString(),
@@ -214,13 +238,17 @@ export class LearningService {
     } else {
       // Mode practice (default): Trả về từ cần học theo thuật toán
       const now = new Date();
-      const practiceList = await this.repo.getReviewProgressList(userId, vocabularies.map(v => v.id), now);
-      
+      const practiceList = await this.repo.getReviewProgressList(
+        userId,
+        vocabularies.map((v) => v.id),
+        now,
+      );
+
       // Nếu không có từ nào cần practice, trả về từ chưa học
       if (practiceList.length === 0) {
         return vocabularies
-          .filter(vocab => !progressMap.has(vocab.id)) // Chỉ từ chưa học
-          .map(vocab => ({
+          .filter((vocab) => !progressMap.has(vocab.id)) // Chỉ từ chưa học
+          .map((vocab) => ({
             vocabularyId: vocab.id,
             word: vocab.word,
             meaning: vocab.meaning,
@@ -229,7 +257,7 @@ export class LearningService {
             example: vocab.example ?? undefined,
             imageUrl: vocab.imageUrl ?? undefined,
             audioUrl: vocab.audioUrl ?? undefined,
-            status: 'new',
+            status: "new",
             cefrLevel: vocab.cefrLevel ?? undefined,
             partOfSpeech: vocab.partOfSpeech ?? undefined,
             nextReviewAt: undefined,
@@ -240,8 +268,8 @@ export class LearningService {
             interval: 1,
           }));
       }
-      
-      return practiceList.map(progress => ({
+
+      return practiceList.map((progress) => ({
         vocabularyId: progress.vocabularyId,
         word: progress.vocabulary.word,
         meaning: progress.vocabulary.meaning,
@@ -261,8 +289,11 @@ export class LearningService {
       }));
     }
   }
-  
-  async getStudySetStats(studySetId: string, userId: string): Promise<StudySetStatsDto> {
+
+  async getStudySetStats(
+    studySetId: string,
+    userId: string,
+  ): Promise<StudySetStatsDto> {
     return this.repo.getStudySetStats(studySetId, userId);
   }
-} 
+}

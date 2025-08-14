@@ -1,7 +1,9 @@
-
-
-export const generateTemplate = (otp: string, companyName: string, companyAddress: string) => {
-    return `
+export const generateTemplate = (
+  otp: string,
+  companyName: string,
+  companyAddress: string,
+) => {
+  return `
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -61,4 +63,4 @@ export const generateTemplate = (otp: string, companyName: string, companyAddres
 </body>
 </html>
 `;
-}
+};

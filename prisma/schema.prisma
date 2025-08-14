@@ -83,7 +83,7 @@ model Vocabulary {
   imageUrl String? @map("image_url") @db.String
   audioUrl String? @map("audio_url") @db.String
   cefrLevel CefrLevel? @map("cefr_level")
-  partOfSpeech PartOfSpeech @default(OTHER) @map("part_of_speech")
+  partOfSpeech PartOfSpeech? @map("part_of_speech")
   alternativePartOfSpeech PartOfSpeech[] @default([]) @map("alternative_part_of_speech")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -216,7 +216,7 @@ model DictionaryWord {
   example String? @db.String 
   audioUrl String? @map("audio_url") @db.String
   cefrLevel CefrLevel? @map("cefr_level")
-  partOfSpeech PartOfSpeech @map("part_of_speech")
+  partOfSpeech PartOfSpeech? @map("part_of_speech")
   alternativePartOfSpeech PartOfSpeech[] @default([]) @map("alternative_part_of_speech")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -255,6 +255,6 @@ enum CefrLevel {
   B2
   C1
   C2
-  OTHER
   UNKNOWN
+  OTHER
 }

@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Category } from 'generated/prisma';
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Category } from "generated/prisma";
 
 export class CreateCategoryDto {
   @IsString()
@@ -43,17 +43,17 @@ export class CategoryDto {
 }
 
 export class CategoryResponseDto {
-    data: CategoryDto;
-    constructor(category: Category) {
-        this.data = new CategoryDto(category);
-    }
+  data: CategoryDto;
+  constructor(category: Category) {
+    this.data = new CategoryDto(category);
+  }
 }
 
 export class CategoriesResponseDto {
-    data: CategoryDto[];
-    constructor(categories: Category[]) {
-        this.data = categories.map(c => new CategoryDto(c));
-    }
+  data: CategoryDto[];
+  constructor(categories: Category[]) {
+    this.data = categories.map((c) => new CategoryDto(c));
+  }
 }
 
 export class UpdateCategoryDto extends CreateCategoryDto {}
