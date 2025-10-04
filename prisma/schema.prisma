@@ -22,6 +22,7 @@ model User {
   streak Int @default(0) @db.Int
   lastLearningDate DateTime? @map("last_learning_date")
   totalWordsLearned Int @default(0) @map("total_words_learned") @db.Int
+  totalWordsReviewed Int @default(0) @map("total_words_reviewed") @db.Int
   dailyGoal Int @default(20) @map("daily_goal") @db.Int
   difficultyPreference String @default("intermediate") @map("difficulty_preference") @db.String
   notificationsEnabled Boolean @default(true) @map("notifications_enabled") @db.Bool
@@ -38,7 +39,76 @@ model User {
   vocabularyProgress UserVocabularyProgress[]
   uniqueWordsLearned UserUniqueWord[]
   xpEvents XPEvent[]
+  roles UserRole[]
   dailyActivities DailyActivity[]
+  achievements UserAchievement[]
+}
+
+model Role {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        EUserRole  @unique
+  displayName String   @map("display_name") // "Administrator", "Moderator", "User"
+  description String?
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  // Relationships
+  userRoles        UserRole[]
+  rolePermissions  RolePermission[]
+  
+  @@index([name, isActive])
+}
+enum EUserRole {
+  ADMIN
+  MODERATOR
+  USER
+}
+model Permission {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique // "achievement.create", "achievement.update", "user.delete"
+  displayName String   @map("display_name") // "Create Achievement", "Update Achievement", "Delete User"
+  description String?
+  resource    PermissionResource   // "achievement", "user", "studySet"
+  action      PermissionAction   // "create", "read", "update", "delete", "manage"
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  // Relationships
+  rolePermissions RolePermission[]
+  
+  @@index([resource, action])
+  @@index([name, isActive])
+}
+model UserRole {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  roleId    String   @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, roleId])
+  @@index([userId])
+  @@index([roleId])
+}
+model RolePermission {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  roleId       String   @db.ObjectId
+  permissionId String   @db.ObjectId
+  createdAt    DateTime @default(now()) @map("created_at")
+  
+  // Relationships
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  
+  @@unique([roleId, permissionId])
+  @@index([roleId])
+  @@index([permissionId])
 }
 
 model RefreshToken {
@@ -207,6 +277,42 @@ model DailyActivity {
   @@unique([userId, date])
 }
 
+model Achievement {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  type        AchievementType
+  targetValue Int      // Giá trị mục tiêu (ví dụ: 1000 từ, 30 ngày streak)
+  duration    Int?     // Thời gian để hoàn thành (tính bằng ngày, null nếu không có giới hạn)
+  rarity      AchievementRarity @default(COMMON)
+  icon        String?  // Icon identifier
+  isActive    Boolean  @default(true) @map("is_active")
+  xpReward    Int      @default(0) @map("xp_reward")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  userAchievements UserAchievement[]
+
+  @@index([type, isActive])
+}
+
+model UserAchievement {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   @db.ObjectId
+  achievementId String   @db.ObjectId
+  progress      Int      @default(0)
+  isCompleted   Boolean  @default(false) @map("is_completed")
+  completedAt   DateTime? @map("completed_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId, isCompleted])
+}
+
 model DictionaryWord {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   word String @db.String
@@ -257,4 +363,36 @@ enum CefrLevel {
   C2
   UNKNOWN
   OTHER
+}
+
+enum AchievementType {
+  TOTAL_WORDS_LEARNED    // Tổng số từ đã học
+  STREAK_DAYS           // Số ngày streak liên tiếp
+  LEVEL_REACHED        // Đạt cấp độ nhất định
+  TOTAL_WORDS_REVIEWED // Tổng số từ đã ôn tập
+}
+
+enum AchievementRarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+enum PermissionAction {
+  CREATE
+  READ
+  UPDATE
+  DELETE
+  MANAGE  // Full access
+}
+
+enum PermissionResource {
+  USER
+  ACHIEVEMENT
+  STUDY_SET
+  VOCABULARY
+  CATEGORY
+  GAMIFICATION
+  SYSTEM
 }

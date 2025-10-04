@@ -10,6 +10,8 @@ import { LearningModule } from "./route/learning/learning.module";
 import { TranslateModule } from "./route/translate/translate.module";
 import { GamificationModule } from "./route/gamification/gamification.module";
 import { AchievementModule } from "./route/achievement/achievement.module";
+import { RoleModule } from './route/role/role.module';
+import { PermissionModule } from './route/permission/permission.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { AchievementModule } from "./route/achievement/achievement.module";
     TranslateModule,
     GamificationModule,
     AchievementModule,
+    RoleModule,
+    PermissionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,5 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { PrismaService } from "../../shared/service/prisma.service";
+import { AchievementService } from "../achievement/achievement.service";
 
 // XP Constants
 const XP_SOURCES = {
@@ -26,7 +27,11 @@ const LEVEL_XP_REQUIREMENTS = {
 
 @Injectable()
 export class GamificationService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    @Inject(forwardRef(() => AchievementService))
+    private readonly achievementService: AchievementService,
+  ) {}
 
   // Calculate level based on XP
   calculateLevel(xp: number): number {
@@ -115,6 +120,9 @@ export class GamificationService {
     // Update daily activity
     await this.updateDailyActivity(userId, "learn", xpAmount);
 
+    // THÊM: Check achievements sau khi học từ mới (chỉ update DB, không return)
+    await this.achievementService.checkAndUpdateAchievements(userId);
+
     return xpAmount;
   }
 
@@ -131,7 +139,12 @@ export class GamificationService {
     });
 
     // Update daily activity
+    console.log("lo cc", xpAmount);
     await this.updateDailyActivity(userId, "review", xpAmount);
+    
+    // THÊM: Check achievements sau khi ôn từ (chỉ update DB, không return)
+    await this.achievementService.checkAndUpdateAchievements(userId);
+    
     console.log("xpAmount", xpAmount);
     return xpAmount;
   }
@@ -186,6 +199,18 @@ export class GamificationService {
       streak,
     });
 
+    return xpAmount;
+  }
+
+  // Award XP for unlocking achievement
+  async awardXPForAchievement(userId: string, achievementId: string): Promise<number> {
+    const achievement = await this.prisma.achievement.findUnique({
+      where: { id: achievementId },
+    });
+    const xpAmount = achievement?.xpReward || 0;
+    await this.awardXP(userId, "achievement_completed", xpAmount, {
+      achievementId,
+    });
     return xpAmount;
   }
 
@@ -299,6 +324,9 @@ export class GamificationService {
       where: { id: userId },
       data: { streak: newStreak },
     });
+
+    // THÊM: Check achievements sau khi update streak 
+    await this.achievementService.checkAndUpdateAchievements(userId);
 
     return newStreak;
   }
@@ -454,9 +482,16 @@ export class GamificationService {
       await this.prisma.user.update({
         where: { id: userId },
         data: {
-          totalWordsLearned: {
-            increment: 1,
-          },
+          totalWordsLearned: updateData.wordsLearned,
+         
+        },
+      });
+    }
+    else if(type === "review"){
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          totalWordsReviewed: updateData.wordsReviewed,
         },
       });
     }

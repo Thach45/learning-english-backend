@@ -3,6 +3,7 @@ import { ReviewVocabularyDto, UserProgressDto } from "./learning.dto";
 import { LearningRepo } from "./learning.repo";
 import { StudySetStatsDto } from "./learning.dto";
 import { GamificationService } from "../gamification/gamification.service";
+import { AchievementService } from "../achievement/achievement.service";
 
 
 function calculateSR(progress, result: string) {
@@ -64,6 +65,7 @@ export class LearningService {
   constructor(
     private readonly repo: LearningRepo,
     private readonly gamificationService: GamificationService,
+    private readonly achievementService: AchievementService,
   ) {}
 
   async getReviewVocabulary(userId: string, limit?: number, status?: string) {
@@ -74,6 +76,7 @@ export class LearningService {
       limit ? Number(limit) : 20,
       status,
     );
+    
     return progressList.map((progress) => ({
       vocabularyId: progress.vocabularyId,
       word: progress.vocabulary.word,
@@ -172,6 +175,8 @@ export class LearningService {
 
     // Update streak
     await this.gamificationService.updateStreak(userId);
+
+   
 
     return {
       message: "Progress updated",

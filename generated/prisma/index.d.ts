@@ -19,6 +19,26 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Role
+ * 
+ */
+export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
+/**
+ * Model UserRole
+ * 
+ */
+export type UserRole = $Result.DefaultSelection<Prisma.$UserRolePayload>
+/**
+ * Model RolePermission
+ * 
+ */
+export type RolePermission = $Result.DefaultSelection<Prisma.$RolePermissionPayload>
+/**
  * Model RefreshToken
  * 
  */
@@ -69,6 +89,16 @@ export type XPEvent = $Result.DefaultSelection<Prisma.$XPEventPayload>
  */
 export type DailyActivity = $Result.DefaultSelection<Prisma.$DailyActivityPayload>
 /**
+ * Model Achievement
+ * 
+ */
+export type Achievement = $Result.DefaultSelection<Prisma.$AchievementPayload>
+/**
+ * Model UserAchievement
+ * 
+ */
+export type UserAchievement = $Result.DefaultSelection<Prisma.$UserAchievementPayload>
+/**
  * Model DictionaryWord
  * 
  */
@@ -78,7 +108,16 @@ export type DictionaryWord = $Result.DefaultSelection<Prisma.$DictionaryWordPayl
  * Enums
  */
 export namespace $Enums {
-  export const Level: {
+  export const EUserRole: {
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR',
+  USER: 'USER'
+};
+
+export type EUserRole = (typeof EUserRole)[keyof typeof EUserRole]
+
+
+export const Level: {
   BEGINNER: 'BEGINNER',
   INTERMEDIATE: 'INTERMEDIATE',
   ADVANCED: 'ADVANCED'
@@ -124,7 +163,55 @@ export const CefrLevel: {
 
 export type CefrLevel = (typeof CefrLevel)[keyof typeof CefrLevel]
 
+
+export const AchievementType: {
+  TOTAL_WORDS_LEARNED: 'TOTAL_WORDS_LEARNED',
+  STREAK_DAYS: 'STREAK_DAYS',
+  LEVEL_REACHED: 'LEVEL_REACHED',
+  TOTAL_WORDS_REVIEWED: 'TOTAL_WORDS_REVIEWED'
+};
+
+export type AchievementType = (typeof AchievementType)[keyof typeof AchievementType]
+
+
+export const AchievementRarity: {
+  COMMON: 'COMMON',
+  RARE: 'RARE',
+  EPIC: 'EPIC',
+  LEGENDARY: 'LEGENDARY'
+};
+
+export type AchievementRarity = (typeof AchievementRarity)[keyof typeof AchievementRarity]
+
+
+export const PermissionAction: {
+  CREATE: 'CREATE',
+  READ: 'READ',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  MANAGE: 'MANAGE'
+};
+
+export type PermissionAction = (typeof PermissionAction)[keyof typeof PermissionAction]
+
+
+export const PermissionResource: {
+  USER: 'USER',
+  ACHIEVEMENT: 'ACHIEVEMENT',
+  STUDY_SET: 'STUDY_SET',
+  VOCABULARY: 'VOCABULARY',
+  CATEGORY: 'CATEGORY',
+  GAMIFICATION: 'GAMIFICATION',
+  SYSTEM: 'SYSTEM'
+};
+
+export type PermissionResource = (typeof PermissionResource)[keyof typeof PermissionResource]
+
 }
+
+export type EUserRole = $Enums.EUserRole
+
+export const EUserRole: typeof $Enums.EUserRole
 
 export type Level = $Enums.Level
 
@@ -141,6 +228,22 @@ export const PartOfSpeech: typeof $Enums.PartOfSpeech
 export type CefrLevel = $Enums.CefrLevel
 
 export const CefrLevel: typeof $Enums.CefrLevel
+
+export type AchievementType = $Enums.AchievementType
+
+export const AchievementType: typeof $Enums.AchievementType
+
+export type AchievementRarity = $Enums.AchievementRarity
+
+export const AchievementRarity: typeof $Enums.AchievementRarity
+
+export type PermissionAction = $Enums.PermissionAction
+
+export const PermissionAction: typeof $Enums.PermissionAction
+
+export type PermissionResource = $Enums.PermissionResource
+
+export const PermissionResource: typeof $Enums.PermissionResource
 
 /**
  * ##  Prisma Client ʲˢ
@@ -245,6 +348,46 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.role`: Exposes CRUD operations for the **Role** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Roles
+    * const roles = await prisma.role.findMany()
+    * ```
+    */
+  get role(): Prisma.RoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.permission`: Exposes CRUD operations for the **Permission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Permissions
+    * const permissions = await prisma.permission.findMany()
+    * ```
+    */
+  get permission(): Prisma.PermissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userRole`: Exposes CRUD operations for the **UserRole** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserRoles
+    * const userRoles = await prisma.userRole.findMany()
+    * ```
+    */
+  get userRole(): Prisma.UserRoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rolePermission`: Exposes CRUD operations for the **RolePermission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RolePermissions
+    * const rolePermissions = await prisma.rolePermission.findMany()
+    * ```
+    */
+  get rolePermission(): Prisma.RolePermissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
     * Example usage:
     * ```ts
@@ -343,6 +486,26 @@ export class PrismaClient<
     * ```
     */
   get dailyActivity(): Prisma.DailyActivityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.achievement`: Exposes CRUD operations for the **Achievement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Achievements
+    * const achievements = await prisma.achievement.findMany()
+    * ```
+    */
+  get achievement(): Prisma.AchievementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userAchievement`: Exposes CRUD operations for the **UserAchievement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserAchievements
+    * const userAchievements = await prisma.userAchievement.findMany()
+    * ```
+    */
+  get userAchievement(): Prisma.UserAchievementDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.dictionaryWord`: Exposes CRUD operations for the **DictionaryWord** model.
@@ -794,6 +957,10 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Role: 'Role',
+    Permission: 'Permission',
+    UserRole: 'UserRole',
+    RolePermission: 'RolePermission',
     RefreshToken: 'RefreshToken',
     StudySet: 'StudySet',
     Vocabulary: 'Vocabulary',
@@ -804,6 +971,8 @@ export namespace Prisma {
     UserUniqueWord: 'UserUniqueWord',
     XPEvent: 'XPEvent',
     DailyActivity: 'DailyActivity',
+    Achievement: 'Achievement',
+    UserAchievement: 'UserAchievement',
     DictionaryWord: 'DictionaryWord'
   };
 
@@ -823,7 +992,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "refreshToken" | "studySet" | "vocabulary" | "category" | "verificationCode" | "userLikesStudySet" | "userVocabularyProgress" | "userUniqueWord" | "xPEvent" | "dailyActivity" | "dictionaryWord"
+      modelProps: "user" | "role" | "permission" | "userRole" | "rolePermission" | "refreshToken" | "studySet" | "vocabulary" | "category" | "verificationCode" | "userLikesStudySet" | "userVocabularyProgress" | "userUniqueWord" | "xPEvent" | "dailyActivity" | "achievement" | "userAchievement" | "dictionaryWord"
       txIsolationLevel: never
     }
     model: {
@@ -898,6 +1067,302 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Role: {
+        payload: Prisma.$RolePayload<ExtArgs>
+        fields: Prisma.RoleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RoleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RoleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          findFirst: {
+            args: Prisma.RoleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RoleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          findMany: {
+            args: Prisma.RoleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+          }
+          create: {
+            args: Prisma.RoleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          createMany: {
+            args: Prisma.RoleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.RoleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          update: {
+            args: Prisma.RoleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          deleteMany: {
+            args: Prisma.RoleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RoleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RoleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          aggregate: {
+            args: Prisma.RoleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRole>
+          }
+          groupBy: {
+            args: Prisma.RoleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RoleGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.RoleFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.RoleAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.RoleCountArgs<ExtArgs>
+            result: $Utils.Optional<RoleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Permission: {
+        payload: Prisma.$PermissionPayload<ExtArgs>
+        fields: Prisma.PermissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PermissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PermissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findFirst: {
+            args: Prisma.PermissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PermissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findMany: {
+            args: Prisma.PermissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
+          }
+          create: {
+            args: Prisma.PermissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          createMany: {
+            args: Prisma.PermissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PermissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          update: {
+            args: Prisma.PermissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PermissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PermissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PermissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          aggregate: {
+            args: Prisma.PermissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePermission>
+          }
+          groupBy: {
+            args: Prisma.PermissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PermissionGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.PermissionFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.PermissionAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.PermissionCountArgs<ExtArgs>
+            result: $Utils.Optional<PermissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserRole: {
+        payload: Prisma.$UserRolePayload<ExtArgs>
+        fields: Prisma.UserRoleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserRoleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserRoleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
+          }
+          findFirst: {
+            args: Prisma.UserRoleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserRoleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
+          }
+          findMany: {
+            args: Prisma.UserRoleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>[]
+          }
+          create: {
+            args: Prisma.UserRoleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
+          }
+          createMany: {
+            args: Prisma.UserRoleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserRoleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
+          }
+          update: {
+            args: Prisma.UserRoleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
+          }
+          deleteMany: {
+            args: Prisma.UserRoleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserRoleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserRoleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRolePayload>
+          }
+          aggregate: {
+            args: Prisma.UserRoleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserRole>
+          }
+          groupBy: {
+            args: Prisma.UserRoleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserRoleGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.UserRoleFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.UserRoleAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.UserRoleCountArgs<ExtArgs>
+            result: $Utils.Optional<UserRoleCountAggregateOutputType> | number
+          }
+        }
+      }
+      RolePermission: {
+        payload: Prisma.$RolePermissionPayload<ExtArgs>
+        fields: Prisma.RolePermissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RolePermissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RolePermissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
+          }
+          findFirst: {
+            args: Prisma.RolePermissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RolePermissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
+          }
+          findMany: {
+            args: Prisma.RolePermissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>[]
+          }
+          create: {
+            args: Prisma.RolePermissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
+          }
+          createMany: {
+            args: Prisma.RolePermissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.RolePermissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
+          }
+          update: {
+            args: Prisma.RolePermissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.RolePermissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RolePermissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RolePermissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePermissionPayload>
+          }
+          aggregate: {
+            args: Prisma.RolePermissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRolePermission>
+          }
+          groupBy: {
+            args: Prisma.RolePermissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RolePermissionGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.RolePermissionFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.RolePermissionAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.RolePermissionCountArgs<ExtArgs>
+            result: $Utils.Optional<RolePermissionCountAggregateOutputType> | number
           }
         }
       }
@@ -1641,6 +2106,154 @@ export namespace Prisma {
           }
         }
       }
+      Achievement: {
+        payload: Prisma.$AchievementPayload<ExtArgs>
+        fields: Prisma.AchievementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AchievementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AchievementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          findFirst: {
+            args: Prisma.AchievementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AchievementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          findMany: {
+            args: Prisma.AchievementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+          }
+          create: {
+            args: Prisma.AchievementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          createMany: {
+            args: Prisma.AchievementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AchievementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          update: {
+            args: Prisma.AchievementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          deleteMany: {
+            args: Prisma.AchievementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AchievementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AchievementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          aggregate: {
+            args: Prisma.AchievementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAchievement>
+          }
+          groupBy: {
+            args: Prisma.AchievementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AchievementGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.AchievementFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.AchievementAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.AchievementCountArgs<ExtArgs>
+            result: $Utils.Optional<AchievementCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserAchievement: {
+        payload: Prisma.$UserAchievementPayload<ExtArgs>
+        fields: Prisma.UserAchievementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserAchievementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserAchievementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+          }
+          findFirst: {
+            args: Prisma.UserAchievementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserAchievementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+          }
+          findMany: {
+            args: Prisma.UserAchievementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload>[]
+          }
+          create: {
+            args: Prisma.UserAchievementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+          }
+          createMany: {
+            args: Prisma.UserAchievementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserAchievementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+          }
+          update: {
+            args: Prisma.UserAchievementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserAchievementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserAchievementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserAchievementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAchievementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserAchievement>
+          }
+          groupBy: {
+            args: Prisma.UserAchievementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserAchievementGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.UserAchievementFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.UserAchievementAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.UserAchievementCountArgs<ExtArgs>
+            result: $Utils.Optional<UserAchievementCountAggregateOutputType> | number
+          }
+        }
+      }
       DictionaryWord: {
         payload: Prisma.$DictionaryWordPayload<ExtArgs>
         fields: Prisma.DictionaryWordFieldRefs
@@ -1787,6 +2400,10 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    role?: RoleOmit
+    permission?: PermissionOmit
+    userRole?: UserRoleOmit
+    rolePermission?: RolePermissionOmit
     refreshToken?: RefreshTokenOmit
     studySet?: StudySetOmit
     vocabulary?: VocabularyOmit
@@ -1797,6 +2414,8 @@ export namespace Prisma {
     userUniqueWord?: UserUniqueWordOmit
     xPEvent?: XPEventOmit
     dailyActivity?: DailyActivityOmit
+    achievement?: AchievementOmit
+    userAchievement?: UserAchievementOmit
     dictionaryWord?: DictionaryWordOmit
   }
 
@@ -1900,7 +2519,9 @@ export namespace Prisma {
     vocabularyProgress: number
     uniqueWordsLearned: number
     xpEvents: number
+    roles: number
     dailyActivities: number
+    achievements: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1912,7 +2533,9 @@ export namespace Prisma {
     vocabularyProgress?: boolean | UserCountOutputTypeCountVocabularyProgressArgs
     uniqueWordsLearned?: boolean | UserCountOutputTypeCountUniqueWordsLearnedArgs
     xpEvents?: boolean | UserCountOutputTypeCountXpEventsArgs
+    roles?: boolean | UserCountOutputTypeCountRolesArgs
     dailyActivities?: boolean | UserCountOutputTypeCountDailyActivitiesArgs
+    achievements?: boolean | UserCountOutputTypeCountAchievementsArgs
   }
 
   // Custom InputTypes
@@ -1985,8 +2608,93 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountDailyActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DailyActivityWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAchievementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserAchievementWhereInput
+  }
+
+
+  /**
+   * Count Type RoleCountOutputType
+   */
+
+  export type RoleCountOutputType = {
+    userRoles: number
+    rolePermissions: number
+  }
+
+  export type RoleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userRoles?: boolean | RoleCountOutputTypeCountUserRolesArgs
+    rolePermissions?: boolean | RoleCountOutputTypeCountRolePermissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleCountOutputType
+     */
+    select?: RoleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeCountUserRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleWhereInput
+  }
+
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeCountRolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RolePermissionWhereInput
+  }
+
+
+  /**
+   * Count Type PermissionCountOutputType
+   */
+
+  export type PermissionCountOutputType = {
+    rolePermissions: number
+  }
+
+  export type PermissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rolePermissions?: boolean | PermissionCountOutputTypeCountRolePermissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PermissionCountOutputType without action
+   */
+  export type PermissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PermissionCountOutputType
+     */
+    select?: PermissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PermissionCountOutputType without action
+   */
+  export type PermissionCountOutputTypeCountRolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RolePermissionWhereInput
   }
 
 
@@ -2093,6 +2801,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AchievementCountOutputType
+   */
+
+  export type AchievementCountOutputType = {
+    userAchievements: number
+  }
+
+  export type AchievementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userAchievements?: boolean | AchievementCountOutputTypeCountUserAchievementsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AchievementCountOutputType without action
+   */
+  export type AchievementCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AchievementCountOutputType
+     */
+    select?: AchievementCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AchievementCountOutputType without action
+   */
+  export type AchievementCountOutputTypeCountUserAchievementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserAchievementWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2113,6 +2852,7 @@ export namespace Prisma {
     xp: number | null
     streak: number | null
     totalWordsLearned: number | null
+    totalWordsReviewed: number | null
     dailyGoal: number | null
   }
 
@@ -2121,6 +2861,7 @@ export namespace Prisma {
     xp: number | null
     streak: number | null
     totalWordsLearned: number | null
+    totalWordsReviewed: number | null
     dailyGoal: number | null
   }
 
@@ -2135,6 +2876,7 @@ export namespace Prisma {
     streak: number | null
     lastLearningDate: Date | null
     totalWordsLearned: number | null
+    totalWordsReviewed: number | null
     dailyGoal: number | null
     difficultyPreference: string | null
     notificationsEnabled: boolean | null
@@ -2155,6 +2897,7 @@ export namespace Prisma {
     streak: number | null
     lastLearningDate: Date | null
     totalWordsLearned: number | null
+    totalWordsReviewed: number | null
     dailyGoal: number | null
     difficultyPreference: string | null
     notificationsEnabled: boolean | null
@@ -2175,6 +2918,7 @@ export namespace Prisma {
     streak: number
     lastLearningDate: number
     totalWordsLearned: number
+    totalWordsReviewed: number
     dailyGoal: number
     difficultyPreference: number
     notificationsEnabled: number
@@ -2191,6 +2935,7 @@ export namespace Prisma {
     xp?: true
     streak?: true
     totalWordsLearned?: true
+    totalWordsReviewed?: true
     dailyGoal?: true
   }
 
@@ -2199,6 +2944,7 @@ export namespace Prisma {
     xp?: true
     streak?: true
     totalWordsLearned?: true
+    totalWordsReviewed?: true
     dailyGoal?: true
   }
 
@@ -2213,6 +2959,7 @@ export namespace Prisma {
     streak?: true
     lastLearningDate?: true
     totalWordsLearned?: true
+    totalWordsReviewed?: true
     dailyGoal?: true
     difficultyPreference?: true
     notificationsEnabled?: true
@@ -2233,6 +2980,7 @@ export namespace Prisma {
     streak?: true
     lastLearningDate?: true
     totalWordsLearned?: true
+    totalWordsReviewed?: true
     dailyGoal?: true
     difficultyPreference?: true
     notificationsEnabled?: true
@@ -2253,6 +3001,7 @@ export namespace Prisma {
     streak?: true
     lastLearningDate?: true
     totalWordsLearned?: true
+    totalWordsReviewed?: true
     dailyGoal?: true
     difficultyPreference?: true
     notificationsEnabled?: true
@@ -2360,6 +3109,7 @@ export namespace Prisma {
     streak: number
     lastLearningDate: Date | null
     totalWordsLearned: number
+    totalWordsReviewed: number
     dailyGoal: number
     difficultyPreference: string
     notificationsEnabled: boolean
@@ -2399,6 +3149,7 @@ export namespace Prisma {
     streak?: boolean
     lastLearningDate?: boolean
     totalWordsLearned?: boolean
+    totalWordsReviewed?: boolean
     dailyGoal?: boolean
     difficultyPreference?: boolean
     notificationsEnabled?: boolean
@@ -2414,7 +3165,9 @@ export namespace Prisma {
     vocabularyProgress?: boolean | User$vocabularyProgressArgs<ExtArgs>
     uniqueWordsLearned?: boolean | User$uniqueWordsLearnedArgs<ExtArgs>
     xpEvents?: boolean | User$xpEventsArgs<ExtArgs>
+    roles?: boolean | User$rolesArgs<ExtArgs>
     dailyActivities?: boolean | User$dailyActivitiesArgs<ExtArgs>
+    achievements?: boolean | User$achievementsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2431,6 +3184,7 @@ export namespace Prisma {
     streak?: boolean
     lastLearningDate?: boolean
     totalWordsLearned?: boolean
+    totalWordsReviewed?: boolean
     dailyGoal?: boolean
     difficultyPreference?: boolean
     notificationsEnabled?: boolean
@@ -2440,7 +3194,7 @@ export namespace Prisma {
     status?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatarUrl" | "level" | "xp" | "streak" | "lastLearningDate" | "totalWordsLearned" | "dailyGoal" | "difficultyPreference" | "notificationsEnabled" | "publicProfile" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatarUrl" | "level" | "xp" | "streak" | "lastLearningDate" | "totalWordsLearned" | "totalWordsReviewed" | "dailyGoal" | "difficultyPreference" | "notificationsEnabled" | "publicProfile" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tokens?: boolean | User$tokensArgs<ExtArgs>
     vocabularies?: boolean | User$vocabulariesArgs<ExtArgs>
@@ -2450,7 +3204,9 @@ export namespace Prisma {
     vocabularyProgress?: boolean | User$vocabularyProgressArgs<ExtArgs>
     uniqueWordsLearned?: boolean | User$uniqueWordsLearnedArgs<ExtArgs>
     xpEvents?: boolean | User$xpEventsArgs<ExtArgs>
+    roles?: boolean | User$rolesArgs<ExtArgs>
     dailyActivities?: boolean | User$dailyActivitiesArgs<ExtArgs>
+    achievements?: boolean | User$achievementsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2465,7 +3221,9 @@ export namespace Prisma {
       vocabularyProgress: Prisma.$UserVocabularyProgressPayload<ExtArgs>[]
       uniqueWordsLearned: Prisma.$UserUniqueWordPayload<ExtArgs>[]
       xpEvents: Prisma.$XPEventPayload<ExtArgs>[]
+      roles: Prisma.$UserRolePayload<ExtArgs>[]
       dailyActivities: Prisma.$DailyActivityPayload<ExtArgs>[]
+      achievements: Prisma.$UserAchievementPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2478,6 +3236,7 @@ export namespace Prisma {
       streak: number
       lastLearningDate: Date | null
       totalWordsLearned: number
+      totalWordsReviewed: number
       dailyGoal: number
       difficultyPreference: string
       notificationsEnabled: boolean
@@ -2856,7 +3615,9 @@ export namespace Prisma {
     vocabularyProgress<T extends User$vocabularyProgressArgs<ExtArgs> = {}>(args?: Subset<T, User$vocabularyProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVocabularyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     uniqueWordsLearned<T extends User$uniqueWordsLearnedArgs<ExtArgs> = {}>(args?: Subset<T, User$uniqueWordsLearnedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserUniqueWordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     xpEvents<T extends User$xpEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$xpEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$XPEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roles<T extends User$rolesArgs<ExtArgs> = {}>(args?: Subset<T, User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     dailyActivities<T extends User$dailyActivitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    achievements<T extends User$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, User$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2896,6 +3657,7 @@ export namespace Prisma {
     readonly streak: FieldRef<"User", 'Int'>
     readonly lastLearningDate: FieldRef<"User", 'DateTime'>
     readonly totalWordsLearned: FieldRef<"User", 'Int'>
+    readonly totalWordsReviewed: FieldRef<"User", 'Int'>
     readonly dailyGoal: FieldRef<"User", 'Int'>
     readonly difficultyPreference: FieldRef<"User", 'String'>
     readonly notificationsEnabled: FieldRef<"User", 'Boolean'>
@@ -3465,6 +4227,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.roles
+   */
+  export type User$rolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    where?: UserRoleWhereInput
+    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
+    cursor?: UserRoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserRoleScalarFieldEnum | UserRoleScalarFieldEnum[]
+  }
+
+  /**
    * User.dailyActivities
    */
   export type User$dailyActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3489,6 +4275,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.achievements
+   */
+  export type User$achievementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    where?: UserAchievementWhereInput
+    orderBy?: UserAchievementOrderByWithRelationInput | UserAchievementOrderByWithRelationInput[]
+    cursor?: UserAchievementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserAchievementScalarFieldEnum | UserAchievementScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3504,6 +4314,4065 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Role
+   */
+
+  export type AggregateRole = {
+    _count: RoleCountAggregateOutputType | null
+    _min: RoleMinAggregateOutputType | null
+    _max: RoleMaxAggregateOutputType | null
+  }
+
+  export type RoleMinAggregateOutputType = {
+    id: string | null
+    name: $Enums.EUserRole | null
+    displayName: string | null
+    description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RoleMaxAggregateOutputType = {
+    id: string | null
+    name: $Enums.EUserRole | null
+    displayName: string | null
+    description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RoleCountAggregateOutputType = {
+    id: number
+    name: number
+    displayName: number
+    description: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RoleMinAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RoleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RoleCountAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Role to aggregate.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Roles
+    **/
+    _count?: true | RoleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RoleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RoleMaxAggregateInputType
+  }
+
+  export type GetRoleAggregateType<T extends RoleAggregateArgs> = {
+        [P in keyof T & keyof AggregateRole]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRole[P]>
+      : GetScalarType<T[P], AggregateRole[P]>
+  }
+
+
+
+
+  export type RoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleWhereInput
+    orderBy?: RoleOrderByWithAggregationInput | RoleOrderByWithAggregationInput[]
+    by: RoleScalarFieldEnum[] | RoleScalarFieldEnum
+    having?: RoleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RoleCountAggregateInputType | true
+    _min?: RoleMinAggregateInputType
+    _max?: RoleMaxAggregateInputType
+  }
+
+  export type RoleGroupByOutputType = {
+    id: string
+    name: $Enums.EUserRole
+    displayName: string
+    description: string | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: RoleCountAggregateOutputType | null
+    _min: RoleMinAggregateOutputType | null
+    _max: RoleMaxAggregateOutputType | null
+  }
+
+  type GetRoleGroupByPayload<T extends RoleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RoleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RoleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RoleGroupByOutputType[P]>
+            : GetScalarType<T[P], RoleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userRoles?: boolean | Role$userRolesArgs<ExtArgs>
+    rolePermissions?: boolean | Role$rolePermissionsArgs<ExtArgs>
+    _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["role"]>
+
+
+
+  export type RoleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "displayName" | "description" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["role"]>
+  export type RoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userRoles?: boolean | Role$userRolesArgs<ExtArgs>
+    rolePermissions?: boolean | Role$rolePermissionsArgs<ExtArgs>
+    _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $RolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Role"
+    objects: {
+      userRoles: Prisma.$UserRolePayload<ExtArgs>[]
+      rolePermissions: Prisma.$RolePermissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: $Enums.EUserRole
+      displayName: string
+      description: string | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["role"]>
+    composites: {}
+  }
+
+  type RoleGetPayload<S extends boolean | null | undefined | RoleDefaultArgs> = $Result.GetResult<Prisma.$RolePayload, S>
+
+  type RoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RoleCountAggregateInputType | true
+    }
+
+  export interface RoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Role'], meta: { name: 'Role' } }
+    /**
+     * Find zero or one Role that matches the filter.
+     * @param {RoleFindUniqueArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RoleFindUniqueArgs>(args: SelectSubset<T, RoleFindUniqueArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Role that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RoleFindUniqueOrThrowArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RoleFindUniqueOrThrowArgs>(args: SelectSubset<T, RoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Role that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindFirstArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RoleFindFirstArgs>(args?: SelectSubset<T, RoleFindFirstArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Role that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindFirstOrThrowArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RoleFindFirstOrThrowArgs>(args?: SelectSubset<T, RoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Roles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Roles
+     * const roles = await prisma.role.findMany()
+     * 
+     * // Get first 10 Roles
+     * const roles = await prisma.role.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const roleWithIdOnly = await prisma.role.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RoleFindManyArgs>(args?: SelectSubset<T, RoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Role.
+     * @param {RoleCreateArgs} args - Arguments to create a Role.
+     * @example
+     * // Create one Role
+     * const Role = await prisma.role.create({
+     *   data: {
+     *     // ... data to create a Role
+     *   }
+     * })
+     * 
+     */
+    create<T extends RoleCreateArgs>(args: SelectSubset<T, RoleCreateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Roles.
+     * @param {RoleCreateManyArgs} args - Arguments to create many Roles.
+     * @example
+     * // Create many Roles
+     * const role = await prisma.role.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RoleCreateManyArgs>(args?: SelectSubset<T, RoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Role.
+     * @param {RoleDeleteArgs} args - Arguments to delete one Role.
+     * @example
+     * // Delete one Role
+     * const Role = await prisma.role.delete({
+     *   where: {
+     *     // ... filter to delete one Role
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RoleDeleteArgs>(args: SelectSubset<T, RoleDeleteArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Role.
+     * @param {RoleUpdateArgs} args - Arguments to update one Role.
+     * @example
+     * // Update one Role
+     * const role = await prisma.role.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RoleUpdateArgs>(args: SelectSubset<T, RoleUpdateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Roles.
+     * @param {RoleDeleteManyArgs} args - Arguments to filter Roles to delete.
+     * @example
+     * // Delete a few Roles
+     * const { count } = await prisma.role.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RoleDeleteManyArgs>(args?: SelectSubset<T, RoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Roles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Roles
+     * const role = await prisma.role.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RoleUpdateManyArgs>(args: SelectSubset<T, RoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Role.
+     * @param {RoleUpsertArgs} args - Arguments to update or create a Role.
+     * @example
+     * // Update or create a Role
+     * const role = await prisma.role.upsert({
+     *   create: {
+     *     // ... data to create a Role
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Role we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RoleUpsertArgs>(args: SelectSubset<T, RoleUpsertArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Roles that matches the filter.
+     * @param {RoleFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const role = await prisma.role.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: RoleFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Role.
+     * @param {RoleAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const role = await prisma.role.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: RoleAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Roles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleCountArgs} args - Arguments to filter Roles to count.
+     * @example
+     * // Count the number of Roles
+     * const count = await prisma.role.count({
+     *   where: {
+     *     // ... the filter for the Roles we want to count
+     *   }
+     * })
+    **/
+    count<T extends RoleCountArgs>(
+      args?: Subset<T, RoleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RoleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Role.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RoleAggregateArgs>(args: Subset<T, RoleAggregateArgs>): Prisma.PrismaPromise<GetRoleAggregateType<T>>
+
+    /**
+     * Group by Role.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RoleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RoleGroupByArgs['orderBy'] }
+        : { orderBy?: RoleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Role model
+   */
+  readonly fields: RoleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Role.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    userRoles<T extends Role$userRolesArgs<ExtArgs> = {}>(args?: Subset<T, Role$userRolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rolePermissions<T extends Role$rolePermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Role$rolePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Role model
+   */
+  interface RoleFieldRefs {
+    readonly id: FieldRef<"Role", 'String'>
+    readonly name: FieldRef<"Role", 'EUserRole'>
+    readonly displayName: FieldRef<"Role", 'String'>
+    readonly description: FieldRef<"Role", 'String'>
+    readonly isActive: FieldRef<"Role", 'Boolean'>
+    readonly createdAt: FieldRef<"Role", 'DateTime'>
+    readonly updatedAt: FieldRef<"Role", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Role findUnique
+   */
+  export type RoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role findUniqueOrThrow
+   */
+  export type RoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role findFirst
+   */
+  export type RoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Roles.
+     */
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role findFirstOrThrow
+   */
+  export type RoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Roles.
+     */
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role findMany
+   */
+  export type RoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Roles to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role create
+   */
+  export type RoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Role.
+     */
+    data: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+  }
+
+  /**
+   * Role createMany
+   */
+  export type RoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Roles.
+     */
+    data: RoleCreateManyInput | RoleCreateManyInput[]
+  }
+
+  /**
+   * Role update
+   */
+  export type RoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Role.
+     */
+    data: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+    /**
+     * Choose, which Role to update.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role updateMany
+   */
+  export type RoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Roles.
+     */
+    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
+    /**
+     * Filter which Roles to update
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Role upsert
+   */
+  export type RoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Role to update in case it exists.
+     */
+    where: RoleWhereUniqueInput
+    /**
+     * In case the Role found by the `where` argument doesn't exist, create a new Role with this data.
+     */
+    create: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+    /**
+     * In case the Role was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+  }
+
+  /**
+   * Role delete
+   */
+  export type RoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter which Role to delete.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role deleteMany
+   */
+  export type RoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Roles to delete
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Role findRaw
+   */
+  export type RoleFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Role aggregateRaw
+   */
+  export type RoleAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Role.userRoles
+   */
+  export type Role$userRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    where?: UserRoleWhereInput
+    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
+    cursor?: UserRoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserRoleScalarFieldEnum | UserRoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role.rolePermissions
+   */
+  export type Role$rolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    where?: RolePermissionWhereInput
+    orderBy?: RolePermissionOrderByWithRelationInput | RolePermissionOrderByWithRelationInput[]
+    cursor?: RolePermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RolePermissionScalarFieldEnum | RolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Role without action
+   */
+  export type RoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Permission
+   */
+
+  export type AggregatePermission = {
+    _count: PermissionCountAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  export type PermissionMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    displayName: string | null
+    description: string | null
+    resource: $Enums.PermissionResource | null
+    action: $Enums.PermissionAction | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PermissionMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    displayName: string | null
+    description: string | null
+    resource: $Enums.PermissionResource | null
+    action: $Enums.PermissionAction | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PermissionCountAggregateOutputType = {
+    id: number
+    name: number
+    displayName: number
+    description: number
+    resource: number
+    action: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PermissionMinAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    resource?: true
+    action?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PermissionMaxAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    resource?: true
+    action?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PermissionCountAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    resource?: true
+    action?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Permission to aggregate.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Permissions
+    **/
+    _count?: true | PermissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PermissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type GetPermissionAggregateType<T extends PermissionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePermission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePermission[P]>
+      : GetScalarType<T[P], AggregatePermission[P]>
+  }
+
+
+
+
+  export type PermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithAggregationInput | PermissionOrderByWithAggregationInput[]
+    by: PermissionScalarFieldEnum[] | PermissionScalarFieldEnum
+    having?: PermissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PermissionCountAggregateInputType | true
+    _min?: PermissionMinAggregateInputType
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type PermissionGroupByOutputType = {
+    id: string
+    name: string
+    displayName: string
+    description: string | null
+    resource: $Enums.PermissionResource
+    action: $Enums.PermissionAction
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: PermissionCountAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  type GetPermissionGroupByPayload<T extends PermissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PermissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PermissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+            : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    resource?: boolean
+    action?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    rolePermissions?: boolean | Permission$rolePermissionsArgs<ExtArgs>
+    _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["permission"]>
+
+
+
+  export type PermissionSelectScalar = {
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    resource?: boolean
+    action?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "displayName" | "description" | "resource" | "action" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["permission"]>
+  export type PermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rolePermissions?: boolean | Permission$rolePermissionsArgs<ExtArgs>
+    _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $PermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Permission"
+    objects: {
+      rolePermissions: Prisma.$RolePermissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      displayName: string
+      description: string | null
+      resource: $Enums.PermissionResource
+      action: $Enums.PermissionAction
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["permission"]>
+    composites: {}
+  }
+
+  type PermissionGetPayload<S extends boolean | null | undefined | PermissionDefaultArgs> = $Result.GetResult<Prisma.$PermissionPayload, S>
+
+  type PermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PermissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PermissionCountAggregateInputType | true
+    }
+
+  export interface PermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Permission'], meta: { name: 'Permission' } }
+    /**
+     * Find zero or one Permission that matches the filter.
+     * @param {PermissionFindUniqueArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PermissionFindUniqueArgs>(args: SelectSubset<T, PermissionFindUniqueArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Permission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PermissionFindUniqueOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PermissionFindUniqueOrThrowArgs>(args: SelectSubset<T, PermissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Permission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PermissionFindFirstArgs>(args?: SelectSubset<T, PermissionFindFirstArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Permission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PermissionFindFirstOrThrowArgs>(args?: SelectSubset<T, PermissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Permissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Permissions
+     * const permissions = await prisma.permission.findMany()
+     * 
+     * // Get first 10 Permissions
+     * const permissions = await prisma.permission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const permissionWithIdOnly = await prisma.permission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PermissionFindManyArgs>(args?: SelectSubset<T, PermissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Permission.
+     * @param {PermissionCreateArgs} args - Arguments to create a Permission.
+     * @example
+     * // Create one Permission
+     * const Permission = await prisma.permission.create({
+     *   data: {
+     *     // ... data to create a Permission
+     *   }
+     * })
+     * 
+     */
+    create<T extends PermissionCreateArgs>(args: SelectSubset<T, PermissionCreateArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Permissions.
+     * @param {PermissionCreateManyArgs} args - Arguments to create many Permissions.
+     * @example
+     * // Create many Permissions
+     * const permission = await prisma.permission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PermissionCreateManyArgs>(args?: SelectSubset<T, PermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Permission.
+     * @param {PermissionDeleteArgs} args - Arguments to delete one Permission.
+     * @example
+     * // Delete one Permission
+     * const Permission = await prisma.permission.delete({
+     *   where: {
+     *     // ... filter to delete one Permission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PermissionDeleteArgs>(args: SelectSubset<T, PermissionDeleteArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Permission.
+     * @param {PermissionUpdateArgs} args - Arguments to update one Permission.
+     * @example
+     * // Update one Permission
+     * const permission = await prisma.permission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PermissionUpdateArgs>(args: SelectSubset<T, PermissionUpdateArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Permissions.
+     * @param {PermissionDeleteManyArgs} args - Arguments to filter Permissions to delete.
+     * @example
+     * // Delete a few Permissions
+     * const { count } = await prisma.permission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PermissionDeleteManyArgs>(args?: SelectSubset<T, PermissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Permissions
+     * const permission = await prisma.permission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PermissionUpdateManyArgs>(args: SelectSubset<T, PermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Permission.
+     * @param {PermissionUpsertArgs} args - Arguments to update or create a Permission.
+     * @example
+     * // Update or create a Permission
+     * const permission = await prisma.permission.upsert({
+     *   create: {
+     *     // ... data to create a Permission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Permission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PermissionUpsertArgs>(args: SelectSubset<T, PermissionUpsertArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Permissions that matches the filter.
+     * @param {PermissionFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const permission = await prisma.permission.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: PermissionFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Permission.
+     * @param {PermissionAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const permission = await prisma.permission.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: PermissionAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionCountArgs} args - Arguments to filter Permissions to count.
+     * @example
+     * // Count the number of Permissions
+     * const count = await prisma.permission.count({
+     *   where: {
+     *     // ... the filter for the Permissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PermissionCountArgs>(
+      args?: Subset<T, PermissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PermissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PermissionAggregateArgs>(args: Subset<T, PermissionAggregateArgs>): Prisma.PrismaPromise<GetPermissionAggregateType<T>>
+
+    /**
+     * Group by Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PermissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PermissionGroupByArgs['orderBy'] }
+        : { orderBy?: PermissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Permission model
+   */
+  readonly fields: PermissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Permission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    rolePermissions<T extends Permission$rolePermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Permission$rolePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Permission model
+   */
+  interface PermissionFieldRefs {
+    readonly id: FieldRef<"Permission", 'String'>
+    readonly name: FieldRef<"Permission", 'String'>
+    readonly displayName: FieldRef<"Permission", 'String'>
+    readonly description: FieldRef<"Permission", 'String'>
+    readonly resource: FieldRef<"Permission", 'PermissionResource'>
+    readonly action: FieldRef<"Permission", 'PermissionAction'>
+    readonly isActive: FieldRef<"Permission", 'Boolean'>
+    readonly createdAt: FieldRef<"Permission", 'DateTime'>
+    readonly updatedAt: FieldRef<"Permission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Permission findUnique
+   */
+  export type PermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission findUniqueOrThrow
+   */
+  export type PermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission findFirst
+   */
+  export type PermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission findFirstOrThrow
+   */
+  export type PermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission findMany
+   */
+  export type PermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission create
+   */
+  export type PermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Permission.
+     */
+    data: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
+  }
+
+  /**
+   * Permission createMany
+   */
+  export type PermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Permissions.
+     */
+    data: PermissionCreateManyInput | PermissionCreateManyInput[]
+  }
+
+  /**
+   * Permission update
+   */
+  export type PermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Permission.
+     */
+    data: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
+    /**
+     * Choose, which Permission to update.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission updateMany
+   */
+  export type PermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Permissions.
+     */
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Permissions to update
+     */
+    where?: PermissionWhereInput
+    /**
+     * Limit how many Permissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Permission upsert
+   */
+  export type PermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Permission to update in case it exists.
+     */
+    where: PermissionWhereUniqueInput
+    /**
+     * In case the Permission found by the `where` argument doesn't exist, create a new Permission with this data.
+     */
+    create: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
+    /**
+     * In case the Permission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
+  }
+
+  /**
+   * Permission delete
+   */
+  export type PermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter which Permission to delete.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission deleteMany
+   */
+  export type PermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Permissions to delete
+     */
+    where?: PermissionWhereInput
+    /**
+     * Limit how many Permissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Permission findRaw
+   */
+  export type PermissionFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Permission aggregateRaw
+   */
+  export type PermissionAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Permission.rolePermissions
+   */
+  export type Permission$rolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    where?: RolePermissionWhereInput
+    orderBy?: RolePermissionOrderByWithRelationInput | RolePermissionOrderByWithRelationInput[]
+    cursor?: RolePermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RolePermissionScalarFieldEnum | RolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission without action
+   */
+  export type PermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserRole
+   */
+
+  export type AggregateUserRole = {
+    _count: UserRoleCountAggregateOutputType | null
+    _min: UserRoleMinAggregateOutputType | null
+    _max: UserRoleMaxAggregateOutputType | null
+  }
+
+  export type UserRoleMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    roleId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserRoleMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    roleId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserRoleCountAggregateOutputType = {
+    id: number
+    userId: number
+    roleId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserRoleMinAggregateInputType = {
+    id?: true
+    userId?: true
+    roleId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserRoleMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    roleId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserRoleCountAggregateInputType = {
+    id?: true
+    userId?: true
+    roleId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserRoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserRole to aggregate.
+     */
+    where?: UserRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoles to fetch.
+     */
+    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserRoles
+    **/
+    _count?: true | UserRoleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserRoleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserRoleMaxAggregateInputType
+  }
+
+  export type GetUserRoleAggregateType<T extends UserRoleAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserRole]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserRole[P]>
+      : GetScalarType<T[P], AggregateUserRole[P]>
+  }
+
+
+
+
+  export type UserRoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleWhereInput
+    orderBy?: UserRoleOrderByWithAggregationInput | UserRoleOrderByWithAggregationInput[]
+    by: UserRoleScalarFieldEnum[] | UserRoleScalarFieldEnum
+    having?: UserRoleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserRoleCountAggregateInputType | true
+    _min?: UserRoleMinAggregateInputType
+    _max?: UserRoleMaxAggregateInputType
+  }
+
+  export type UserRoleGroupByOutputType = {
+    id: string
+    userId: string
+    roleId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: UserRoleCountAggregateOutputType | null
+    _min: UserRoleMinAggregateOutputType | null
+    _max: UserRoleMaxAggregateOutputType | null
+  }
+
+  type GetUserRoleGroupByPayload<T extends UserRoleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserRoleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserRoleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserRoleGroupByOutputType[P]>
+            : GetScalarType<T[P], UserRoleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserRoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    roleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userRole"]>
+
+
+
+  export type UserRoleSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    roleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "roleId" | "createdAt" | "updatedAt", ExtArgs["result"]["userRole"]>
+  export type UserRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+  }
+
+  export type $UserRolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserRole"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      role: Prisma.$RolePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      roleId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userRole"]>
+    composites: {}
+  }
+
+  type UserRoleGetPayload<S extends boolean | null | undefined | UserRoleDefaultArgs> = $Result.GetResult<Prisma.$UserRolePayload, S>
+
+  type UserRoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserRoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserRoleCountAggregateInputType | true
+    }
+
+  export interface UserRoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserRole'], meta: { name: 'UserRole' } }
+    /**
+     * Find zero or one UserRole that matches the filter.
+     * @param {UserRoleFindUniqueArgs} args - Arguments to find a UserRole
+     * @example
+     * // Get one UserRole
+     * const userRole = await prisma.userRole.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserRoleFindUniqueArgs>(args: SelectSubset<T, UserRoleFindUniqueArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserRole that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserRoleFindUniqueOrThrowArgs} args - Arguments to find a UserRole
+     * @example
+     * // Get one UserRole
+     * const userRole = await prisma.userRole.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserRoleFindUniqueOrThrowArgs>(args: SelectSubset<T, UserRoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserRole that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleFindFirstArgs} args - Arguments to find a UserRole
+     * @example
+     * // Get one UserRole
+     * const userRole = await prisma.userRole.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserRoleFindFirstArgs>(args?: SelectSubset<T, UserRoleFindFirstArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserRole that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleFindFirstOrThrowArgs} args - Arguments to find a UserRole
+     * @example
+     * // Get one UserRole
+     * const userRole = await prisma.userRole.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserRoleFindFirstOrThrowArgs>(args?: SelectSubset<T, UserRoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserRoles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserRoles
+     * const userRoles = await prisma.userRole.findMany()
+     * 
+     * // Get first 10 UserRoles
+     * const userRoles = await prisma.userRole.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userRoleWithIdOnly = await prisma.userRole.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserRoleFindManyArgs>(args?: SelectSubset<T, UserRoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserRole.
+     * @param {UserRoleCreateArgs} args - Arguments to create a UserRole.
+     * @example
+     * // Create one UserRole
+     * const UserRole = await prisma.userRole.create({
+     *   data: {
+     *     // ... data to create a UserRole
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserRoleCreateArgs>(args: SelectSubset<T, UserRoleCreateArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserRoles.
+     * @param {UserRoleCreateManyArgs} args - Arguments to create many UserRoles.
+     * @example
+     * // Create many UserRoles
+     * const userRole = await prisma.userRole.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserRoleCreateManyArgs>(args?: SelectSubset<T, UserRoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a UserRole.
+     * @param {UserRoleDeleteArgs} args - Arguments to delete one UserRole.
+     * @example
+     * // Delete one UserRole
+     * const UserRole = await prisma.userRole.delete({
+     *   where: {
+     *     // ... filter to delete one UserRole
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserRoleDeleteArgs>(args: SelectSubset<T, UserRoleDeleteArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserRole.
+     * @param {UserRoleUpdateArgs} args - Arguments to update one UserRole.
+     * @example
+     * // Update one UserRole
+     * const userRole = await prisma.userRole.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserRoleUpdateArgs>(args: SelectSubset<T, UserRoleUpdateArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserRoles.
+     * @param {UserRoleDeleteManyArgs} args - Arguments to filter UserRoles to delete.
+     * @example
+     * // Delete a few UserRoles
+     * const { count } = await prisma.userRole.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserRoleDeleteManyArgs>(args?: SelectSubset<T, UserRoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserRoles
+     * const userRole = await prisma.userRole.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserRoleUpdateManyArgs>(args: SelectSubset<T, UserRoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserRole.
+     * @param {UserRoleUpsertArgs} args - Arguments to update or create a UserRole.
+     * @example
+     * // Update or create a UserRole
+     * const userRole = await prisma.userRole.upsert({
+     *   create: {
+     *     // ... data to create a UserRole
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserRole we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserRoleUpsertArgs>(args: SelectSubset<T, UserRoleUpsertArgs<ExtArgs>>): Prisma__UserRoleClient<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserRoles that matches the filter.
+     * @param {UserRoleFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const userRole = await prisma.userRole.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: UserRoleFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a UserRole.
+     * @param {UserRoleAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const userRole = await prisma.userRole.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: UserRoleAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of UserRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleCountArgs} args - Arguments to filter UserRoles to count.
+     * @example
+     * // Count the number of UserRoles
+     * const count = await prisma.userRole.count({
+     *   where: {
+     *     // ... the filter for the UserRoles we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserRoleCountArgs>(
+      args?: Subset<T, UserRoleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserRoleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserRoleAggregateArgs>(args: Subset<T, UserRoleAggregateArgs>): Prisma.PrismaPromise<GetUserRoleAggregateType<T>>
+
+    /**
+     * Group by UserRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserRoleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserRoleGroupByArgs['orderBy'] }
+        : { orderBy?: UserRoleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserRoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserRole model
+   */
+  readonly fields: UserRoleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserRole.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserRoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserRole model
+   */
+  interface UserRoleFieldRefs {
+    readonly id: FieldRef<"UserRole", 'String'>
+    readonly userId: FieldRef<"UserRole", 'String'>
+    readonly roleId: FieldRef<"UserRole", 'String'>
+    readonly createdAt: FieldRef<"UserRole", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserRole", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserRole findUnique
+   */
+  export type UserRoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRole to fetch.
+     */
+    where: UserRoleWhereUniqueInput
+  }
+
+  /**
+   * UserRole findUniqueOrThrow
+   */
+  export type UserRoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRole to fetch.
+     */
+    where: UserRoleWhereUniqueInput
+  }
+
+  /**
+   * UserRole findFirst
+   */
+  export type UserRoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRole to fetch.
+     */
+    where?: UserRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoles to fetch.
+     */
+    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserRoles.
+     */
+    cursor?: UserRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserRoles.
+     */
+    distinct?: UserRoleScalarFieldEnum | UserRoleScalarFieldEnum[]
+  }
+
+  /**
+   * UserRole findFirstOrThrow
+   */
+  export type UserRoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRole to fetch.
+     */
+    where?: UserRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoles to fetch.
+     */
+    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserRoles.
+     */
+    cursor?: UserRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserRoles.
+     */
+    distinct?: UserRoleScalarFieldEnum | UserRoleScalarFieldEnum[]
+  }
+
+  /**
+   * UserRole findMany
+   */
+  export type UserRoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRoles to fetch.
+     */
+    where?: UserRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoles to fetch.
+     */
+    orderBy?: UserRoleOrderByWithRelationInput | UserRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserRoles.
+     */
+    cursor?: UserRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoles.
+     */
+    skip?: number
+    distinct?: UserRoleScalarFieldEnum | UserRoleScalarFieldEnum[]
+  }
+
+  /**
+   * UserRole create
+   */
+  export type UserRoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserRole.
+     */
+    data: XOR<UserRoleCreateInput, UserRoleUncheckedCreateInput>
+  }
+
+  /**
+   * UserRole createMany
+   */
+  export type UserRoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserRoles.
+     */
+    data: UserRoleCreateManyInput | UserRoleCreateManyInput[]
+  }
+
+  /**
+   * UserRole update
+   */
+  export type UserRoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserRole.
+     */
+    data: XOR<UserRoleUpdateInput, UserRoleUncheckedUpdateInput>
+    /**
+     * Choose, which UserRole to update.
+     */
+    where: UserRoleWhereUniqueInput
+  }
+
+  /**
+   * UserRole updateMany
+   */
+  export type UserRoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserRoles.
+     */
+    data: XOR<UserRoleUpdateManyMutationInput, UserRoleUncheckedUpdateManyInput>
+    /**
+     * Filter which UserRoles to update
+     */
+    where?: UserRoleWhereInput
+    /**
+     * Limit how many UserRoles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserRole upsert
+   */
+  export type UserRoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserRole to update in case it exists.
+     */
+    where: UserRoleWhereUniqueInput
+    /**
+     * In case the UserRole found by the `where` argument doesn't exist, create a new UserRole with this data.
+     */
+    create: XOR<UserRoleCreateInput, UserRoleUncheckedCreateInput>
+    /**
+     * In case the UserRole was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserRoleUpdateInput, UserRoleUncheckedUpdateInput>
+  }
+
+  /**
+   * UserRole delete
+   */
+  export type UserRoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+    /**
+     * Filter which UserRole to delete.
+     */
+    where: UserRoleWhereUniqueInput
+  }
+
+  /**
+   * UserRole deleteMany
+   */
+  export type UserRoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserRoles to delete
+     */
+    where?: UserRoleWhereInput
+    /**
+     * Limit how many UserRoles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserRole findRaw
+   */
+  export type UserRoleFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserRole aggregateRaw
+   */
+  export type UserRoleAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserRole without action
+   */
+  export type UserRoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRole
+     */
+    select?: UserRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRole
+     */
+    omit?: UserRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RolePermission
+   */
+
+  export type AggregateRolePermission = {
+    _count: RolePermissionCountAggregateOutputType | null
+    _min: RolePermissionMinAggregateOutputType | null
+    _max: RolePermissionMaxAggregateOutputType | null
+  }
+
+  export type RolePermissionMinAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    permissionId: string | null
+    createdAt: Date | null
+  }
+
+  export type RolePermissionMaxAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    permissionId: string | null
+    createdAt: Date | null
+  }
+
+  export type RolePermissionCountAggregateOutputType = {
+    id: number
+    roleId: number
+    permissionId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RolePermissionMinAggregateInputType = {
+    id?: true
+    roleId?: true
+    permissionId?: true
+    createdAt?: true
+  }
+
+  export type RolePermissionMaxAggregateInputType = {
+    id?: true
+    roleId?: true
+    permissionId?: true
+    createdAt?: true
+  }
+
+  export type RolePermissionCountAggregateInputType = {
+    id?: true
+    roleId?: true
+    permissionId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RolePermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RolePermission to aggregate.
+     */
+    where?: RolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePermissions to fetch.
+     */
+    orderBy?: RolePermissionOrderByWithRelationInput | RolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RolePermissions
+    **/
+    _count?: true | RolePermissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RolePermissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RolePermissionMaxAggregateInputType
+  }
+
+  export type GetRolePermissionAggregateType<T extends RolePermissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateRolePermission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRolePermission[P]>
+      : GetScalarType<T[P], AggregateRolePermission[P]>
+  }
+
+
+
+
+  export type RolePermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RolePermissionWhereInput
+    orderBy?: RolePermissionOrderByWithAggregationInput | RolePermissionOrderByWithAggregationInput[]
+    by: RolePermissionScalarFieldEnum[] | RolePermissionScalarFieldEnum
+    having?: RolePermissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RolePermissionCountAggregateInputType | true
+    _min?: RolePermissionMinAggregateInputType
+    _max?: RolePermissionMaxAggregateInputType
+  }
+
+  export type RolePermissionGroupByOutputType = {
+    id: string
+    roleId: string
+    permissionId: string
+    createdAt: Date
+    _count: RolePermissionCountAggregateOutputType | null
+    _min: RolePermissionMinAggregateOutputType | null
+    _max: RolePermissionMaxAggregateOutputType | null
+  }
+
+  type GetRolePermissionGroupByPayload<T extends RolePermissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RolePermissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RolePermissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RolePermissionGroupByOutputType[P]>
+            : GetScalarType<T[P], RolePermissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RolePermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    permissionId?: boolean
+    createdAt?: boolean
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    permission?: boolean | PermissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rolePermission"]>
+
+
+
+  export type RolePermissionSelectScalar = {
+    id?: boolean
+    roleId?: boolean
+    permissionId?: boolean
+    createdAt?: boolean
+  }
+
+  export type RolePermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roleId" | "permissionId" | "createdAt", ExtArgs["result"]["rolePermission"]>
+  export type RolePermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    permission?: boolean | PermissionDefaultArgs<ExtArgs>
+  }
+
+  export type $RolePermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RolePermission"
+    objects: {
+      role: Prisma.$RolePayload<ExtArgs>
+      permission: Prisma.$PermissionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roleId: string
+      permissionId: string
+      createdAt: Date
+    }, ExtArgs["result"]["rolePermission"]>
+    composites: {}
+  }
+
+  type RolePermissionGetPayload<S extends boolean | null | undefined | RolePermissionDefaultArgs> = $Result.GetResult<Prisma.$RolePermissionPayload, S>
+
+  type RolePermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RolePermissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RolePermissionCountAggregateInputType | true
+    }
+
+  export interface RolePermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RolePermission'], meta: { name: 'RolePermission' } }
+    /**
+     * Find zero or one RolePermission that matches the filter.
+     * @param {RolePermissionFindUniqueArgs} args - Arguments to find a RolePermission
+     * @example
+     * // Get one RolePermission
+     * const rolePermission = await prisma.rolePermission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RolePermissionFindUniqueArgs>(args: SelectSubset<T, RolePermissionFindUniqueArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RolePermission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RolePermissionFindUniqueOrThrowArgs} args - Arguments to find a RolePermission
+     * @example
+     * // Get one RolePermission
+     * const rolePermission = await prisma.rolePermission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RolePermissionFindUniqueOrThrowArgs>(args: SelectSubset<T, RolePermissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RolePermission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePermissionFindFirstArgs} args - Arguments to find a RolePermission
+     * @example
+     * // Get one RolePermission
+     * const rolePermission = await prisma.rolePermission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RolePermissionFindFirstArgs>(args?: SelectSubset<T, RolePermissionFindFirstArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RolePermission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePermissionFindFirstOrThrowArgs} args - Arguments to find a RolePermission
+     * @example
+     * // Get one RolePermission
+     * const rolePermission = await prisma.rolePermission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RolePermissionFindFirstOrThrowArgs>(args?: SelectSubset<T, RolePermissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RolePermissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePermissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RolePermissions
+     * const rolePermissions = await prisma.rolePermission.findMany()
+     * 
+     * // Get first 10 RolePermissions
+     * const rolePermissions = await prisma.rolePermission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rolePermissionWithIdOnly = await prisma.rolePermission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RolePermissionFindManyArgs>(args?: SelectSubset<T, RolePermissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RolePermission.
+     * @param {RolePermissionCreateArgs} args - Arguments to create a RolePermission.
+     * @example
+     * // Create one RolePermission
+     * const RolePermission = await prisma.rolePermission.create({
+     *   data: {
+     *     // ... data to create a RolePermission
+     *   }
+     * })
+     * 
+     */
+    create<T extends RolePermissionCreateArgs>(args: SelectSubset<T, RolePermissionCreateArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RolePermissions.
+     * @param {RolePermissionCreateManyArgs} args - Arguments to create many RolePermissions.
+     * @example
+     * // Create many RolePermissions
+     * const rolePermission = await prisma.rolePermission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RolePermissionCreateManyArgs>(args?: SelectSubset<T, RolePermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a RolePermission.
+     * @param {RolePermissionDeleteArgs} args - Arguments to delete one RolePermission.
+     * @example
+     * // Delete one RolePermission
+     * const RolePermission = await prisma.rolePermission.delete({
+     *   where: {
+     *     // ... filter to delete one RolePermission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RolePermissionDeleteArgs>(args: SelectSubset<T, RolePermissionDeleteArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RolePermission.
+     * @param {RolePermissionUpdateArgs} args - Arguments to update one RolePermission.
+     * @example
+     * // Update one RolePermission
+     * const rolePermission = await prisma.rolePermission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RolePermissionUpdateArgs>(args: SelectSubset<T, RolePermissionUpdateArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RolePermissions.
+     * @param {RolePermissionDeleteManyArgs} args - Arguments to filter RolePermissions to delete.
+     * @example
+     * // Delete a few RolePermissions
+     * const { count } = await prisma.rolePermission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RolePermissionDeleteManyArgs>(args?: SelectSubset<T, RolePermissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RolePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RolePermissions
+     * const rolePermission = await prisma.rolePermission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RolePermissionUpdateManyArgs>(args: SelectSubset<T, RolePermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RolePermission.
+     * @param {RolePermissionUpsertArgs} args - Arguments to update or create a RolePermission.
+     * @example
+     * // Update or create a RolePermission
+     * const rolePermission = await prisma.rolePermission.upsert({
+     *   create: {
+     *     // ... data to create a RolePermission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RolePermission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RolePermissionUpsertArgs>(args: SelectSubset<T, RolePermissionUpsertArgs<ExtArgs>>): Prisma__RolePermissionClient<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RolePermissions that matches the filter.
+     * @param {RolePermissionFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const rolePermission = await prisma.rolePermission.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: RolePermissionFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a RolePermission.
+     * @param {RolePermissionAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const rolePermission = await prisma.rolePermission.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: RolePermissionAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of RolePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePermissionCountArgs} args - Arguments to filter RolePermissions to count.
+     * @example
+     * // Count the number of RolePermissions
+     * const count = await prisma.rolePermission.count({
+     *   where: {
+     *     // ... the filter for the RolePermissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends RolePermissionCountArgs>(
+      args?: Subset<T, RolePermissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RolePermissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RolePermission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RolePermissionAggregateArgs>(args: Subset<T, RolePermissionAggregateArgs>): Prisma.PrismaPromise<GetRolePermissionAggregateType<T>>
+
+    /**
+     * Group by RolePermission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePermissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RolePermissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RolePermissionGroupByArgs['orderBy'] }
+        : { orderBy?: RolePermissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RolePermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRolePermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RolePermission model
+   */
+  readonly fields: RolePermissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RolePermission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RolePermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    permission<T extends PermissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PermissionDefaultArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RolePermission model
+   */
+  interface RolePermissionFieldRefs {
+    readonly id: FieldRef<"RolePermission", 'String'>
+    readonly roleId: FieldRef<"RolePermission", 'String'>
+    readonly permissionId: FieldRef<"RolePermission", 'String'>
+    readonly createdAt: FieldRef<"RolePermission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RolePermission findUnique
+   */
+  export type RolePermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePermission to fetch.
+     */
+    where: RolePermissionWhereUniqueInput
+  }
+
+  /**
+   * RolePermission findUniqueOrThrow
+   */
+  export type RolePermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePermission to fetch.
+     */
+    where: RolePermissionWhereUniqueInput
+  }
+
+  /**
+   * RolePermission findFirst
+   */
+  export type RolePermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePermission to fetch.
+     */
+    where?: RolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePermissions to fetch.
+     */
+    orderBy?: RolePermissionOrderByWithRelationInput | RolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RolePermissions.
+     */
+    cursor?: RolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RolePermissions.
+     */
+    distinct?: RolePermissionScalarFieldEnum | RolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * RolePermission findFirstOrThrow
+   */
+  export type RolePermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePermission to fetch.
+     */
+    where?: RolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePermissions to fetch.
+     */
+    orderBy?: RolePermissionOrderByWithRelationInput | RolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RolePermissions.
+     */
+    cursor?: RolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RolePermissions.
+     */
+    distinct?: RolePermissionScalarFieldEnum | RolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * RolePermission findMany
+   */
+  export type RolePermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePermissions to fetch.
+     */
+    where?: RolePermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePermissions to fetch.
+     */
+    orderBy?: RolePermissionOrderByWithRelationInput | RolePermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RolePermissions.
+     */
+    cursor?: RolePermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePermissions.
+     */
+    skip?: number
+    distinct?: RolePermissionScalarFieldEnum | RolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * RolePermission create
+   */
+  export type RolePermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RolePermission.
+     */
+    data: XOR<RolePermissionCreateInput, RolePermissionUncheckedCreateInput>
+  }
+
+  /**
+   * RolePermission createMany
+   */
+  export type RolePermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RolePermissions.
+     */
+    data: RolePermissionCreateManyInput | RolePermissionCreateManyInput[]
+  }
+
+  /**
+   * RolePermission update
+   */
+  export type RolePermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RolePermission.
+     */
+    data: XOR<RolePermissionUpdateInput, RolePermissionUncheckedUpdateInput>
+    /**
+     * Choose, which RolePermission to update.
+     */
+    where: RolePermissionWhereUniqueInput
+  }
+
+  /**
+   * RolePermission updateMany
+   */
+  export type RolePermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RolePermissions.
+     */
+    data: XOR<RolePermissionUpdateManyMutationInput, RolePermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which RolePermissions to update
+     */
+    where?: RolePermissionWhereInput
+    /**
+     * Limit how many RolePermissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RolePermission upsert
+   */
+  export type RolePermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RolePermission to update in case it exists.
+     */
+    where: RolePermissionWhereUniqueInput
+    /**
+     * In case the RolePermission found by the `where` argument doesn't exist, create a new RolePermission with this data.
+     */
+    create: XOR<RolePermissionCreateInput, RolePermissionUncheckedCreateInput>
+    /**
+     * In case the RolePermission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RolePermissionUpdateInput, RolePermissionUncheckedUpdateInput>
+  }
+
+  /**
+   * RolePermission delete
+   */
+  export type RolePermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
+    /**
+     * Filter which RolePermission to delete.
+     */
+    where: RolePermissionWhereUniqueInput
+  }
+
+  /**
+   * RolePermission deleteMany
+   */
+  export type RolePermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RolePermissions to delete
+     */
+    where?: RolePermissionWhereInput
+    /**
+     * Limit how many RolePermissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RolePermission findRaw
+   */
+  export type RolePermissionFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * RolePermission aggregateRaw
+   */
+  export type RolePermissionAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * RolePermission without action
+   */
+  export type RolePermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePermission
+     */
+    select?: RolePermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePermission
+     */
+    omit?: RolePermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePermissionInclude<ExtArgs> | null
   }
 
 
@@ -13889,6 +18758,2180 @@ export namespace Prisma {
 
 
   /**
+   * Model Achievement
+   */
+
+  export type AggregateAchievement = {
+    _count: AchievementCountAggregateOutputType | null
+    _avg: AchievementAvgAggregateOutputType | null
+    _sum: AchievementSumAggregateOutputType | null
+    _min: AchievementMinAggregateOutputType | null
+    _max: AchievementMaxAggregateOutputType | null
+  }
+
+  export type AchievementAvgAggregateOutputType = {
+    targetValue: number | null
+    duration: number | null
+    xpReward: number | null
+  }
+
+  export type AchievementSumAggregateOutputType = {
+    targetValue: number | null
+    duration: number | null
+    xpReward: number | null
+  }
+
+  export type AchievementMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    type: $Enums.AchievementType | null
+    targetValue: number | null
+    duration: number | null
+    rarity: $Enums.AchievementRarity | null
+    icon: string | null
+    isActive: boolean | null
+    xpReward: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AchievementMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    type: $Enums.AchievementType | null
+    targetValue: number | null
+    duration: number | null
+    rarity: $Enums.AchievementRarity | null
+    icon: string | null
+    isActive: boolean | null
+    xpReward: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AchievementCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    type: number
+    targetValue: number
+    duration: number
+    rarity: number
+    icon: number
+    isActive: number
+    xpReward: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AchievementAvgAggregateInputType = {
+    targetValue?: true
+    duration?: true
+    xpReward?: true
+  }
+
+  export type AchievementSumAggregateInputType = {
+    targetValue?: true
+    duration?: true
+    xpReward?: true
+  }
+
+  export type AchievementMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    targetValue?: true
+    duration?: true
+    rarity?: true
+    icon?: true
+    isActive?: true
+    xpReward?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AchievementMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    targetValue?: true
+    duration?: true
+    rarity?: true
+    icon?: true
+    isActive?: true
+    xpReward?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AchievementCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    targetValue?: true
+    duration?: true
+    rarity?: true
+    icon?: true
+    isActive?: true
+    xpReward?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AchievementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Achievement to aggregate.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Achievements
+    **/
+    _count?: true | AchievementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AchievementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AchievementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AchievementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AchievementMaxAggregateInputType
+  }
+
+  export type GetAchievementAggregateType<T extends AchievementAggregateArgs> = {
+        [P in keyof T & keyof AggregateAchievement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAchievement[P]>
+      : GetScalarType<T[P], AggregateAchievement[P]>
+  }
+
+
+
+
+  export type AchievementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AchievementWhereInput
+    orderBy?: AchievementOrderByWithAggregationInput | AchievementOrderByWithAggregationInput[]
+    by: AchievementScalarFieldEnum[] | AchievementScalarFieldEnum
+    having?: AchievementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AchievementCountAggregateInputType | true
+    _avg?: AchievementAvgAggregateInputType
+    _sum?: AchievementSumAggregateInputType
+    _min?: AchievementMinAggregateInputType
+    _max?: AchievementMaxAggregateInputType
+  }
+
+  export type AchievementGroupByOutputType = {
+    id: string
+    title: string
+    description: string
+    type: $Enums.AchievementType
+    targetValue: number
+    duration: number | null
+    rarity: $Enums.AchievementRarity
+    icon: string | null
+    isActive: boolean
+    xpReward: number
+    createdAt: Date
+    updatedAt: Date
+    _count: AchievementCountAggregateOutputType | null
+    _avg: AchievementAvgAggregateOutputType | null
+    _sum: AchievementSumAggregateOutputType | null
+    _min: AchievementMinAggregateOutputType | null
+    _max: AchievementMaxAggregateOutputType | null
+  }
+
+  type GetAchievementGroupByPayload<T extends AchievementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AchievementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AchievementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AchievementGroupByOutputType[P]>
+            : GetScalarType<T[P], AchievementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AchievementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    targetValue?: boolean
+    duration?: boolean
+    rarity?: boolean
+    icon?: boolean
+    isActive?: boolean
+    xpReward?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userAchievements?: boolean | Achievement$userAchievementsArgs<ExtArgs>
+    _count?: boolean | AchievementCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["achievement"]>
+
+
+
+  export type AchievementSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    targetValue?: boolean
+    duration?: boolean
+    rarity?: boolean
+    icon?: boolean
+    isActive?: boolean
+    xpReward?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "type" | "targetValue" | "duration" | "rarity" | "icon" | "isActive" | "xpReward" | "createdAt" | "updatedAt", ExtArgs["result"]["achievement"]>
+  export type AchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userAchievements?: boolean | Achievement$userAchievementsArgs<ExtArgs>
+    _count?: boolean | AchievementCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $AchievementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Achievement"
+    objects: {
+      userAchievements: Prisma.$UserAchievementPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string
+      type: $Enums.AchievementType
+      targetValue: number
+      duration: number | null
+      rarity: $Enums.AchievementRarity
+      icon: string | null
+      isActive: boolean
+      xpReward: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["achievement"]>
+    composites: {}
+  }
+
+  type AchievementGetPayload<S extends boolean | null | undefined | AchievementDefaultArgs> = $Result.GetResult<Prisma.$AchievementPayload, S>
+
+  type AchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AchievementCountAggregateInputType | true
+    }
+
+  export interface AchievementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Achievement'], meta: { name: 'Achievement' } }
+    /**
+     * Find zero or one Achievement that matches the filter.
+     * @param {AchievementFindUniqueArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AchievementFindUniqueArgs>(args: SelectSubset<T, AchievementFindUniqueArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Achievement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AchievementFindUniqueOrThrowArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AchievementFindUniqueOrThrowArgs>(args: SelectSubset<T, AchievementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Achievement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindFirstArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AchievementFindFirstArgs>(args?: SelectSubset<T, AchievementFindFirstArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Achievement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindFirstOrThrowArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AchievementFindFirstOrThrowArgs>(args?: SelectSubset<T, AchievementFindFirstOrThrowArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Achievements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Achievements
+     * const achievements = await prisma.achievement.findMany()
+     * 
+     * // Get first 10 Achievements
+     * const achievements = await prisma.achievement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const achievementWithIdOnly = await prisma.achievement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AchievementFindManyArgs>(args?: SelectSubset<T, AchievementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Achievement.
+     * @param {AchievementCreateArgs} args - Arguments to create a Achievement.
+     * @example
+     * // Create one Achievement
+     * const Achievement = await prisma.achievement.create({
+     *   data: {
+     *     // ... data to create a Achievement
+     *   }
+     * })
+     * 
+     */
+    create<T extends AchievementCreateArgs>(args: SelectSubset<T, AchievementCreateArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Achievements.
+     * @param {AchievementCreateManyArgs} args - Arguments to create many Achievements.
+     * @example
+     * // Create many Achievements
+     * const achievement = await prisma.achievement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AchievementCreateManyArgs>(args?: SelectSubset<T, AchievementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Achievement.
+     * @param {AchievementDeleteArgs} args - Arguments to delete one Achievement.
+     * @example
+     * // Delete one Achievement
+     * const Achievement = await prisma.achievement.delete({
+     *   where: {
+     *     // ... filter to delete one Achievement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AchievementDeleteArgs>(args: SelectSubset<T, AchievementDeleteArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Achievement.
+     * @param {AchievementUpdateArgs} args - Arguments to update one Achievement.
+     * @example
+     * // Update one Achievement
+     * const achievement = await prisma.achievement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AchievementUpdateArgs>(args: SelectSubset<T, AchievementUpdateArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Achievements.
+     * @param {AchievementDeleteManyArgs} args - Arguments to filter Achievements to delete.
+     * @example
+     * // Delete a few Achievements
+     * const { count } = await prisma.achievement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AchievementDeleteManyArgs>(args?: SelectSubset<T, AchievementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Achievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Achievements
+     * const achievement = await prisma.achievement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AchievementUpdateManyArgs>(args: SelectSubset<T, AchievementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Achievement.
+     * @param {AchievementUpsertArgs} args - Arguments to update or create a Achievement.
+     * @example
+     * // Update or create a Achievement
+     * const achievement = await prisma.achievement.upsert({
+     *   create: {
+     *     // ... data to create a Achievement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Achievement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AchievementUpsertArgs>(args: SelectSubset<T, AchievementUpsertArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Achievements that matches the filter.
+     * @param {AchievementFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const achievement = await prisma.achievement.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: AchievementFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Achievement.
+     * @param {AchievementAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const achievement = await prisma.achievement.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: AchievementAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Achievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementCountArgs} args - Arguments to filter Achievements to count.
+     * @example
+     * // Count the number of Achievements
+     * const count = await prisma.achievement.count({
+     *   where: {
+     *     // ... the filter for the Achievements we want to count
+     *   }
+     * })
+    **/
+    count<T extends AchievementCountArgs>(
+      args?: Subset<T, AchievementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AchievementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Achievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AchievementAggregateArgs>(args: Subset<T, AchievementAggregateArgs>): Prisma.PrismaPromise<GetAchievementAggregateType<T>>
+
+    /**
+     * Group by Achievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AchievementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AchievementGroupByArgs['orderBy'] }
+        : { orderBy?: AchievementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AchievementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAchievementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Achievement model
+   */
+  readonly fields: AchievementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Achievement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AchievementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    userAchievements<T extends Achievement$userAchievementsArgs<ExtArgs> = {}>(args?: Subset<T, Achievement$userAchievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Achievement model
+   */
+  interface AchievementFieldRefs {
+    readonly id: FieldRef<"Achievement", 'String'>
+    readonly title: FieldRef<"Achievement", 'String'>
+    readonly description: FieldRef<"Achievement", 'String'>
+    readonly type: FieldRef<"Achievement", 'AchievementType'>
+    readonly targetValue: FieldRef<"Achievement", 'Int'>
+    readonly duration: FieldRef<"Achievement", 'Int'>
+    readonly rarity: FieldRef<"Achievement", 'AchievementRarity'>
+    readonly icon: FieldRef<"Achievement", 'String'>
+    readonly isActive: FieldRef<"Achievement", 'Boolean'>
+    readonly xpReward: FieldRef<"Achievement", 'Int'>
+    readonly createdAt: FieldRef<"Achievement", 'DateTime'>
+    readonly updatedAt: FieldRef<"Achievement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Achievement findUnique
+   */
+  export type AchievementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement findUniqueOrThrow
+   */
+  export type AchievementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement findFirst
+   */
+  export type AchievementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Achievements.
+     */
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement findFirstOrThrow
+   */
+  export type AchievementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Achievements.
+     */
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement findMany
+   */
+  export type AchievementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievements to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement create
+   */
+  export type AchievementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Achievement.
+     */
+    data: XOR<AchievementCreateInput, AchievementUncheckedCreateInput>
+  }
+
+  /**
+   * Achievement createMany
+   */
+  export type AchievementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Achievements.
+     */
+    data: AchievementCreateManyInput | AchievementCreateManyInput[]
+  }
+
+  /**
+   * Achievement update
+   */
+  export type AchievementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Achievement.
+     */
+    data: XOR<AchievementUpdateInput, AchievementUncheckedUpdateInput>
+    /**
+     * Choose, which Achievement to update.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement updateMany
+   */
+  export type AchievementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Achievements.
+     */
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyInput>
+    /**
+     * Filter which Achievements to update
+     */
+    where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Achievement upsert
+   */
+  export type AchievementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Achievement to update in case it exists.
+     */
+    where: AchievementWhereUniqueInput
+    /**
+     * In case the Achievement found by the `where` argument doesn't exist, create a new Achievement with this data.
+     */
+    create: XOR<AchievementCreateInput, AchievementUncheckedCreateInput>
+    /**
+     * In case the Achievement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AchievementUpdateInput, AchievementUncheckedUpdateInput>
+  }
+
+  /**
+   * Achievement delete
+   */
+  export type AchievementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter which Achievement to delete.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement deleteMany
+   */
+  export type AchievementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Achievements to delete
+     */
+    where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Achievement findRaw
+   */
+  export type AchievementFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Achievement aggregateRaw
+   */
+  export type AchievementAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Achievement.userAchievements
+   */
+  export type Achievement$userAchievementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    where?: UserAchievementWhereInput
+    orderBy?: UserAchievementOrderByWithRelationInput | UserAchievementOrderByWithRelationInput[]
+    cursor?: UserAchievementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserAchievementScalarFieldEnum | UserAchievementScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement without action
+   */
+  export type AchievementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserAchievement
+   */
+
+  export type AggregateUserAchievement = {
+    _count: UserAchievementCountAggregateOutputType | null
+    _avg: UserAchievementAvgAggregateOutputType | null
+    _sum: UserAchievementSumAggregateOutputType | null
+    _min: UserAchievementMinAggregateOutputType | null
+    _max: UserAchievementMaxAggregateOutputType | null
+  }
+
+  export type UserAchievementAvgAggregateOutputType = {
+    progress: number | null
+  }
+
+  export type UserAchievementSumAggregateOutputType = {
+    progress: number | null
+  }
+
+  export type UserAchievementMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    achievementId: string | null
+    progress: number | null
+    isCompleted: boolean | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserAchievementMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    achievementId: string | null
+    progress: number | null
+    isCompleted: boolean | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserAchievementCountAggregateOutputType = {
+    id: number
+    userId: number
+    achievementId: number
+    progress: number
+    isCompleted: number
+    completedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserAchievementAvgAggregateInputType = {
+    progress?: true
+  }
+
+  export type UserAchievementSumAggregateInputType = {
+    progress?: true
+  }
+
+  export type UserAchievementMinAggregateInputType = {
+    id?: true
+    userId?: true
+    achievementId?: true
+    progress?: true
+    isCompleted?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserAchievementMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    achievementId?: true
+    progress?: true
+    isCompleted?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserAchievementCountAggregateInputType = {
+    id?: true
+    userId?: true
+    achievementId?: true
+    progress?: true
+    isCompleted?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserAchievementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserAchievement to aggregate.
+     */
+    where?: UserAchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAchievements to fetch.
+     */
+    orderBy?: UserAchievementOrderByWithRelationInput | UserAchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserAchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAchievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAchievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserAchievements
+    **/
+    _count?: true | UserAchievementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAchievementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserAchievementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserAchievementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserAchievementMaxAggregateInputType
+  }
+
+  export type GetUserAchievementAggregateType<T extends UserAchievementAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserAchievement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserAchievement[P]>
+      : GetScalarType<T[P], AggregateUserAchievement[P]>
+  }
+
+
+
+
+  export type UserAchievementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserAchievementWhereInput
+    orderBy?: UserAchievementOrderByWithAggregationInput | UserAchievementOrderByWithAggregationInput[]
+    by: UserAchievementScalarFieldEnum[] | UserAchievementScalarFieldEnum
+    having?: UserAchievementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserAchievementCountAggregateInputType | true
+    _avg?: UserAchievementAvgAggregateInputType
+    _sum?: UserAchievementSumAggregateInputType
+    _min?: UserAchievementMinAggregateInputType
+    _max?: UserAchievementMaxAggregateInputType
+  }
+
+  export type UserAchievementGroupByOutputType = {
+    id: string
+    userId: string
+    achievementId: string
+    progress: number
+    isCompleted: boolean
+    completedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: UserAchievementCountAggregateOutputType | null
+    _avg: UserAchievementAvgAggregateOutputType | null
+    _sum: UserAchievementSumAggregateOutputType | null
+    _min: UserAchievementMinAggregateOutputType | null
+    _max: UserAchievementMaxAggregateOutputType | null
+  }
+
+  type GetUserAchievementGroupByPayload<T extends UserAchievementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserAchievementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserAchievementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserAchievementGroupByOutputType[P]>
+            : GetScalarType<T[P], UserAchievementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserAchievementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    achievementId?: boolean
+    progress?: boolean
+    isCompleted?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    achievement?: boolean | AchievementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userAchievement"]>
+
+
+
+  export type UserAchievementSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    achievementId?: boolean
+    progress?: boolean
+    isCompleted?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserAchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "achievementId" | "progress" | "isCompleted" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["userAchievement"]>
+  export type UserAchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    achievement?: boolean | AchievementDefaultArgs<ExtArgs>
+  }
+
+  export type $UserAchievementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserAchievement"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      achievement: Prisma.$AchievementPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      achievementId: string
+      progress: number
+      isCompleted: boolean
+      completedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userAchievement"]>
+    composites: {}
+  }
+
+  type UserAchievementGetPayload<S extends boolean | null | undefined | UserAchievementDefaultArgs> = $Result.GetResult<Prisma.$UserAchievementPayload, S>
+
+  type UserAchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserAchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserAchievementCountAggregateInputType | true
+    }
+
+  export interface UserAchievementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserAchievement'], meta: { name: 'UserAchievement' } }
+    /**
+     * Find zero or one UserAchievement that matches the filter.
+     * @param {UserAchievementFindUniqueArgs} args - Arguments to find a UserAchievement
+     * @example
+     * // Get one UserAchievement
+     * const userAchievement = await prisma.userAchievement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserAchievementFindUniqueArgs>(args: SelectSubset<T, UserAchievementFindUniqueArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserAchievement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserAchievementFindUniqueOrThrowArgs} args - Arguments to find a UserAchievement
+     * @example
+     * // Get one UserAchievement
+     * const userAchievement = await prisma.userAchievement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserAchievementFindUniqueOrThrowArgs>(args: SelectSubset<T, UserAchievementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserAchievement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAchievementFindFirstArgs} args - Arguments to find a UserAchievement
+     * @example
+     * // Get one UserAchievement
+     * const userAchievement = await prisma.userAchievement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserAchievementFindFirstArgs>(args?: SelectSubset<T, UserAchievementFindFirstArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserAchievement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAchievementFindFirstOrThrowArgs} args - Arguments to find a UserAchievement
+     * @example
+     * // Get one UserAchievement
+     * const userAchievement = await prisma.userAchievement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserAchievementFindFirstOrThrowArgs>(args?: SelectSubset<T, UserAchievementFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserAchievements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAchievementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserAchievements
+     * const userAchievements = await prisma.userAchievement.findMany()
+     * 
+     * // Get first 10 UserAchievements
+     * const userAchievements = await prisma.userAchievement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userAchievementWithIdOnly = await prisma.userAchievement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserAchievementFindManyArgs>(args?: SelectSubset<T, UserAchievementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserAchievement.
+     * @param {UserAchievementCreateArgs} args - Arguments to create a UserAchievement.
+     * @example
+     * // Create one UserAchievement
+     * const UserAchievement = await prisma.userAchievement.create({
+     *   data: {
+     *     // ... data to create a UserAchievement
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserAchievementCreateArgs>(args: SelectSubset<T, UserAchievementCreateArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserAchievements.
+     * @param {UserAchievementCreateManyArgs} args - Arguments to create many UserAchievements.
+     * @example
+     * // Create many UserAchievements
+     * const userAchievement = await prisma.userAchievement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserAchievementCreateManyArgs>(args?: SelectSubset<T, UserAchievementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a UserAchievement.
+     * @param {UserAchievementDeleteArgs} args - Arguments to delete one UserAchievement.
+     * @example
+     * // Delete one UserAchievement
+     * const UserAchievement = await prisma.userAchievement.delete({
+     *   where: {
+     *     // ... filter to delete one UserAchievement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserAchievementDeleteArgs>(args: SelectSubset<T, UserAchievementDeleteArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserAchievement.
+     * @param {UserAchievementUpdateArgs} args - Arguments to update one UserAchievement.
+     * @example
+     * // Update one UserAchievement
+     * const userAchievement = await prisma.userAchievement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserAchievementUpdateArgs>(args: SelectSubset<T, UserAchievementUpdateArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserAchievements.
+     * @param {UserAchievementDeleteManyArgs} args - Arguments to filter UserAchievements to delete.
+     * @example
+     * // Delete a few UserAchievements
+     * const { count } = await prisma.userAchievement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserAchievementDeleteManyArgs>(args?: SelectSubset<T, UserAchievementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserAchievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAchievementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserAchievements
+     * const userAchievement = await prisma.userAchievement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserAchievementUpdateManyArgs>(args: SelectSubset<T, UserAchievementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserAchievement.
+     * @param {UserAchievementUpsertArgs} args - Arguments to update or create a UserAchievement.
+     * @example
+     * // Update or create a UserAchievement
+     * const userAchievement = await prisma.userAchievement.upsert({
+     *   create: {
+     *     // ... data to create a UserAchievement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserAchievement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserAchievementUpsertArgs>(args: SelectSubset<T, UserAchievementUpsertArgs<ExtArgs>>): Prisma__UserAchievementClient<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserAchievements that matches the filter.
+     * @param {UserAchievementFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const userAchievement = await prisma.userAchievement.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: UserAchievementFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a UserAchievement.
+     * @param {UserAchievementAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const userAchievement = await prisma.userAchievement.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: UserAchievementAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of UserAchievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAchievementCountArgs} args - Arguments to filter UserAchievements to count.
+     * @example
+     * // Count the number of UserAchievements
+     * const count = await prisma.userAchievement.count({
+     *   where: {
+     *     // ... the filter for the UserAchievements we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserAchievementCountArgs>(
+      args?: Subset<T, UserAchievementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserAchievementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserAchievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAchievementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAchievementAggregateArgs>(args: Subset<T, UserAchievementAggregateArgs>): Prisma.PrismaPromise<GetUserAchievementAggregateType<T>>
+
+    /**
+     * Group by UserAchievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAchievementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserAchievementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserAchievementGroupByArgs['orderBy'] }
+        : { orderBy?: UserAchievementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserAchievementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserAchievementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserAchievement model
+   */
+  readonly fields: UserAchievementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserAchievement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserAchievementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    achievement<T extends AchievementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AchievementDefaultArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserAchievement model
+   */
+  interface UserAchievementFieldRefs {
+    readonly id: FieldRef<"UserAchievement", 'String'>
+    readonly userId: FieldRef<"UserAchievement", 'String'>
+    readonly achievementId: FieldRef<"UserAchievement", 'String'>
+    readonly progress: FieldRef<"UserAchievement", 'Int'>
+    readonly isCompleted: FieldRef<"UserAchievement", 'Boolean'>
+    readonly completedAt: FieldRef<"UserAchievement", 'DateTime'>
+    readonly createdAt: FieldRef<"UserAchievement", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserAchievement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserAchievement findUnique
+   */
+  export type UserAchievementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAchievement to fetch.
+     */
+    where: UserAchievementWhereUniqueInput
+  }
+
+  /**
+   * UserAchievement findUniqueOrThrow
+   */
+  export type UserAchievementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAchievement to fetch.
+     */
+    where: UserAchievementWhereUniqueInput
+  }
+
+  /**
+   * UserAchievement findFirst
+   */
+  export type UserAchievementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAchievement to fetch.
+     */
+    where?: UserAchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAchievements to fetch.
+     */
+    orderBy?: UserAchievementOrderByWithRelationInput | UserAchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserAchievements.
+     */
+    cursor?: UserAchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAchievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAchievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserAchievements.
+     */
+    distinct?: UserAchievementScalarFieldEnum | UserAchievementScalarFieldEnum[]
+  }
+
+  /**
+   * UserAchievement findFirstOrThrow
+   */
+  export type UserAchievementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAchievement to fetch.
+     */
+    where?: UserAchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAchievements to fetch.
+     */
+    orderBy?: UserAchievementOrderByWithRelationInput | UserAchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserAchievements.
+     */
+    cursor?: UserAchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAchievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAchievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserAchievements.
+     */
+    distinct?: UserAchievementScalarFieldEnum | UserAchievementScalarFieldEnum[]
+  }
+
+  /**
+   * UserAchievement findMany
+   */
+  export type UserAchievementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAchievements to fetch.
+     */
+    where?: UserAchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAchievements to fetch.
+     */
+    orderBy?: UserAchievementOrderByWithRelationInput | UserAchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserAchievements.
+     */
+    cursor?: UserAchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAchievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAchievements.
+     */
+    skip?: number
+    distinct?: UserAchievementScalarFieldEnum | UserAchievementScalarFieldEnum[]
+  }
+
+  /**
+   * UserAchievement create
+   */
+  export type UserAchievementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserAchievement.
+     */
+    data: XOR<UserAchievementCreateInput, UserAchievementUncheckedCreateInput>
+  }
+
+  /**
+   * UserAchievement createMany
+   */
+  export type UserAchievementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserAchievements.
+     */
+    data: UserAchievementCreateManyInput | UserAchievementCreateManyInput[]
+  }
+
+  /**
+   * UserAchievement update
+   */
+  export type UserAchievementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserAchievement.
+     */
+    data: XOR<UserAchievementUpdateInput, UserAchievementUncheckedUpdateInput>
+    /**
+     * Choose, which UserAchievement to update.
+     */
+    where: UserAchievementWhereUniqueInput
+  }
+
+  /**
+   * UserAchievement updateMany
+   */
+  export type UserAchievementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserAchievements.
+     */
+    data: XOR<UserAchievementUpdateManyMutationInput, UserAchievementUncheckedUpdateManyInput>
+    /**
+     * Filter which UserAchievements to update
+     */
+    where?: UserAchievementWhereInput
+    /**
+     * Limit how many UserAchievements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserAchievement upsert
+   */
+  export type UserAchievementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserAchievement to update in case it exists.
+     */
+    where: UserAchievementWhereUniqueInput
+    /**
+     * In case the UserAchievement found by the `where` argument doesn't exist, create a new UserAchievement with this data.
+     */
+    create: XOR<UserAchievementCreateInput, UserAchievementUncheckedCreateInput>
+    /**
+     * In case the UserAchievement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserAchievementUpdateInput, UserAchievementUncheckedUpdateInput>
+  }
+
+  /**
+   * UserAchievement delete
+   */
+  export type UserAchievementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+    /**
+     * Filter which UserAchievement to delete.
+     */
+    where: UserAchievementWhereUniqueInput
+  }
+
+  /**
+   * UserAchievement deleteMany
+   */
+  export type UserAchievementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserAchievements to delete
+     */
+    where?: UserAchievementWhereInput
+    /**
+     * Limit how many UserAchievements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserAchievement findRaw
+   */
+  export type UserAchievementFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserAchievement aggregateRaw
+   */
+  export type UserAchievementAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserAchievement without action
+   */
+  export type UserAchievementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAchievement
+     */
+    select?: UserAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserAchievement
+     */
+    omit?: UserAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAchievementInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model DictionaryWord
    */
 
@@ -14908,6 +21951,7 @@ export namespace Prisma {
     streak: 'streak',
     lastLearningDate: 'lastLearningDate',
     totalWordsLearned: 'totalWordsLearned',
+    totalWordsReviewed: 'totalWordsReviewed',
     dailyGoal: 'dailyGoal',
     difficultyPreference: 'difficultyPreference',
     notificationsEnabled: 'notificationsEnabled',
@@ -14918,6 +21962,55 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const RoleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    displayName: 'displayName',
+    description: 'description',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
+  export const PermissionScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    displayName: 'displayName',
+    description: 'description',
+    resource: 'resource',
+    action: 'action',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+  export const UserRoleScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    roleId: 'roleId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserRoleScalarFieldEnum = (typeof UserRoleScalarFieldEnum)[keyof typeof UserRoleScalarFieldEnum]
+
+
+  export const RolePermissionScalarFieldEnum: {
+    id: 'id',
+    roleId: 'roleId',
+    permissionId: 'permissionId',
+    createdAt: 'createdAt'
+  };
+
+  export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnum)[keyof typeof RolePermissionScalarFieldEnum]
 
 
   export const RefreshTokenScalarFieldEnum: {
@@ -15062,6 +22155,38 @@ export namespace Prisma {
   export type DailyActivityScalarFieldEnum = (typeof DailyActivityScalarFieldEnum)[keyof typeof DailyActivityScalarFieldEnum]
 
 
+  export const AchievementScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    type: 'type',
+    targetValue: 'targetValue',
+    duration: 'duration',
+    rarity: 'rarity',
+    icon: 'icon',
+    isActive: 'isActive',
+    xpReward: 'xpReward',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
+
+
+  export const UserAchievementScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    achievementId: 'achievementId',
+    progress: 'progress',
+    isCompleted: 'isCompleted',
+    completedAt: 'completedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserAchievementScalarFieldEnum = (typeof UserAchievementScalarFieldEnum)[keyof typeof UserAchievementScalarFieldEnum]
+
+
   export const DictionaryWordScalarFieldEnum: {
     id: 'id',
     word: 'word',
@@ -15151,6 +22276,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'EUserRole'
+   */
+  export type EnumEUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EUserRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'EUserRole[]'
+   */
+  export type ListEnumEUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EUserRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PermissionResource'
+   */
+  export type EnumPermissionResourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionResource'>
+    
+
+
+  /**
+   * Reference to a field of type 'PermissionResource[]'
+   */
+  export type ListEnumPermissionResourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionResource[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PermissionAction'
+   */
+  export type EnumPermissionActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionAction'>
+    
+
+
+  /**
+   * Reference to a field of type 'PermissionAction[]'
+   */
+  export type ListEnumPermissionActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionAction[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Level'
    */
   export type EnumLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Level'>
@@ -15225,6 +22392,34 @@ export namespace Prisma {
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
+
+
+  /**
+   * Reference to a field of type 'AchievementType'
+   */
+  export type EnumAchievementTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AchievementType[]'
+   */
+  export type ListEnumAchievementTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AchievementRarity'
+   */
+  export type EnumAchievementRarityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementRarity'>
+    
+
+
+  /**
+   * Reference to a field of type 'AchievementRarity[]'
+   */
+  export type ListEnumAchievementRarityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementRarity[]'>
+    
   /**
    * Deep Input Types
    */
@@ -15244,6 +22439,7 @@ export namespace Prisma {
     streak?: IntFilter<"User"> | number
     lastLearningDate?: DateTimeNullableFilter<"User"> | Date | string | null
     totalWordsLearned?: IntFilter<"User"> | number
+    totalWordsReviewed?: IntFilter<"User"> | number
     dailyGoal?: IntFilter<"User"> | number
     difficultyPreference?: StringFilter<"User"> | string
     notificationsEnabled?: BoolFilter<"User"> | boolean
@@ -15259,7 +22455,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressListRelationFilter
     uniqueWordsLearned?: UserUniqueWordListRelationFilter
     xpEvents?: XPEventListRelationFilter
+    roles?: UserRoleListRelationFilter
     dailyActivities?: DailyActivityListRelationFilter
+    achievements?: UserAchievementListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15273,6 +22471,7 @@ export namespace Prisma {
     streak?: SortOrder
     lastLearningDate?: SortOrder
     totalWordsLearned?: SortOrder
+    totalWordsReviewed?: SortOrder
     dailyGoal?: SortOrder
     difficultyPreference?: SortOrder
     notificationsEnabled?: SortOrder
@@ -15288,7 +22487,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressOrderByRelationAggregateInput
     uniqueWordsLearned?: UserUniqueWordOrderByRelationAggregateInput
     xpEvents?: XPEventOrderByRelationAggregateInput
+    roles?: UserRoleOrderByRelationAggregateInput
     dailyActivities?: DailyActivityOrderByRelationAggregateInput
+    achievements?: UserAchievementOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15305,6 +22506,7 @@ export namespace Prisma {
     streak?: IntFilter<"User"> | number
     lastLearningDate?: DateTimeNullableFilter<"User"> | Date | string | null
     totalWordsLearned?: IntFilter<"User"> | number
+    totalWordsReviewed?: IntFilter<"User"> | number
     dailyGoal?: IntFilter<"User"> | number
     difficultyPreference?: StringFilter<"User"> | string
     notificationsEnabled?: BoolFilter<"User"> | boolean
@@ -15320,7 +22522,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressListRelationFilter
     uniqueWordsLearned?: UserUniqueWordListRelationFilter
     xpEvents?: XPEventListRelationFilter
+    roles?: UserRoleListRelationFilter
     dailyActivities?: DailyActivityListRelationFilter
+    achievements?: UserAchievementListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -15334,6 +22538,7 @@ export namespace Prisma {
     streak?: SortOrder
     lastLearningDate?: SortOrder
     totalWordsLearned?: SortOrder
+    totalWordsReviewed?: SortOrder
     dailyGoal?: SortOrder
     difficultyPreference?: SortOrder
     notificationsEnabled?: SortOrder
@@ -15362,6 +22567,7 @@ export namespace Prisma {
     streak?: IntWithAggregatesFilter<"User"> | number
     lastLearningDate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     totalWordsLearned?: IntWithAggregatesFilter<"User"> | number
+    totalWordsReviewed?: IntWithAggregatesFilter<"User"> | number
     dailyGoal?: IntWithAggregatesFilter<"User"> | number
     difficultyPreference?: StringWithAggregatesFilter<"User"> | string
     notificationsEnabled?: BoolWithAggregatesFilter<"User"> | boolean
@@ -15369,6 +22575,262 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     status?: StringWithAggregatesFilter<"User"> | string
+  }
+
+  export type RoleWhereInput = {
+    AND?: RoleWhereInput | RoleWhereInput[]
+    OR?: RoleWhereInput[]
+    NOT?: RoleWhereInput | RoleWhereInput[]
+    id?: StringFilter<"Role"> | string
+    name?: EnumEUserRoleFilter<"Role"> | $Enums.EUserRole
+    displayName?: StringFilter<"Role"> | string
+    description?: StringNullableFilter<"Role"> | string | null
+    isActive?: BoolFilter<"Role"> | boolean
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
+    userRoles?: UserRoleListRelationFilter
+    rolePermissions?: RolePermissionListRelationFilter
+  }
+
+  export type RoleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userRoles?: UserRoleOrderByRelationAggregateInput
+    rolePermissions?: RolePermissionOrderByRelationAggregateInput
+  }
+
+  export type RoleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: $Enums.EUserRole
+    AND?: RoleWhereInput | RoleWhereInput[]
+    OR?: RoleWhereInput[]
+    NOT?: RoleWhereInput | RoleWhereInput[]
+    displayName?: StringFilter<"Role"> | string
+    description?: StringNullableFilter<"Role"> | string | null
+    isActive?: BoolFilter<"Role"> | boolean
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
+    userRoles?: UserRoleListRelationFilter
+    rolePermissions?: RolePermissionListRelationFilter
+  }, "id" | "name">
+
+  export type RoleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RoleCountOrderByAggregateInput
+    _max?: RoleMaxOrderByAggregateInput
+    _min?: RoleMinOrderByAggregateInput
+  }
+
+  export type RoleScalarWhereWithAggregatesInput = {
+    AND?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
+    OR?: RoleScalarWhereWithAggregatesInput[]
+    NOT?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Role"> | string
+    name?: EnumEUserRoleWithAggregatesFilter<"Role"> | $Enums.EUserRole
+    displayName?: StringWithAggregatesFilter<"Role"> | string
+    description?: StringNullableWithAggregatesFilter<"Role"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Role"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+  }
+
+  export type PermissionWhereInput = {
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    id?: StringFilter<"Permission"> | string
+    name?: StringFilter<"Permission"> | string
+    displayName?: StringFilter<"Permission"> | string
+    description?: StringNullableFilter<"Permission"> | string | null
+    resource?: EnumPermissionResourceFilter<"Permission"> | $Enums.PermissionResource
+    action?: EnumPermissionActionFilter<"Permission"> | $Enums.PermissionAction
+    isActive?: BoolFilter<"Permission"> | boolean
+    createdAt?: DateTimeFilter<"Permission"> | Date | string
+    updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    rolePermissions?: RolePermissionListRelationFilter
+  }
+
+  export type PermissionOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    resource?: SortOrder
+    action?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    rolePermissions?: RolePermissionOrderByRelationAggregateInput
+  }
+
+  export type PermissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    displayName?: StringFilter<"Permission"> | string
+    description?: StringNullableFilter<"Permission"> | string | null
+    resource?: EnumPermissionResourceFilter<"Permission"> | $Enums.PermissionResource
+    action?: EnumPermissionActionFilter<"Permission"> | $Enums.PermissionAction
+    isActive?: BoolFilter<"Permission"> | boolean
+    createdAt?: DateTimeFilter<"Permission"> | Date | string
+    updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    rolePermissions?: RolePermissionListRelationFilter
+  }, "id" | "name">
+
+  export type PermissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    resource?: SortOrder
+    action?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PermissionCountOrderByAggregateInput
+    _max?: PermissionMaxOrderByAggregateInput
+    _min?: PermissionMinOrderByAggregateInput
+  }
+
+  export type PermissionScalarWhereWithAggregatesInput = {
+    AND?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    OR?: PermissionScalarWhereWithAggregatesInput[]
+    NOT?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Permission"> | string
+    name?: StringWithAggregatesFilter<"Permission"> | string
+    displayName?: StringWithAggregatesFilter<"Permission"> | string
+    description?: StringNullableWithAggregatesFilter<"Permission"> | string | null
+    resource?: EnumPermissionResourceWithAggregatesFilter<"Permission"> | $Enums.PermissionResource
+    action?: EnumPermissionActionWithAggregatesFilter<"Permission"> | $Enums.PermissionAction
+    isActive?: BoolWithAggregatesFilter<"Permission"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+  }
+
+  export type UserRoleWhereInput = {
+    AND?: UserRoleWhereInput | UserRoleWhereInput[]
+    OR?: UserRoleWhereInput[]
+    NOT?: UserRoleWhereInput | UserRoleWhereInput[]
+    id?: StringFilter<"UserRole"> | string
+    userId?: StringFilter<"UserRole"> | string
+    roleId?: StringFilter<"UserRole"> | string
+    createdAt?: DateTimeFilter<"UserRole"> | Date | string
+    updatedAt?: DateTimeFilter<"UserRole"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+  }
+
+  export type UserRoleOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    role?: RoleOrderByWithRelationInput
+  }
+
+  export type UserRoleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_roleId?: UserRoleUserIdRoleIdCompoundUniqueInput
+    AND?: UserRoleWhereInput | UserRoleWhereInput[]
+    OR?: UserRoleWhereInput[]
+    NOT?: UserRoleWhereInput | UserRoleWhereInput[]
+    userId?: StringFilter<"UserRole"> | string
+    roleId?: StringFilter<"UserRole"> | string
+    createdAt?: DateTimeFilter<"UserRole"> | Date | string
+    updatedAt?: DateTimeFilter<"UserRole"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+  }, "id" | "userId_roleId">
+
+  export type UserRoleOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserRoleCountOrderByAggregateInput
+    _max?: UserRoleMaxOrderByAggregateInput
+    _min?: UserRoleMinOrderByAggregateInput
+  }
+
+  export type UserRoleScalarWhereWithAggregatesInput = {
+    AND?: UserRoleScalarWhereWithAggregatesInput | UserRoleScalarWhereWithAggregatesInput[]
+    OR?: UserRoleScalarWhereWithAggregatesInput[]
+    NOT?: UserRoleScalarWhereWithAggregatesInput | UserRoleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserRole"> | string
+    userId?: StringWithAggregatesFilter<"UserRole"> | string
+    roleId?: StringWithAggregatesFilter<"UserRole"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserRole"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserRole"> | Date | string
+  }
+
+  export type RolePermissionWhereInput = {
+    AND?: RolePermissionWhereInput | RolePermissionWhereInput[]
+    OR?: RolePermissionWhereInput[]
+    NOT?: RolePermissionWhereInput | RolePermissionWhereInput[]
+    id?: StringFilter<"RolePermission"> | string
+    roleId?: StringFilter<"RolePermission"> | string
+    permissionId?: StringFilter<"RolePermission"> | string
+    createdAt?: DateTimeFilter<"RolePermission"> | Date | string
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    permission?: XOR<PermissionScalarRelationFilter, PermissionWhereInput>
+  }
+
+  export type RolePermissionOrderByWithRelationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    permissionId?: SortOrder
+    createdAt?: SortOrder
+    role?: RoleOrderByWithRelationInput
+    permission?: PermissionOrderByWithRelationInput
+  }
+
+  export type RolePermissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    roleId_permissionId?: RolePermissionRoleIdPermissionIdCompoundUniqueInput
+    AND?: RolePermissionWhereInput | RolePermissionWhereInput[]
+    OR?: RolePermissionWhereInput[]
+    NOT?: RolePermissionWhereInput | RolePermissionWhereInput[]
+    roleId?: StringFilter<"RolePermission"> | string
+    permissionId?: StringFilter<"RolePermission"> | string
+    createdAt?: DateTimeFilter<"RolePermission"> | Date | string
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    permission?: XOR<PermissionScalarRelationFilter, PermissionWhereInput>
+  }, "id" | "roleId_permissionId">
+
+  export type RolePermissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    permissionId?: SortOrder
+    createdAt?: SortOrder
+    _count?: RolePermissionCountOrderByAggregateInput
+    _max?: RolePermissionMaxOrderByAggregateInput
+    _min?: RolePermissionMinOrderByAggregateInput
+  }
+
+  export type RolePermissionScalarWhereWithAggregatesInput = {
+    AND?: RolePermissionScalarWhereWithAggregatesInput | RolePermissionScalarWhereWithAggregatesInput[]
+    OR?: RolePermissionScalarWhereWithAggregatesInput[]
+    NOT?: RolePermissionScalarWhereWithAggregatesInput | RolePermissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RolePermission"> | string
+    roleId?: StringWithAggregatesFilter<"RolePermission"> | string
+    permissionId?: StringWithAggregatesFilter<"RolePermission"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"RolePermission"> | Date | string
   }
 
   export type RefreshTokenWhereInput = {
@@ -16116,6 +23578,174 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
   }
 
+  export type AchievementWhereInput = {
+    AND?: AchievementWhereInput | AchievementWhereInput[]
+    OR?: AchievementWhereInput[]
+    NOT?: AchievementWhereInput | AchievementWhereInput[]
+    id?: StringFilter<"Achievement"> | string
+    title?: StringFilter<"Achievement"> | string
+    description?: StringFilter<"Achievement"> | string
+    type?: EnumAchievementTypeFilter<"Achievement"> | $Enums.AchievementType
+    targetValue?: IntFilter<"Achievement"> | number
+    duration?: IntNullableFilter<"Achievement"> | number | null
+    rarity?: EnumAchievementRarityFilter<"Achievement"> | $Enums.AchievementRarity
+    icon?: StringNullableFilter<"Achievement"> | string | null
+    isActive?: BoolFilter<"Achievement"> | boolean
+    xpReward?: IntFilter<"Achievement"> | number
+    createdAt?: DateTimeFilter<"Achievement"> | Date | string
+    updatedAt?: DateTimeFilter<"Achievement"> | Date | string
+    userAchievements?: UserAchievementListRelationFilter
+  }
+
+  export type AchievementOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    targetValue?: SortOrder
+    duration?: SortOrder
+    rarity?: SortOrder
+    icon?: SortOrder
+    isActive?: SortOrder
+    xpReward?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userAchievements?: UserAchievementOrderByRelationAggregateInput
+  }
+
+  export type AchievementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AchievementWhereInput | AchievementWhereInput[]
+    OR?: AchievementWhereInput[]
+    NOT?: AchievementWhereInput | AchievementWhereInput[]
+    title?: StringFilter<"Achievement"> | string
+    description?: StringFilter<"Achievement"> | string
+    type?: EnumAchievementTypeFilter<"Achievement"> | $Enums.AchievementType
+    targetValue?: IntFilter<"Achievement"> | number
+    duration?: IntNullableFilter<"Achievement"> | number | null
+    rarity?: EnumAchievementRarityFilter<"Achievement"> | $Enums.AchievementRarity
+    icon?: StringNullableFilter<"Achievement"> | string | null
+    isActive?: BoolFilter<"Achievement"> | boolean
+    xpReward?: IntFilter<"Achievement"> | number
+    createdAt?: DateTimeFilter<"Achievement"> | Date | string
+    updatedAt?: DateTimeFilter<"Achievement"> | Date | string
+    userAchievements?: UserAchievementListRelationFilter
+  }, "id">
+
+  export type AchievementOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    targetValue?: SortOrder
+    duration?: SortOrder
+    rarity?: SortOrder
+    icon?: SortOrder
+    isActive?: SortOrder
+    xpReward?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AchievementCountOrderByAggregateInput
+    _avg?: AchievementAvgOrderByAggregateInput
+    _max?: AchievementMaxOrderByAggregateInput
+    _min?: AchievementMinOrderByAggregateInput
+    _sum?: AchievementSumOrderByAggregateInput
+  }
+
+  export type AchievementScalarWhereWithAggregatesInput = {
+    AND?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
+    OR?: AchievementScalarWhereWithAggregatesInput[]
+    NOT?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Achievement"> | string
+    title?: StringWithAggregatesFilter<"Achievement"> | string
+    description?: StringWithAggregatesFilter<"Achievement"> | string
+    type?: EnumAchievementTypeWithAggregatesFilter<"Achievement"> | $Enums.AchievementType
+    targetValue?: IntWithAggregatesFilter<"Achievement"> | number
+    duration?: IntNullableWithAggregatesFilter<"Achievement"> | number | null
+    rarity?: EnumAchievementRarityWithAggregatesFilter<"Achievement"> | $Enums.AchievementRarity
+    icon?: StringNullableWithAggregatesFilter<"Achievement"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Achievement"> | boolean
+    xpReward?: IntWithAggregatesFilter<"Achievement"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Achievement"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Achievement"> | Date | string
+  }
+
+  export type UserAchievementWhereInput = {
+    AND?: UserAchievementWhereInput | UserAchievementWhereInput[]
+    OR?: UserAchievementWhereInput[]
+    NOT?: UserAchievementWhereInput | UserAchievementWhereInput[]
+    id?: StringFilter<"UserAchievement"> | string
+    userId?: StringFilter<"UserAchievement"> | string
+    achievementId?: StringFilter<"UserAchievement"> | string
+    progress?: IntFilter<"UserAchievement"> | number
+    isCompleted?: BoolFilter<"UserAchievement"> | boolean
+    completedAt?: DateTimeNullableFilter<"UserAchievement"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserAchievement"> | Date | string
+    updatedAt?: DateTimeFilter<"UserAchievement"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    achievement?: XOR<AchievementScalarRelationFilter, AchievementWhereInput>
+  }
+
+  export type UserAchievementOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    achievementId?: SortOrder
+    progress?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    achievement?: AchievementOrderByWithRelationInput
+  }
+
+  export type UserAchievementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_achievementId?: UserAchievementUserIdAchievementIdCompoundUniqueInput
+    AND?: UserAchievementWhereInput | UserAchievementWhereInput[]
+    OR?: UserAchievementWhereInput[]
+    NOT?: UserAchievementWhereInput | UserAchievementWhereInput[]
+    userId?: StringFilter<"UserAchievement"> | string
+    achievementId?: StringFilter<"UserAchievement"> | string
+    progress?: IntFilter<"UserAchievement"> | number
+    isCompleted?: BoolFilter<"UserAchievement"> | boolean
+    completedAt?: DateTimeNullableFilter<"UserAchievement"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserAchievement"> | Date | string
+    updatedAt?: DateTimeFilter<"UserAchievement"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    achievement?: XOR<AchievementScalarRelationFilter, AchievementWhereInput>
+  }, "id" | "userId_achievementId">
+
+  export type UserAchievementOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    achievementId?: SortOrder
+    progress?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserAchievementCountOrderByAggregateInput
+    _avg?: UserAchievementAvgOrderByAggregateInput
+    _max?: UserAchievementMaxOrderByAggregateInput
+    _min?: UserAchievementMinOrderByAggregateInput
+    _sum?: UserAchievementSumOrderByAggregateInput
+  }
+
+  export type UserAchievementScalarWhereWithAggregatesInput = {
+    AND?: UserAchievementScalarWhereWithAggregatesInput | UserAchievementScalarWhereWithAggregatesInput[]
+    OR?: UserAchievementScalarWhereWithAggregatesInput[]
+    NOT?: UserAchievementScalarWhereWithAggregatesInput | UserAchievementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserAchievement"> | string
+    userId?: StringWithAggregatesFilter<"UserAchievement"> | string
+    achievementId?: StringWithAggregatesFilter<"UserAchievement"> | string
+    progress?: IntWithAggregatesFilter<"UserAchievement"> | number
+    isCompleted?: BoolWithAggregatesFilter<"UserAchievement"> | boolean
+    completedAt?: DateTimeNullableWithAggregatesFilter<"UserAchievement"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserAchievement"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserAchievement"> | Date | string
+  }
+
   export type DictionaryWordWhereInput = {
     AND?: DictionaryWordWhereInput | DictionaryWordWhereInput[]
     OR?: DictionaryWordWhereInput[]
@@ -16215,6 +23845,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -16230,7 +23861,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16244,6 +23877,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -16259,7 +23893,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -16272,6 +23908,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -16287,7 +23924,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16300,6 +23939,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -16315,7 +23955,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -16329,6 +23971,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -16348,6 +23991,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -16367,6 +24011,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -16374,6 +24019,257 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RoleCreateInput = {
+    id?: string
+    name: $Enums.EUserRole
+    displayName: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userRoles?: UserRoleCreateNestedManyWithoutRoleInput
+    rolePermissions?: RolePermissionCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateInput = {
+    id?: string
+    name: $Enums.EUserRole
+    displayName: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userRoles?: UserRoleUncheckedCreateNestedManyWithoutRoleInput
+    rolePermissions?: RolePermissionUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUpdateInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserRoleUpdateManyWithoutRoleNestedInput
+    rolePermissions?: RolePermissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserRoleUncheckedUpdateManyWithoutRoleNestedInput
+    rolePermissions?: RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleCreateManyInput = {
+    id?: string
+    name: $Enums.EUserRole
+    displayName: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RoleUpdateManyMutationInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoleUncheckedUpdateManyInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionCreateInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    resource: $Enums.PermissionResource
+    action: $Enums.PermissionAction
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rolePermissions?: RolePermissionCreateNestedManyWithoutPermissionInput
+  }
+
+  export type PermissionUncheckedCreateInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    resource: $Enums.PermissionResource
+    action: $Enums.PermissionAction
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rolePermissions?: RolePermissionUncheckedCreateNestedManyWithoutPermissionInput
+  }
+
+  export type PermissionUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
+    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rolePermissions?: RolePermissionUpdateManyWithoutPermissionNestedInput
+  }
+
+  export type PermissionUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
+    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rolePermissions?: RolePermissionUncheckedUpdateManyWithoutPermissionNestedInput
+  }
+
+  export type PermissionCreateManyInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    resource: $Enums.PermissionResource
+    action: $Enums.PermissionAction
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PermissionUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
+    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
+    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutRolesInput
+    role: RoleCreateNestedOneWithoutUserRolesInput
+  }
+
+  export type UserRoleUncheckedCreateInput = {
+    id?: string
+    userId: string
+    roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserRoleUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRolesNestedInput
+    role?: RoleUpdateOneRequiredWithoutUserRolesNestedInput
+  }
+
+  export type UserRoleUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleCreateManyInput = {
+    id?: string
+    userId: string
+    roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserRoleUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePermissionCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    role: RoleCreateNestedOneWithoutRolePermissionsInput
+    permission: PermissionCreateNestedOneWithoutRolePermissionsInput
+  }
+
+  export type RolePermissionUncheckedCreateInput = {
+    id?: string
+    roleId: string
+    permissionId: string
+    createdAt?: Date | string
+  }
+
+  export type RolePermissionUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: RoleUpdateOneRequiredWithoutRolePermissionsNestedInput
+    permission?: PermissionUpdateOneRequiredWithoutRolePermissionsNestedInput
+  }
+
+  export type RolePermissionUncheckedUpdateInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
+    permissionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePermissionCreateManyInput = {
+    id?: string
+    roleId: string
+    permissionId: string
+    createdAt?: Date | string
+  }
+
+  export type RolePermissionUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePermissionUncheckedUpdateManyInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
+    permissionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RefreshTokenCreateInput = {
@@ -17123,6 +25019,182 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AchievementCreateInput = {
+    id?: string
+    title: string
+    description: string
+    type: $Enums.AchievementType
+    targetValue: number
+    duration?: number | null
+    rarity?: $Enums.AchievementRarity
+    icon?: string | null
+    isActive?: boolean
+    xpReward?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userAchievements?: UserAchievementCreateNestedManyWithoutAchievementInput
+  }
+
+  export type AchievementUncheckedCreateInput = {
+    id?: string
+    title: string
+    description: string
+    type: $Enums.AchievementType
+    targetValue: number
+    duration?: number | null
+    rarity?: $Enums.AchievementRarity
+    icon?: string | null
+    isActive?: boolean
+    xpReward?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userAchievements?: UserAchievementUncheckedCreateNestedManyWithoutAchievementInput
+  }
+
+  export type AchievementUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType
+    targetValue?: IntFieldUpdateOperationsInput | number
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | $Enums.AchievementRarity
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    xpReward?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userAchievements?: UserAchievementUpdateManyWithoutAchievementNestedInput
+  }
+
+  export type AchievementUncheckedUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType
+    targetValue?: IntFieldUpdateOperationsInput | number
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | $Enums.AchievementRarity
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    xpReward?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userAchievements?: UserAchievementUncheckedUpdateManyWithoutAchievementNestedInput
+  }
+
+  export type AchievementCreateManyInput = {
+    id?: string
+    title: string
+    description: string
+    type: $Enums.AchievementType
+    targetValue: number
+    duration?: number | null
+    rarity?: $Enums.AchievementRarity
+    icon?: string | null
+    isActive?: boolean
+    xpReward?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AchievementUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType
+    targetValue?: IntFieldUpdateOperationsInput | number
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | $Enums.AchievementRarity
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    xpReward?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AchievementUncheckedUpdateManyInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType
+    targetValue?: IntFieldUpdateOperationsInput | number
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | $Enums.AchievementRarity
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    xpReward?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAchievementCreateInput = {
+    id?: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAchievementsInput
+    achievement: AchievementCreateNestedOneWithoutUserAchievementsInput
+  }
+
+  export type UserAchievementUncheckedCreateInput = {
+    id?: string
+    userId: string
+    achievementId: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAchievementUpdateInput = {
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAchievementsNestedInput
+    achievement?: AchievementUpdateOneRequiredWithoutUserAchievementsNestedInput
+  }
+
+  export type UserAchievementUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    achievementId?: StringFieldUpdateOperationsInput | string
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAchievementCreateManyInput = {
+    id?: string
+    userId: string
+    achievementId: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAchievementUpdateManyMutationInput = {
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAchievementUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    achievementId?: StringFieldUpdateOperationsInput | string
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DictionaryWordCreateInput = {
     id?: string
     word: string
@@ -17342,10 +25414,22 @@ export namespace Prisma {
     none?: XPEventWhereInput
   }
 
+  export type UserRoleListRelationFilter = {
+    every?: UserRoleWhereInput
+    some?: UserRoleWhereInput
+    none?: UserRoleWhereInput
+  }
+
   export type DailyActivityListRelationFilter = {
     every?: DailyActivityWhereInput
     some?: DailyActivityWhereInput
     none?: DailyActivityWhereInput
+  }
+
+  export type UserAchievementListRelationFilter = {
+    every?: UserAchievementWhereInput
+    some?: UserAchievementWhereInput
+    none?: UserAchievementWhereInput
   }
 
   export type RefreshTokenOrderByRelationAggregateInput = {
@@ -17380,7 +25464,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type UserRoleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type DailyActivityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserAchievementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17395,6 +25487,7 @@ export namespace Prisma {
     streak?: SortOrder
     lastLearningDate?: SortOrder
     totalWordsLearned?: SortOrder
+    totalWordsReviewed?: SortOrder
     dailyGoal?: SortOrder
     difficultyPreference?: SortOrder
     notificationsEnabled?: SortOrder
@@ -17409,6 +25502,7 @@ export namespace Prisma {
     xp?: SortOrder
     streak?: SortOrder
     totalWordsLearned?: SortOrder
+    totalWordsReviewed?: SortOrder
     dailyGoal?: SortOrder
   }
 
@@ -17423,6 +25517,7 @@ export namespace Prisma {
     streak?: SortOrder
     lastLearningDate?: SortOrder
     totalWordsLearned?: SortOrder
+    totalWordsReviewed?: SortOrder
     dailyGoal?: SortOrder
     difficultyPreference?: SortOrder
     notificationsEnabled?: SortOrder
@@ -17443,6 +25538,7 @@ export namespace Prisma {
     streak?: SortOrder
     lastLearningDate?: SortOrder
     totalWordsLearned?: SortOrder
+    totalWordsReviewed?: SortOrder
     dailyGoal?: SortOrder
     difficultyPreference?: SortOrder
     notificationsEnabled?: SortOrder
@@ -17457,6 +25553,7 @@ export namespace Prisma {
     xp?: SortOrder
     streak?: SortOrder
     totalWordsLearned?: SortOrder
+    totalWordsReviewed?: SortOrder
     dailyGoal?: SortOrder
   }
 
@@ -17550,9 +25647,201 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumEUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.EUserRole | EnumEUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumEUserRoleFilter<$PrismaModel> | $Enums.EUserRole
+  }
+
+  export type RolePermissionListRelationFilter = {
+    every?: RolePermissionWhereInput
+    some?: RolePermissionWhereInput
+    none?: RolePermissionWhereInput
+  }
+
+  export type RolePermissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RoleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumEUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EUserRole | EnumEUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumEUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.EUserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumEUserRoleFilter<$PrismaModel>
+  }
+
+  export type EnumPermissionResourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionResourceFilter<$PrismaModel> | $Enums.PermissionResource
+  }
+
+  export type EnumPermissionActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionActionFilter<$PrismaModel> | $Enums.PermissionAction
+  }
+
+  export type PermissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    resource?: SortOrder
+    action?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PermissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    resource?: SortOrder
+    action?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PermissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    resource?: SortOrder
+    action?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumPermissionResourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionResourceWithAggregatesFilter<$PrismaModel> | $Enums.PermissionResource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPermissionResourceFilter<$PrismaModel>
+    _max?: NestedEnumPermissionResourceFilter<$PrismaModel>
+  }
+
+  export type EnumPermissionActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionActionWithAggregatesFilter<$PrismaModel> | $Enums.PermissionAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPermissionActionFilter<$PrismaModel>
+    _max?: NestedEnumPermissionActionFilter<$PrismaModel>
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type RoleScalarRelationFilter = {
+    is?: RoleWhereInput
+    isNot?: RoleWhereInput
+  }
+
+  export type UserRoleUserIdRoleIdCompoundUniqueInput = {
+    userId: string
+    roleId: string
+  }
+
+  export type UserRoleCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserRoleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserRoleMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PermissionScalarRelationFilter = {
+    is?: PermissionWhereInput
+    isNot?: PermissionWhereInput
+  }
+
+  export type RolePermissionRoleIdPermissionIdCompoundUniqueInput = {
+    roleId: string
+    permissionId: string
+  }
+
+  export type RolePermissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    permissionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RolePermissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    permissionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RolePermissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    permissionId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RefreshTokenCountOrderByAggregateInput = {
@@ -18118,6 +26407,177 @@ export namespace Prisma {
     streakCount?: SortOrder
   }
 
+  export type EnumAchievementTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementTypeFilter<$PrismaModel> | $Enums.AchievementType
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type EnumAchievementRarityFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementRarity | EnumAchievementRarityFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementRarityFilter<$PrismaModel> | $Enums.AchievementRarity
+  }
+
+  export type AchievementCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    targetValue?: SortOrder
+    duration?: SortOrder
+    rarity?: SortOrder
+    icon?: SortOrder
+    isActive?: SortOrder
+    xpReward?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AchievementAvgOrderByAggregateInput = {
+    targetValue?: SortOrder
+    duration?: SortOrder
+    xpReward?: SortOrder
+  }
+
+  export type AchievementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    targetValue?: SortOrder
+    duration?: SortOrder
+    rarity?: SortOrder
+    icon?: SortOrder
+    isActive?: SortOrder
+    xpReward?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AchievementMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    targetValue?: SortOrder
+    duration?: SortOrder
+    rarity?: SortOrder
+    icon?: SortOrder
+    isActive?: SortOrder
+    xpReward?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AchievementSumOrderByAggregateInput = {
+    targetValue?: SortOrder
+    duration?: SortOrder
+    xpReward?: SortOrder
+  }
+
+  export type EnumAchievementTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementTypeWithAggregatesFilter<$PrismaModel> | $Enums.AchievementType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAchievementTypeFilter<$PrismaModel>
+    _max?: NestedEnumAchievementTypeFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type EnumAchievementRarityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementRarity | EnumAchievementRarityFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementRarityWithAggregatesFilter<$PrismaModel> | $Enums.AchievementRarity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAchievementRarityFilter<$PrismaModel>
+    _max?: NestedEnumAchievementRarityFilter<$PrismaModel>
+  }
+
+  export type AchievementScalarRelationFilter = {
+    is?: AchievementWhereInput
+    isNot?: AchievementWhereInput
+  }
+
+  export type UserAchievementUserIdAchievementIdCompoundUniqueInput = {
+    userId: string
+    achievementId: string
+  }
+
+  export type UserAchievementCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    achievementId?: SortOrder
+    progress?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserAchievementAvgOrderByAggregateInput = {
+    progress?: SortOrder
+  }
+
+  export type UserAchievementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    achievementId?: SortOrder
+    progress?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserAchievementMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    achievementId?: SortOrder
+    progress?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserAchievementSumOrderByAggregateInput = {
+    progress?: SortOrder
+  }
+
   export type DictionaryWordWordPartOfSpeechCompoundUniqueInput = {
     word: string
     partOfSpeech: $Enums.PartOfSpeech
@@ -18222,11 +26682,25 @@ export namespace Prisma {
     connect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
   }
 
+  export type UserRoleCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
+    createMany?: UserRoleCreateManyUserInputEnvelope
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+  }
+
   export type DailyActivityCreateNestedManyWithoutUserInput = {
     create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
     createMany?: DailyActivityCreateManyUserInputEnvelope
     connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+  }
+
+  export type UserAchievementCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserAchievementCreateWithoutUserInput, UserAchievementUncheckedCreateWithoutUserInput> | UserAchievementCreateWithoutUserInput[] | UserAchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutUserInput | UserAchievementCreateOrConnectWithoutUserInput[]
+    createMany?: UserAchievementCreateManyUserInputEnvelope
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
   }
 
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
@@ -18285,11 +26759,25 @@ export namespace Prisma {
     connect?: XPEventWhereUniqueInput | XPEventWhereUniqueInput[]
   }
 
+  export type UserRoleUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
+    createMany?: UserRoleCreateManyUserInputEnvelope
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+  }
+
   export type DailyActivityUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
     createMany?: DailyActivityCreateManyUserInputEnvelope
     connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+  }
+
+  export type UserAchievementUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserAchievementCreateWithoutUserInput, UserAchievementUncheckedCreateWithoutUserInput> | UserAchievementCreateWithoutUserInput[] | UserAchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutUserInput | UserAchievementCreateOrConnectWithoutUserInput[]
+    createMany?: UserAchievementCreateManyUserInputEnvelope
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18434,6 +26922,20 @@ export namespace Prisma {
     deleteMany?: XPEventScalarWhereInput | XPEventScalarWhereInput[]
   }
 
+  export type UserRoleUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
+    upsert?: UserRoleUpsertWithWhereUniqueWithoutUserInput | UserRoleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserRoleCreateManyUserInputEnvelope
+    set?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    disconnect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    delete?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    update?: UserRoleUpdateWithWhereUniqueWithoutUserInput | UserRoleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserRoleUpdateManyWithWhereWithoutUserInput | UserRoleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+  }
+
   export type DailyActivityUpdateManyWithoutUserNestedInput = {
     create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
@@ -18446,6 +26948,20 @@ export namespace Prisma {
     update?: DailyActivityUpdateWithWhereUniqueWithoutUserInput | DailyActivityUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DailyActivityUpdateManyWithWhereWithoutUserInput | DailyActivityUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+  }
+
+  export type UserAchievementUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserAchievementCreateWithoutUserInput, UserAchievementUncheckedCreateWithoutUserInput> | UserAchievementCreateWithoutUserInput[] | UserAchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutUserInput | UserAchievementCreateOrConnectWithoutUserInput[]
+    upsert?: UserAchievementUpsertWithWhereUniqueWithoutUserInput | UserAchievementUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserAchievementCreateManyUserInputEnvelope
+    set?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    disconnect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    delete?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    update?: UserAchievementUpdateWithWhereUniqueWithoutUserInput | UserAchievementUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserAchievementUpdateManyWithWhereWithoutUserInput | UserAchievementUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserAchievementScalarWhereInput | UserAchievementScalarWhereInput[]
   }
 
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
@@ -18560,6 +27076,20 @@ export namespace Prisma {
     deleteMany?: XPEventScalarWhereInput | XPEventScalarWhereInput[]
   }
 
+  export type UserRoleUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
+    upsert?: UserRoleUpsertWithWhereUniqueWithoutUserInput | UserRoleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserRoleCreateManyUserInputEnvelope
+    set?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    disconnect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    delete?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    update?: UserRoleUpdateWithWhereUniqueWithoutUserInput | UserRoleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserRoleUpdateManyWithWhereWithoutUserInput | UserRoleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+  }
+
   export type DailyActivityUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
@@ -18572,6 +27102,214 @@ export namespace Prisma {
     update?: DailyActivityUpdateWithWhereUniqueWithoutUserInput | DailyActivityUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DailyActivityUpdateManyWithWhereWithoutUserInput | DailyActivityUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+  }
+
+  export type UserAchievementUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserAchievementCreateWithoutUserInput, UserAchievementUncheckedCreateWithoutUserInput> | UserAchievementCreateWithoutUserInput[] | UserAchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutUserInput | UserAchievementCreateOrConnectWithoutUserInput[]
+    upsert?: UserAchievementUpsertWithWhereUniqueWithoutUserInput | UserAchievementUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserAchievementCreateManyUserInputEnvelope
+    set?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    disconnect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    delete?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    update?: UserAchievementUpdateWithWhereUniqueWithoutUserInput | UserAchievementUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserAchievementUpdateManyWithWhereWithoutUserInput | UserAchievementUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserAchievementScalarWhereInput | UserAchievementScalarWhereInput[]
+  }
+
+  export type UserRoleCreateNestedManyWithoutRoleInput = {
+    create?: XOR<UserRoleCreateWithoutRoleInput, UserRoleUncheckedCreateWithoutRoleInput> | UserRoleCreateWithoutRoleInput[] | UserRoleUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutRoleInput | UserRoleCreateOrConnectWithoutRoleInput[]
+    createMany?: UserRoleCreateManyRoleInputEnvelope
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+  }
+
+  export type RolePermissionCreateNestedManyWithoutRoleInput = {
+    create?: XOR<RolePermissionCreateWithoutRoleInput, RolePermissionUncheckedCreateWithoutRoleInput> | RolePermissionCreateWithoutRoleInput[] | RolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutRoleInput | RolePermissionCreateOrConnectWithoutRoleInput[]
+    createMany?: RolePermissionCreateManyRoleInputEnvelope
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+  }
+
+  export type UserRoleUncheckedCreateNestedManyWithoutRoleInput = {
+    create?: XOR<UserRoleCreateWithoutRoleInput, UserRoleUncheckedCreateWithoutRoleInput> | UserRoleCreateWithoutRoleInput[] | UserRoleUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutRoleInput | UserRoleCreateOrConnectWithoutRoleInput[]
+    createMany?: UserRoleCreateManyRoleInputEnvelope
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+  }
+
+  export type RolePermissionUncheckedCreateNestedManyWithoutRoleInput = {
+    create?: XOR<RolePermissionCreateWithoutRoleInput, RolePermissionUncheckedCreateWithoutRoleInput> | RolePermissionCreateWithoutRoleInput[] | RolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutRoleInput | RolePermissionCreateOrConnectWithoutRoleInput[]
+    createMany?: RolePermissionCreateManyRoleInputEnvelope
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+  }
+
+  export type EnumEUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.EUserRole
+  }
+
+  export type UserRoleUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<UserRoleCreateWithoutRoleInput, UserRoleUncheckedCreateWithoutRoleInput> | UserRoleCreateWithoutRoleInput[] | UserRoleUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutRoleInput | UserRoleCreateOrConnectWithoutRoleInput[]
+    upsert?: UserRoleUpsertWithWhereUniqueWithoutRoleInput | UserRoleUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: UserRoleCreateManyRoleInputEnvelope
+    set?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    disconnect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    delete?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    update?: UserRoleUpdateWithWhereUniqueWithoutRoleInput | UserRoleUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: UserRoleUpdateManyWithWhereWithoutRoleInput | UserRoleUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+  }
+
+  export type RolePermissionUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<RolePermissionCreateWithoutRoleInput, RolePermissionUncheckedCreateWithoutRoleInput> | RolePermissionCreateWithoutRoleInput[] | RolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutRoleInput | RolePermissionCreateOrConnectWithoutRoleInput[]
+    upsert?: RolePermissionUpsertWithWhereUniqueWithoutRoleInput | RolePermissionUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: RolePermissionCreateManyRoleInputEnvelope
+    set?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    disconnect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    delete?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    update?: RolePermissionUpdateWithWhereUniqueWithoutRoleInput | RolePermissionUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: RolePermissionUpdateManyWithWhereWithoutRoleInput | RolePermissionUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
+  }
+
+  export type UserRoleUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<UserRoleCreateWithoutRoleInput, UserRoleUncheckedCreateWithoutRoleInput> | UserRoleCreateWithoutRoleInput[] | UserRoleUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleCreateOrConnectWithoutRoleInput | UserRoleCreateOrConnectWithoutRoleInput[]
+    upsert?: UserRoleUpsertWithWhereUniqueWithoutRoleInput | UserRoleUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: UserRoleCreateManyRoleInputEnvelope
+    set?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    disconnect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    delete?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    connect?: UserRoleWhereUniqueInput | UserRoleWhereUniqueInput[]
+    update?: UserRoleUpdateWithWhereUniqueWithoutRoleInput | UserRoleUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: UserRoleUpdateManyWithWhereWithoutRoleInput | UserRoleUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+  }
+
+  export type RolePermissionUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<RolePermissionCreateWithoutRoleInput, RolePermissionUncheckedCreateWithoutRoleInput> | RolePermissionCreateWithoutRoleInput[] | RolePermissionUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutRoleInput | RolePermissionCreateOrConnectWithoutRoleInput[]
+    upsert?: RolePermissionUpsertWithWhereUniqueWithoutRoleInput | RolePermissionUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: RolePermissionCreateManyRoleInputEnvelope
+    set?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    disconnect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    delete?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    update?: RolePermissionUpdateWithWhereUniqueWithoutRoleInput | RolePermissionUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: RolePermissionUpdateManyWithWhereWithoutRoleInput | RolePermissionUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
+  }
+
+  export type RolePermissionCreateNestedManyWithoutPermissionInput = {
+    create?: XOR<RolePermissionCreateWithoutPermissionInput, RolePermissionUncheckedCreateWithoutPermissionInput> | RolePermissionCreateWithoutPermissionInput[] | RolePermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutPermissionInput | RolePermissionCreateOrConnectWithoutPermissionInput[]
+    createMany?: RolePermissionCreateManyPermissionInputEnvelope
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+  }
+
+  export type RolePermissionUncheckedCreateNestedManyWithoutPermissionInput = {
+    create?: XOR<RolePermissionCreateWithoutPermissionInput, RolePermissionUncheckedCreateWithoutPermissionInput> | RolePermissionCreateWithoutPermissionInput[] | RolePermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutPermissionInput | RolePermissionCreateOrConnectWithoutPermissionInput[]
+    createMany?: RolePermissionCreateManyPermissionInputEnvelope
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+  }
+
+  export type EnumPermissionResourceFieldUpdateOperationsInput = {
+    set?: $Enums.PermissionResource
+  }
+
+  export type EnumPermissionActionFieldUpdateOperationsInput = {
+    set?: $Enums.PermissionAction
+  }
+
+  export type RolePermissionUpdateManyWithoutPermissionNestedInput = {
+    create?: XOR<RolePermissionCreateWithoutPermissionInput, RolePermissionUncheckedCreateWithoutPermissionInput> | RolePermissionCreateWithoutPermissionInput[] | RolePermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutPermissionInput | RolePermissionCreateOrConnectWithoutPermissionInput[]
+    upsert?: RolePermissionUpsertWithWhereUniqueWithoutPermissionInput | RolePermissionUpsertWithWhereUniqueWithoutPermissionInput[]
+    createMany?: RolePermissionCreateManyPermissionInputEnvelope
+    set?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    disconnect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    delete?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    update?: RolePermissionUpdateWithWhereUniqueWithoutPermissionInput | RolePermissionUpdateWithWhereUniqueWithoutPermissionInput[]
+    updateMany?: RolePermissionUpdateManyWithWhereWithoutPermissionInput | RolePermissionUpdateManyWithWhereWithoutPermissionInput[]
+    deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
+  }
+
+  export type RolePermissionUncheckedUpdateManyWithoutPermissionNestedInput = {
+    create?: XOR<RolePermissionCreateWithoutPermissionInput, RolePermissionUncheckedCreateWithoutPermissionInput> | RolePermissionCreateWithoutPermissionInput[] | RolePermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: RolePermissionCreateOrConnectWithoutPermissionInput | RolePermissionCreateOrConnectWithoutPermissionInput[]
+    upsert?: RolePermissionUpsertWithWhereUniqueWithoutPermissionInput | RolePermissionUpsertWithWhereUniqueWithoutPermissionInput[]
+    createMany?: RolePermissionCreateManyPermissionInputEnvelope
+    set?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    disconnect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    delete?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
+    update?: RolePermissionUpdateWithWhereUniqueWithoutPermissionInput | RolePermissionUpdateWithWhereUniqueWithoutPermissionInput[]
+    updateMany?: RolePermissionUpdateManyWithWhereWithoutPermissionInput | RolePermissionUpdateManyWithWhereWithoutPermissionInput[]
+    deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutRolesInput = {
+    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRolesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RoleCreateNestedOneWithoutUserRolesInput = {
+    create?: XOR<RoleCreateWithoutUserRolesInput, RoleUncheckedCreateWithoutUserRolesInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutUserRolesInput
+    connect?: RoleWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutRolesNestedInput = {
+    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRolesInput
+    upsert?: UserUpsertWithoutRolesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRolesInput, UserUpdateWithoutRolesInput>, UserUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type RoleUpdateOneRequiredWithoutUserRolesNestedInput = {
+    create?: XOR<RoleCreateWithoutUserRolesInput, RoleUncheckedCreateWithoutUserRolesInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutUserRolesInput
+    upsert?: RoleUpsertWithoutUserRolesInput
+    connect?: RoleWhereUniqueInput
+    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutUserRolesInput, RoleUpdateWithoutUserRolesInput>, RoleUncheckedUpdateWithoutUserRolesInput>
+  }
+
+  export type RoleCreateNestedOneWithoutRolePermissionsInput = {
+    create?: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutRolePermissionsInput
+    connect?: RoleWhereUniqueInput
+  }
+
+  export type PermissionCreateNestedOneWithoutRolePermissionsInput = {
+    create?: XOR<PermissionCreateWithoutRolePermissionsInput, PermissionUncheckedCreateWithoutRolePermissionsInput>
+    connectOrCreate?: PermissionCreateOrConnectWithoutRolePermissionsInput
+    connect?: PermissionWhereUniqueInput
+  }
+
+  export type RoleUpdateOneRequiredWithoutRolePermissionsNestedInput = {
+    create?: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutRolePermissionsInput
+    upsert?: RoleUpsertWithoutRolePermissionsInput
+    connect?: RoleWhereUniqueInput
+    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutRolePermissionsInput, RoleUpdateWithoutRolePermissionsInput>, RoleUncheckedUpdateWithoutRolePermissionsInput>
+  }
+
+  export type PermissionUpdateOneRequiredWithoutRolePermissionsNestedInput = {
+    create?: XOR<PermissionCreateWithoutRolePermissionsInput, PermissionUncheckedCreateWithoutRolePermissionsInput>
+    connectOrCreate?: PermissionCreateOrConnectWithoutRolePermissionsInput
+    upsert?: PermissionUpsertWithoutRolePermissionsInput
+    connect?: PermissionWhereUniqueInput
+    update?: XOR<XOR<PermissionUpdateToOneWithWhereWithoutRolePermissionsInput, PermissionUpdateWithoutRolePermissionsInput>, PermissionUncheckedUpdateWithoutRolePermissionsInput>
   }
 
   export type UserCreateNestedOneWithoutTokensInput = {
@@ -18968,6 +27706,93 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyActivitiesInput, UserUpdateWithoutDailyActivitiesInput>, UserUncheckedUpdateWithoutDailyActivitiesInput>
   }
 
+  export type UserAchievementCreateNestedManyWithoutAchievementInput = {
+    create?: XOR<UserAchievementCreateWithoutAchievementInput, UserAchievementUncheckedCreateWithoutAchievementInput> | UserAchievementCreateWithoutAchievementInput[] | UserAchievementUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutAchievementInput | UserAchievementCreateOrConnectWithoutAchievementInput[]
+    createMany?: UserAchievementCreateManyAchievementInputEnvelope
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+  }
+
+  export type UserAchievementUncheckedCreateNestedManyWithoutAchievementInput = {
+    create?: XOR<UserAchievementCreateWithoutAchievementInput, UserAchievementUncheckedCreateWithoutAchievementInput> | UserAchievementCreateWithoutAchievementInput[] | UserAchievementUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutAchievementInput | UserAchievementCreateOrConnectWithoutAchievementInput[]
+    createMany?: UserAchievementCreateManyAchievementInputEnvelope
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+  }
+
+  export type EnumAchievementTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AchievementType
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type EnumAchievementRarityFieldUpdateOperationsInput = {
+    set?: $Enums.AchievementRarity
+  }
+
+  export type UserAchievementUpdateManyWithoutAchievementNestedInput = {
+    create?: XOR<UserAchievementCreateWithoutAchievementInput, UserAchievementUncheckedCreateWithoutAchievementInput> | UserAchievementCreateWithoutAchievementInput[] | UserAchievementUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutAchievementInput | UserAchievementCreateOrConnectWithoutAchievementInput[]
+    upsert?: UserAchievementUpsertWithWhereUniqueWithoutAchievementInput | UserAchievementUpsertWithWhereUniqueWithoutAchievementInput[]
+    createMany?: UserAchievementCreateManyAchievementInputEnvelope
+    set?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    disconnect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    delete?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    update?: UserAchievementUpdateWithWhereUniqueWithoutAchievementInput | UserAchievementUpdateWithWhereUniqueWithoutAchievementInput[]
+    updateMany?: UserAchievementUpdateManyWithWhereWithoutAchievementInput | UserAchievementUpdateManyWithWhereWithoutAchievementInput[]
+    deleteMany?: UserAchievementScalarWhereInput | UserAchievementScalarWhereInput[]
+  }
+
+  export type UserAchievementUncheckedUpdateManyWithoutAchievementNestedInput = {
+    create?: XOR<UserAchievementCreateWithoutAchievementInput, UserAchievementUncheckedCreateWithoutAchievementInput> | UserAchievementCreateWithoutAchievementInput[] | UserAchievementUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: UserAchievementCreateOrConnectWithoutAchievementInput | UserAchievementCreateOrConnectWithoutAchievementInput[]
+    upsert?: UserAchievementUpsertWithWhereUniqueWithoutAchievementInput | UserAchievementUpsertWithWhereUniqueWithoutAchievementInput[]
+    createMany?: UserAchievementCreateManyAchievementInputEnvelope
+    set?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    disconnect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    delete?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
+    update?: UserAchievementUpdateWithWhereUniqueWithoutAchievementInput | UserAchievementUpdateWithWhereUniqueWithoutAchievementInput[]
+    updateMany?: UserAchievementUpdateManyWithWhereWithoutAchievementInput | UserAchievementUpdateManyWithWhereWithoutAchievementInput[]
+    deleteMany?: UserAchievementScalarWhereInput | UserAchievementScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAchievementsInput = {
+    create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AchievementCreateNestedOneWithoutUserAchievementsInput = {
+    create?: XOR<AchievementCreateWithoutUserAchievementsInput, AchievementUncheckedCreateWithoutUserAchievementsInput>
+    connectOrCreate?: AchievementCreateOrConnectWithoutUserAchievementsInput
+    connect?: AchievementWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAchievementsNestedInput = {
+    create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
+    upsert?: UserUpsertWithoutAchievementsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAchievementsInput, UserUpdateWithoutAchievementsInput>, UserUncheckedUpdateWithoutAchievementsInput>
+  }
+
+  export type AchievementUpdateOneRequiredWithoutUserAchievementsNestedInput = {
+    create?: XOR<AchievementCreateWithoutUserAchievementsInput, AchievementUncheckedCreateWithoutUserAchievementsInput>
+    connectOrCreate?: AchievementCreateOrConnectWithoutUserAchievementsInput
+    upsert?: AchievementUpsertWithoutUserAchievementsInput
+    connect?: AchievementWhereUniqueInput
+    update?: XOR<XOR<AchievementUpdateToOneWithWhereWithoutUserAchievementsInput, AchievementUpdateWithoutUserAchievementsInput>, AchievementUncheckedUpdateWithoutUserAchievementsInput>
+  }
+
   export type DictionaryWordCreatealternativePartOfSpeechInput = {
     set: $Enums.PartOfSpeech[]
   }
@@ -19156,6 +27981,57 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumEUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.EUserRole | EnumEUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumEUserRoleFilter<$PrismaModel> | $Enums.EUserRole
+  }
+
+  export type NestedEnumEUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EUserRole | EnumEUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EUserRole[] | ListEnumEUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumEUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.EUserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumEUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPermissionResourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionResourceFilter<$PrismaModel> | $Enums.PermissionResource
+  }
+
+  export type NestedEnumPermissionActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionActionFilter<$PrismaModel> | $Enums.PermissionAction
+  }
+
+  export type NestedEnumPermissionResourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionResourceWithAggregatesFilter<$PrismaModel> | $Enums.PermissionResource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPermissionResourceFilter<$PrismaModel>
+    _max?: NestedEnumPermissionResourceFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPermissionActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPermissionActionWithAggregatesFilter<$PrismaModel> | $Enums.PermissionAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPermissionActionFilter<$PrismaModel>
+    _max?: NestedEnumPermissionActionFilter<$PrismaModel>
+  }
+
   export type NestedEnumLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.Level | EnumLevelFieldRefInput<$PrismaModel>
     in?: $Enums.Level[] | ListEnumLevelFieldRefInput<$PrismaModel>
@@ -19254,6 +28130,69 @@ export namespace Prisma {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     isSet?: boolean
+  }
+
+  export type NestedEnumAchievementTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementTypeFilter<$PrismaModel> | $Enums.AchievementType
+  }
+
+  export type NestedEnumAchievementRarityFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementRarity | EnumAchievementRarityFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementRarityFilter<$PrismaModel> | $Enums.AchievementRarity
+  }
+
+  export type NestedEnumAchievementTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementTypeWithAggregatesFilter<$PrismaModel> | $Enums.AchievementType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAchievementTypeFilter<$PrismaModel>
+    _max?: NestedEnumAchievementTypeFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumAchievementRarityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementRarity | EnumAchievementRarityFieldRefInput<$PrismaModel>
+    in?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AchievementRarity[] | ListEnumAchievementRarityFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementRarityWithAggregatesFilter<$PrismaModel> | $Enums.AchievementRarity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAchievementRarityFilter<$PrismaModel>
+    _max?: NestedEnumAchievementRarityFilter<$PrismaModel>
   }
 
   export type RefreshTokenCreateWithoutUserInput = {
@@ -19502,6 +28441,29 @@ export namespace Prisma {
     data: XPEventCreateManyUserInput | XPEventCreateManyUserInput[]
   }
 
+  export type UserRoleCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role: RoleCreateNestedOneWithoutUserRolesInput
+  }
+
+  export type UserRoleUncheckedCreateWithoutUserInput = {
+    id?: string
+    roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserRoleCreateOrConnectWithoutUserInput = {
+    where: UserRoleWhereUniqueInput
+    create: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserRoleCreateManyUserInputEnvelope = {
+    data: UserRoleCreateManyUserInput | UserRoleCreateManyUserInput[]
+  }
+
   export type DailyActivityCreateWithoutUserInput = {
     id?: string
     date: Date | string
@@ -19531,6 +28493,35 @@ export namespace Prisma {
 
   export type DailyActivityCreateManyUserInputEnvelope = {
     data: DailyActivityCreateManyUserInput | DailyActivityCreateManyUserInput[]
+  }
+
+  export type UserAchievementCreateWithoutUserInput = {
+    id?: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    achievement: AchievementCreateNestedOneWithoutUserAchievementsInput
+  }
+
+  export type UserAchievementUncheckedCreateWithoutUserInput = {
+    id?: string
+    achievementId: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAchievementCreateOrConnectWithoutUserInput = {
+    where: UserAchievementWhereUniqueInput
+    create: XOR<UserAchievementCreateWithoutUserInput, UserAchievementUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserAchievementCreateManyUserInputEnvelope = {
+    data: UserAchievementCreateManyUserInput | UserAchievementCreateManyUserInput[]
   }
 
   export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -19776,6 +28767,33 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"XPEvent"> | Date | string
   }
 
+  export type UserRoleUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserRoleWhereUniqueInput
+    update: XOR<UserRoleUpdateWithoutUserInput, UserRoleUncheckedUpdateWithoutUserInput>
+    create: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserRoleUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserRoleWhereUniqueInput
+    data: XOR<UserRoleUpdateWithoutUserInput, UserRoleUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserRoleUpdateManyWithWhereWithoutUserInput = {
+    where: UserRoleScalarWhereInput
+    data: XOR<UserRoleUpdateManyMutationInput, UserRoleUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserRoleScalarWhereInput = {
+    AND?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+    OR?: UserRoleScalarWhereInput[]
+    NOT?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
+    id?: StringFilter<"UserRole"> | string
+    userId?: StringFilter<"UserRole"> | string
+    roleId?: StringFilter<"UserRole"> | string
+    createdAt?: DateTimeFilter<"UserRole"> | Date | string
+    updatedAt?: DateTimeFilter<"UserRole"> | Date | string
+  }
+
   export type DailyActivityUpsertWithWhereUniqueWithoutUserInput = {
     where: DailyActivityWhereUniqueInput
     update: XOR<DailyActivityUpdateWithoutUserInput, DailyActivityUncheckedUpdateWithoutUserInput>
@@ -19807,6 +28825,475 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"DailyActivity"> | Date | string
   }
 
+  export type UserAchievementUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserAchievementWhereUniqueInput
+    update: XOR<UserAchievementUpdateWithoutUserInput, UserAchievementUncheckedUpdateWithoutUserInput>
+    create: XOR<UserAchievementCreateWithoutUserInput, UserAchievementUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserAchievementUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserAchievementWhereUniqueInput
+    data: XOR<UserAchievementUpdateWithoutUserInput, UserAchievementUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserAchievementUpdateManyWithWhereWithoutUserInput = {
+    where: UserAchievementScalarWhereInput
+    data: XOR<UserAchievementUpdateManyMutationInput, UserAchievementUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserAchievementScalarWhereInput = {
+    AND?: UserAchievementScalarWhereInput | UserAchievementScalarWhereInput[]
+    OR?: UserAchievementScalarWhereInput[]
+    NOT?: UserAchievementScalarWhereInput | UserAchievementScalarWhereInput[]
+    id?: StringFilter<"UserAchievement"> | string
+    userId?: StringFilter<"UserAchievement"> | string
+    achievementId?: StringFilter<"UserAchievement"> | string
+    progress?: IntFilter<"UserAchievement"> | number
+    isCompleted?: BoolFilter<"UserAchievement"> | boolean
+    completedAt?: DateTimeNullableFilter<"UserAchievement"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserAchievement"> | Date | string
+    updatedAt?: DateTimeFilter<"UserAchievement"> | Date | string
+  }
+
+  export type UserRoleCreateWithoutRoleInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutRolesInput
+  }
+
+  export type UserRoleUncheckedCreateWithoutRoleInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserRoleCreateOrConnectWithoutRoleInput = {
+    where: UserRoleWhereUniqueInput
+    create: XOR<UserRoleCreateWithoutRoleInput, UserRoleUncheckedCreateWithoutRoleInput>
+  }
+
+  export type UserRoleCreateManyRoleInputEnvelope = {
+    data: UserRoleCreateManyRoleInput | UserRoleCreateManyRoleInput[]
+  }
+
+  export type RolePermissionCreateWithoutRoleInput = {
+    id?: string
+    createdAt?: Date | string
+    permission: PermissionCreateNestedOneWithoutRolePermissionsInput
+  }
+
+  export type RolePermissionUncheckedCreateWithoutRoleInput = {
+    id?: string
+    permissionId: string
+    createdAt?: Date | string
+  }
+
+  export type RolePermissionCreateOrConnectWithoutRoleInput = {
+    where: RolePermissionWhereUniqueInput
+    create: XOR<RolePermissionCreateWithoutRoleInput, RolePermissionUncheckedCreateWithoutRoleInput>
+  }
+
+  export type RolePermissionCreateManyRoleInputEnvelope = {
+    data: RolePermissionCreateManyRoleInput | RolePermissionCreateManyRoleInput[]
+  }
+
+  export type UserRoleUpsertWithWhereUniqueWithoutRoleInput = {
+    where: UserRoleWhereUniqueInput
+    update: XOR<UserRoleUpdateWithoutRoleInput, UserRoleUncheckedUpdateWithoutRoleInput>
+    create: XOR<UserRoleCreateWithoutRoleInput, UserRoleUncheckedCreateWithoutRoleInput>
+  }
+
+  export type UserRoleUpdateWithWhereUniqueWithoutRoleInput = {
+    where: UserRoleWhereUniqueInput
+    data: XOR<UserRoleUpdateWithoutRoleInput, UserRoleUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type UserRoleUpdateManyWithWhereWithoutRoleInput = {
+    where: UserRoleScalarWhereInput
+    data: XOR<UserRoleUpdateManyMutationInput, UserRoleUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type RolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
+    where: RolePermissionWhereUniqueInput
+    update: XOR<RolePermissionUpdateWithoutRoleInput, RolePermissionUncheckedUpdateWithoutRoleInput>
+    create: XOR<RolePermissionCreateWithoutRoleInput, RolePermissionUncheckedCreateWithoutRoleInput>
+  }
+
+  export type RolePermissionUpdateWithWhereUniqueWithoutRoleInput = {
+    where: RolePermissionWhereUniqueInput
+    data: XOR<RolePermissionUpdateWithoutRoleInput, RolePermissionUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type RolePermissionUpdateManyWithWhereWithoutRoleInput = {
+    where: RolePermissionScalarWhereInput
+    data: XOR<RolePermissionUpdateManyMutationInput, RolePermissionUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type RolePermissionScalarWhereInput = {
+    AND?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
+    OR?: RolePermissionScalarWhereInput[]
+    NOT?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
+    id?: StringFilter<"RolePermission"> | string
+    roleId?: StringFilter<"RolePermission"> | string
+    permissionId?: StringFilter<"RolePermission"> | string
+    createdAt?: DateTimeFilter<"RolePermission"> | Date | string
+  }
+
+  export type RolePermissionCreateWithoutPermissionInput = {
+    id?: string
+    createdAt?: Date | string
+    role: RoleCreateNestedOneWithoutRolePermissionsInput
+  }
+
+  export type RolePermissionUncheckedCreateWithoutPermissionInput = {
+    id?: string
+    roleId: string
+    createdAt?: Date | string
+  }
+
+  export type RolePermissionCreateOrConnectWithoutPermissionInput = {
+    where: RolePermissionWhereUniqueInput
+    create: XOR<RolePermissionCreateWithoutPermissionInput, RolePermissionUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type RolePermissionCreateManyPermissionInputEnvelope = {
+    data: RolePermissionCreateManyPermissionInput | RolePermissionCreateManyPermissionInput[]
+  }
+
+  export type RolePermissionUpsertWithWhereUniqueWithoutPermissionInput = {
+    where: RolePermissionWhereUniqueInput
+    update: XOR<RolePermissionUpdateWithoutPermissionInput, RolePermissionUncheckedUpdateWithoutPermissionInput>
+    create: XOR<RolePermissionCreateWithoutPermissionInput, RolePermissionUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type RolePermissionUpdateWithWhereUniqueWithoutPermissionInput = {
+    where: RolePermissionWhereUniqueInput
+    data: XOR<RolePermissionUpdateWithoutPermissionInput, RolePermissionUncheckedUpdateWithoutPermissionInput>
+  }
+
+  export type RolePermissionUpdateManyWithWhereWithoutPermissionInput = {
+    where: RolePermissionScalarWhereInput
+    data: XOR<RolePermissionUpdateManyMutationInput, RolePermissionUncheckedUpdateManyWithoutPermissionInput>
+  }
+
+  export type UserCreateWithoutRolesInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    totalWordsReviewed?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
+    categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRolesInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    totalWordsReviewed?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRolesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
+  }
+
+  export type RoleCreateWithoutUserRolesInput = {
+    id?: string
+    name: $Enums.EUserRole
+    displayName: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rolePermissions?: RolePermissionCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateWithoutUserRolesInput = {
+    id?: string
+    name: $Enums.EUserRole
+    displayName: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rolePermissions?: RolePermissionUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleCreateOrConnectWithoutUserRolesInput = {
+    where: RoleWhereUniqueInput
+    create: XOR<RoleCreateWithoutUserRolesInput, RoleUncheckedCreateWithoutUserRolesInput>
+  }
+
+  export type UserUpsertWithoutRolesInput = {
+    update: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
+    create: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRolesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type UserUpdateWithoutRolesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
+    categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRolesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type RoleUpsertWithoutUserRolesInput = {
+    update: XOR<RoleUpdateWithoutUserRolesInput, RoleUncheckedUpdateWithoutUserRolesInput>
+    create: XOR<RoleCreateWithoutUserRolesInput, RoleUncheckedCreateWithoutUserRolesInput>
+    where?: RoleWhereInput
+  }
+
+  export type RoleUpdateToOneWithWhereWithoutUserRolesInput = {
+    where?: RoleWhereInput
+    data: XOR<RoleUpdateWithoutUserRolesInput, RoleUncheckedUpdateWithoutUserRolesInput>
+  }
+
+  export type RoleUpdateWithoutUserRolesInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rolePermissions?: RolePermissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateWithoutUserRolesInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rolePermissions?: RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleCreateWithoutRolePermissionsInput = {
+    id?: string
+    name: $Enums.EUserRole
+    displayName: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userRoles?: UserRoleCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateWithoutRolePermissionsInput = {
+    id?: string
+    name: $Enums.EUserRole
+    displayName: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userRoles?: UserRoleUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleCreateOrConnectWithoutRolePermissionsInput = {
+    where: RoleWhereUniqueInput
+    create: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
+  }
+
+  export type PermissionCreateWithoutRolePermissionsInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    resource: $Enums.PermissionResource
+    action: $Enums.PermissionAction
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PermissionUncheckedCreateWithoutRolePermissionsInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    resource: $Enums.PermissionResource
+    action: $Enums.PermissionAction
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PermissionCreateOrConnectWithoutRolePermissionsInput = {
+    where: PermissionWhereUniqueInput
+    create: XOR<PermissionCreateWithoutRolePermissionsInput, PermissionUncheckedCreateWithoutRolePermissionsInput>
+  }
+
+  export type RoleUpsertWithoutRolePermissionsInput = {
+    update: XOR<RoleUpdateWithoutRolePermissionsInput, RoleUncheckedUpdateWithoutRolePermissionsInput>
+    create: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
+    where?: RoleWhereInput
+  }
+
+  export type RoleUpdateToOneWithWhereWithoutRolePermissionsInput = {
+    where?: RoleWhereInput
+    data: XOR<RoleUpdateWithoutRolePermissionsInput, RoleUncheckedUpdateWithoutRolePermissionsInput>
+  }
+
+  export type RoleUpdateWithoutRolePermissionsInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserRoleUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateWithoutRolePermissionsInput = {
+    name?: EnumEUserRoleFieldUpdateOperationsInput | $Enums.EUserRole
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserRoleUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type PermissionUpsertWithoutRolePermissionsInput = {
+    update: XOR<PermissionUpdateWithoutRolePermissionsInput, PermissionUncheckedUpdateWithoutRolePermissionsInput>
+    create: XOR<PermissionCreateWithoutRolePermissionsInput, PermissionUncheckedCreateWithoutRolePermissionsInput>
+    where?: PermissionWhereInput
+  }
+
+  export type PermissionUpdateToOneWithWhereWithoutRolePermissionsInput = {
+    where?: PermissionWhereInput
+    data: XOR<PermissionUpdateWithoutRolePermissionsInput, PermissionUncheckedUpdateWithoutRolePermissionsInput>
+  }
+
+  export type PermissionUpdateWithoutRolePermissionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
+    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUncheckedUpdateWithoutRolePermissionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
+    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutTokensInput = {
     id?: string
     name: string
@@ -19818,6 +29305,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -19832,7 +29320,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -19846,6 +29336,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -19860,7 +29351,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -19889,6 +29382,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -19903,7 +29397,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -19916,6 +29412,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -19930,7 +29427,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutStudySetsInput = {
@@ -19944,6 +29443,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -19958,7 +29458,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStudySetsInput = {
@@ -19972,6 +29474,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -19986,7 +29489,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudySetsInput = {
@@ -20110,6 +29615,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20124,7 +29630,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudySetsInput = {
@@ -20137,6 +29645,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20151,7 +29660,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithoutStudySetsInput = {
@@ -20265,6 +29776,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20279,7 +29791,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVocabulariesInput = {
@@ -20293,6 +29807,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20307,7 +29822,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVocabulariesInput = {
@@ -20414,6 +29931,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20428,7 +29946,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVocabulariesInput = {
@@ -20441,6 +29961,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20455,7 +29976,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserVocabularyProgressUpsertWithWhereUniqueWithoutVocabularyInput = {
@@ -20524,6 +30047,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20538,7 +30062,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -20552,6 +30078,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20566,7 +30093,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -20611,6 +30140,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20625,7 +30155,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -20638,6 +30170,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20652,7 +30185,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLikedStudySetsInput = {
@@ -20666,6 +30201,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20680,7 +30216,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikedStudySetsInput = {
@@ -20694,6 +30232,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20708,7 +30247,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikedStudySetsInput = {
@@ -20772,6 +30313,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20786,7 +30328,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikedStudySetsInput = {
@@ -20799,6 +30343,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20813,7 +30358,9 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StudySetUpsertWithoutLikedByInput = {
@@ -20866,6 +30413,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20880,7 +30428,9 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVocabularyProgressInput = {
@@ -20894,6 +30444,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -20908,7 +30459,9 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVocabularyProgressInput = {
@@ -20978,6 +30531,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -20992,7 +30546,9 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVocabularyProgressInput = {
@@ -21005,6 +30561,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -21019,7 +30576,9 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VocabularyUpsertWithoutVocabularyProgressInput = {
@@ -21078,6 +30637,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -21092,7 +30652,9 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUniqueWordsLearnedInput = {
@@ -21106,6 +30668,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -21120,7 +30683,9 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUniqueWordsLearnedInput = {
@@ -21149,6 +30714,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -21163,7 +30729,9 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUniqueWordsLearnedInput = {
@@ -21176,6 +30744,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -21190,7 +30759,9 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutXpEventsInput = {
@@ -21204,6 +30775,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -21218,7 +30790,9 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutXpEventsInput = {
@@ -21232,6 +30806,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -21246,7 +30821,9 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutXpEventsInput = {
@@ -21275,6 +30852,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -21289,7 +30867,9 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutXpEventsInput = {
@@ -21302,6 +30882,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -21316,7 +30897,9 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDailyActivitiesInput = {
@@ -21330,6 +30913,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -21345,6 +30929,8 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
     xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyActivitiesInput = {
@@ -21358,6 +30944,7 @@ export namespace Prisma {
     streak?: number
     lastLearningDate?: Date | string | null
     totalWordsLearned?: number
+    totalWordsReviewed?: number
     dailyGoal?: number
     difficultyPreference?: string
     notificationsEnabled?: boolean
@@ -21373,6 +30960,8 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
     uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
     xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyActivitiesInput = {
@@ -21401,6 +30990,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -21416,6 +31006,8 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyActivitiesInput = {
@@ -21428,6 +31020,7 @@ export namespace Prisma {
     streak?: IntFieldUpdateOperationsInput | number
     lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
     dailyGoal?: IntFieldUpdateOperationsInput | number
     difficultyPreference?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -21443,6 +31036,265 @@ export namespace Prisma {
     vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
     uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
     xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserAchievementCreateWithoutAchievementInput = {
+    id?: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAchievementsInput
+  }
+
+  export type UserAchievementUncheckedCreateWithoutAchievementInput = {
+    id?: string
+    userId: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAchievementCreateOrConnectWithoutAchievementInput = {
+    where: UserAchievementWhereUniqueInput
+    create: XOR<UserAchievementCreateWithoutAchievementInput, UserAchievementUncheckedCreateWithoutAchievementInput>
+  }
+
+  export type UserAchievementCreateManyAchievementInputEnvelope = {
+    data: UserAchievementCreateManyAchievementInput | UserAchievementCreateManyAchievementInput[]
+  }
+
+  export type UserAchievementUpsertWithWhereUniqueWithoutAchievementInput = {
+    where: UserAchievementWhereUniqueInput
+    update: XOR<UserAchievementUpdateWithoutAchievementInput, UserAchievementUncheckedUpdateWithoutAchievementInput>
+    create: XOR<UserAchievementCreateWithoutAchievementInput, UserAchievementUncheckedCreateWithoutAchievementInput>
+  }
+
+  export type UserAchievementUpdateWithWhereUniqueWithoutAchievementInput = {
+    where: UserAchievementWhereUniqueInput
+    data: XOR<UserAchievementUpdateWithoutAchievementInput, UserAchievementUncheckedUpdateWithoutAchievementInput>
+  }
+
+  export type UserAchievementUpdateManyWithWhereWithoutAchievementInput = {
+    where: UserAchievementScalarWhereInput
+    data: XOR<UserAchievementUpdateManyMutationInput, UserAchievementUncheckedUpdateManyWithoutAchievementInput>
+  }
+
+  export type UserCreateWithoutAchievementsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    totalWordsReviewed?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetCreateNestedManyWithoutUserInput
+    categories?: CategoryCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventCreateNestedManyWithoutUserInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAchievementsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    avatarUrl?: string | null
+    level?: number
+    xp?: number
+    streak?: number
+    lastLearningDate?: Date | string | null
+    totalWordsLearned?: number
+    totalWordsReviewed?: number
+    dailyGoal?: number
+    difficultyPreference?: string
+    notificationsEnabled?: boolean
+    publicProfile?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    vocabularies?: VocabularyUncheckedCreateNestedManyWithoutCreatedByInput
+    studySets?: StudySetUncheckedCreateNestedManyWithoutAuthorInput
+    likedStudySets?: UserLikesStudySetUncheckedCreateNestedManyWithoutUserInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutAuthorInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedCreateNestedManyWithoutUserInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedCreateNestedManyWithoutUserInput
+    xpEvents?: XPEventUncheckedCreateNestedManyWithoutUserInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    dailyActivities?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAchievementsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+  }
+
+  export type AchievementCreateWithoutUserAchievementsInput = {
+    id?: string
+    title: string
+    description: string
+    type: $Enums.AchievementType
+    targetValue: number
+    duration?: number | null
+    rarity?: $Enums.AchievementRarity
+    icon?: string | null
+    isActive?: boolean
+    xpReward?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AchievementUncheckedCreateWithoutUserAchievementsInput = {
+    id?: string
+    title: string
+    description: string
+    type: $Enums.AchievementType
+    targetValue: number
+    duration?: number | null
+    rarity?: $Enums.AchievementRarity
+    icon?: string | null
+    isActive?: boolean
+    xpReward?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AchievementCreateOrConnectWithoutUserAchievementsInput = {
+    where: AchievementWhereUniqueInput
+    create: XOR<AchievementCreateWithoutUserAchievementsInput, AchievementUncheckedCreateWithoutUserAchievementsInput>
+  }
+
+  export type UserUpsertWithoutAchievementsInput = {
+    update: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
+    create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAchievementsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
+  }
+
+  export type UserUpdateWithoutAchievementsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUpdateManyWithoutUserNestedInput
+    categories?: CategoryUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAchievementsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    streak?: IntFieldUpdateOperationsInput | number
+    lastLearningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalWordsLearned?: IntFieldUpdateOperationsInput | number
+    totalWordsReviewed?: IntFieldUpdateOperationsInput | number
+    dailyGoal?: IntFieldUpdateOperationsInput | number
+    difficultyPreference?: StringFieldUpdateOperationsInput | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    publicProfile?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    vocabularies?: VocabularyUncheckedUpdateManyWithoutCreatedByNestedInput
+    studySets?: StudySetUncheckedUpdateManyWithoutAuthorNestedInput
+    likedStudySets?: UserLikesStudySetUncheckedUpdateManyWithoutUserNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutAuthorNestedInput
+    vocabularyProgress?: UserVocabularyProgressUncheckedUpdateManyWithoutUserNestedInput
+    uniqueWordsLearned?: UserUniqueWordUncheckedUpdateManyWithoutUserNestedInput
+    xpEvents?: XPEventUncheckedUpdateManyWithoutUserNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    dailyActivities?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AchievementUpsertWithoutUserAchievementsInput = {
+    update: XOR<AchievementUpdateWithoutUserAchievementsInput, AchievementUncheckedUpdateWithoutUserAchievementsInput>
+    create: XOR<AchievementCreateWithoutUserAchievementsInput, AchievementUncheckedCreateWithoutUserAchievementsInput>
+    where?: AchievementWhereInput
+  }
+
+  export type AchievementUpdateToOneWithWhereWithoutUserAchievementsInput = {
+    where?: AchievementWhereInput
+    data: XOR<AchievementUpdateWithoutUserAchievementsInput, AchievementUncheckedUpdateWithoutUserAchievementsInput>
+  }
+
+  export type AchievementUpdateWithoutUserAchievementsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType
+    targetValue?: IntFieldUpdateOperationsInput | number
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | $Enums.AchievementRarity
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    xpReward?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AchievementUncheckedUpdateWithoutUserAchievementsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType
+    targetValue?: IntFieldUpdateOperationsInput | number
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | $Enums.AchievementRarity
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    xpReward?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RefreshTokenCreateManyUserInput = {
@@ -21528,6 +31380,13 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type UserRoleCreateManyUserInput = {
+    id?: string
+    roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type DailyActivityCreateManyUserInput = {
     id?: string
     date: Date | string
@@ -21535,6 +31394,16 @@ export namespace Prisma {
     wordsReviewed?: number
     xpEarned?: number
     streakCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAchievementCreateManyUserInput = {
+    id?: string
+    achievementId: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21772,6 +31641,24 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserRoleUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: RoleUpdateOneRequiredWithoutUserRolesNestedInput
+  }
+
+  export type UserRoleUncheckedUpdateWithoutUserInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleUncheckedUpdateManyWithoutUserInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DailyActivityUpdateWithoutUserInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     wordsLearned?: IntFieldUpdateOperationsInput | number
@@ -21800,6 +31687,100 @@ export namespace Prisma {
     streakCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAchievementUpdateWithoutUserInput = {
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    achievement?: AchievementUpdateOneRequiredWithoutUserAchievementsNestedInput
+  }
+
+  export type UserAchievementUncheckedUpdateWithoutUserInput = {
+    achievementId?: StringFieldUpdateOperationsInput | string
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAchievementUncheckedUpdateManyWithoutUserInput = {
+    achievementId?: StringFieldUpdateOperationsInput | string
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleCreateManyRoleInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RolePermissionCreateManyRoleInput = {
+    id?: string
+    permissionId: string
+    createdAt?: Date | string
+  }
+
+  export type UserRoleUpdateWithoutRoleInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRolesNestedInput
+  }
+
+  export type UserRoleUncheckedUpdateWithoutRoleInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleUncheckedUpdateManyWithoutRoleInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePermissionUpdateWithoutRoleInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    permission?: PermissionUpdateOneRequiredWithoutRolePermissionsNestedInput
+  }
+
+  export type RolePermissionUncheckedUpdateWithoutRoleInput = {
+    permissionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePermissionUncheckedUpdateManyWithoutRoleInput = {
+    permissionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePermissionCreateManyPermissionInput = {
+    id?: string
+    roleId: string
+    createdAt?: Date | string
+  }
+
+  export type RolePermissionUpdateWithoutPermissionInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: RoleUpdateOneRequiredWithoutRolePermissionsNestedInput
+  }
+
+  export type RolePermissionUncheckedUpdateWithoutPermissionInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePermissionUncheckedUpdateManyWithoutPermissionInput = {
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VocabularyCreateManyStudySetInput = {
@@ -21998,6 +31979,43 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserAchievementCreateManyAchievementInput = {
+    id?: string
+    userId: string
+    progress?: number
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAchievementUpdateWithoutAchievementInput = {
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAchievementsNestedInput
+  }
+
+  export type UserAchievementUncheckedUpdateWithoutAchievementInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAchievementUncheckedUpdateManyWithoutAchievementInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    progress?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

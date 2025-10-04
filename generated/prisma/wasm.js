@@ -124,6 +124,7 @@ exports.Prisma.UserScalarFieldEnum = {
   streak: 'streak',
   lastLearningDate: 'lastLearningDate',
   totalWordsLearned: 'totalWordsLearned',
+  totalWordsReviewed: 'totalWordsReviewed',
   dailyGoal: 'dailyGoal',
   difficultyPreference: 'difficultyPreference',
   notificationsEnabled: 'notificationsEnabled',
@@ -131,6 +132,43 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   status: 'status'
+};
+
+exports.Prisma.RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  displayName: 'displayName',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  displayName: 'displayName',
+  description: 'description',
+  resource: 'resource',
+  action: 'action',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserRoleScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  roleId: 'roleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RolePermissionScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
+  permissionId: 'permissionId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.RefreshTokenScalarFieldEnum = {
@@ -245,6 +283,32 @@ exports.Prisma.DailyActivityScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AchievementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  targetValue: 'targetValue',
+  duration: 'duration',
+  rarity: 'rarity',
+  icon: 'icon',
+  isActive: 'isActive',
+  xpReward: 'xpReward',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserAchievementScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  achievementId: 'achievementId',
+  progress: 'progress',
+  isCompleted: 'isCompleted',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DictionaryWordScalarFieldEnum = {
   id: 'id',
   word: 'word',
@@ -269,6 +333,30 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.EUserRole = exports.$Enums.EUserRole = {
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR',
+  USER: 'USER'
+};
+
+exports.PermissionResource = exports.$Enums.PermissionResource = {
+  USER: 'USER',
+  ACHIEVEMENT: 'ACHIEVEMENT',
+  STUDY_SET: 'STUDY_SET',
+  VOCABULARY: 'VOCABULARY',
+  CATEGORY: 'CATEGORY',
+  GAMIFICATION: 'GAMIFICATION',
+  SYSTEM: 'SYSTEM'
+};
+
+exports.PermissionAction = exports.$Enums.PermissionAction = {
+  CREATE: 'CREATE',
+  READ: 'READ',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  MANAGE: 'MANAGE'
+};
+
 exports.Level = exports.$Enums.Level = {
   BEGINNER: 'BEGINNER',
   INTERMEDIATE: 'INTERMEDIATE',
@@ -304,8 +392,26 @@ exports.VerificationType = exports.$Enums.VerificationType = {
   FORGOT_PASSWORD: 'FORGOT_PASSWORD'
 };
 
+exports.AchievementType = exports.$Enums.AchievementType = {
+  TOTAL_WORDS_LEARNED: 'TOTAL_WORDS_LEARNED',
+  STREAK_DAYS: 'STREAK_DAYS',
+  LEVEL_REACHED: 'LEVEL_REACHED',
+  TOTAL_WORDS_REVIEWED: 'TOTAL_WORDS_REVIEWED'
+};
+
+exports.AchievementRarity = exports.$Enums.AchievementRarity = {
+  COMMON: 'COMMON',
+  RARE: 'RARE',
+  EPIC: 'EPIC',
+  LEGENDARY: 'LEGENDARY'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
+  Role: 'Role',
+  Permission: 'Permission',
+  UserRole: 'UserRole',
+  RolePermission: 'RolePermission',
   RefreshToken: 'RefreshToken',
   StudySet: 'StudySet',
   Vocabulary: 'Vocabulary',
@@ -316,6 +422,8 @@ exports.Prisma.ModelName = {
   UserUniqueWord: 'UserUniqueWord',
   XPEvent: 'XPEvent',
   DailyActivity: 'DailyActivity',
+  Achievement: 'Achievement',
+  UserAchievement: 'UserAchievement',
   DictionaryWord: 'DictionaryWord'
 };
 
