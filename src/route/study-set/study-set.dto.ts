@@ -110,6 +110,15 @@ export class UpdateStudySetDto {
   isPublic: boolean;
 }
 
+
+
 export class AddVocabularyDto extends VocabularyDto {}
 
 export class UpdateVocabularyDto extends VocabularyDto {}
+
+export class BulkAddVocabularyDto {
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AddVocabularyDto)
+  vocabularies: AddVocabularyDto[];
+}

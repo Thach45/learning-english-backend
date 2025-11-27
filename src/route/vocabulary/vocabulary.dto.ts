@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsEnum,
+  IsMongoId,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -66,4 +67,9 @@ export class VocabularyResponseDto {
     this.partOfSpeech = data.partOfSpeech || PartOfSpeech.OTHER;
     this.alternativePartOfSpeech = data.alternativePartOfSpeech || [];
   }
+}
+export class CreateVocabularyByAiDto {
+  @IsMongoId()
+  @IsNotEmpty()
+  idStudySet: string;
 }

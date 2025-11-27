@@ -1,5 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { VocabularyResponseDto } from "./vocabulary.dto";
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { CreateVocabularyByAiDto, VocabularyResponseDto } from "./vocabulary.dto";
 import {
   crawlCambridgeDictionary,
   crawlCambridgeEnglishDictionary,
@@ -10,10 +10,13 @@ import {
 import { CambridgeResult } from "./vocabulary.types";
 import { PrismaService } from "../../shared/service/prisma.service";
 import { PartOfSpeech } from "generated/prisma";
+import { GeminiService } from "src/shared/service/ai.service";
 
 @Injectable()
 export class VocabularyService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService,
+    private readonly geminiService: GeminiService,
+  ) {}
 
   async getVocabulary(
     word: string,
@@ -123,7 +126,36 @@ export class VocabularyService {
       throw error;
     }
   }
-
+  async createVocabularyByAi(dto: CreateVocabularyByAiDto, userId: string) {
+    try {
+      const studySet = await this.prisma.studySet.findUnique({
+        where: { id: dto.idStudySet },
+      });
+      if (!studySet) {
+        throw new NotFoundException("Study set not found");
+      }
+      const existingVocabulary = await this.prisma.vocabulary.findMany({
+        where: {
+          studySetId: dto.idStudySet,
+        },
+      });
+      // mảng string các từ đã tồn tại
+      const existingVocabularyWords: string[] = existingVocabulary.map((v) => v.word);
+      const suggestedVocabulary: string[] = await this.geminiService.generateVocabulary(studySet.title ?? '', studySet.description ?? '',existingVocabularyWords);
+      const finalVocabulary: VocabularyResponseDto[] = [];
+      for (const word of suggestedVocabulary) {
+        const vocabulary = await this.getVocabulary(word);
+        if (vocabulary) {
+          finalVocabulary.push(vocabulary);
+        }
+      }
+  
+      return finalVocabulary;
+    } catch (error) {
+      console.error("Error in createVocabularyByAi:", error);
+      throw error;
+    }
+  }
   async searchVocabulary(
     word: string,
     language: string,

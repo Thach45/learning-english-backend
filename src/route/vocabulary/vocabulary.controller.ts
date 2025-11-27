@@ -14,9 +14,11 @@ import {
 import { VocabularyService } from "./vocabulary.service";
 import { AuthenticationGuard } from "src/shared/guards/authentication.guard";
 import { Auth } from "src/shared/decorator/auth.decorator";
-import { VocabularyResponseDto } from "./vocabulary.dto";
+import { CreateVocabularyByAiDto, VocabularyResponseDto } from "./vocabulary.dto";
 import { translate } from "google-translate-api-x";
 import { PartOfSpeech } from "generated/prisma";
+import { TokenPayload } from "src/types/token.type";
+import { ActiveUser } from "src/shared/decorator/active-user.decorator";
 
 @Controller("vocabulary")
 @UseInterceptors(ClassSerializerInterceptor)
@@ -35,7 +37,15 @@ export class VocabularyController {
       throw new BadRequestException("Translation failed");
     }
   }
-
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  @Post("/generate/ai")
+  createVocabularyByAi(
+    @Body() dto: CreateVocabularyByAiDto,
+    @ActiveUser() user: TokenPayload,
+  ) {
+    return this.vocabularyService.createVocabularyByAi(dto, user.userId);
+  }
   @Get()
   async getVocabulary(
     @Query("word") word: string,

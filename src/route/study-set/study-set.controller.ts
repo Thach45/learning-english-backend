@@ -18,6 +18,7 @@ import {
   UpdateStudySetDto,
   UpdateVocabularyDto,
   AddVocabularyDto,
+  BulkAddVocabularyDto,
 } from "./study-set.dto";
 import { ActiveUser } from "src/shared/decorator/active-user.decorator";
 import { TokenPayload } from "src/types/token.type";
@@ -98,6 +99,21 @@ export class StudySetController {
 
   @Auth(["access-token"], "or")
   @UseGuards(AuthenticationGuard)
+  @Post(":studySetId/vocabularies/bulk")
+  bulkAddVocabulary(
+    @Param("studySetId") studySetId: string,
+    @Body() dto: BulkAddVocabularyDto,
+    @ActiveUser() user: TokenPayload,
+  ) {
+    return this.studySetService.bulkAddVocabulary(
+      studySetId,
+      dto,
+      user.userId,
+    );
+  }
+
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
   @Put(":studySetId/vocabularies/:vocabularyId")
   updateVocabulary(
     @Param("studySetId") studySetId: string,
@@ -112,6 +128,7 @@ export class StudySetController {
       user.userId,
     );
   }
+
 
   @Auth(["access-token"], "or")
   @UseGuards(AuthenticationGuard)

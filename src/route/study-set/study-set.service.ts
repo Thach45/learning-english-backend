@@ -9,15 +9,21 @@ import {
 import { PrismaService } from "src/shared/service/prisma.service";
 import {
   AddVocabularyDto,
+  BulkAddVocabularyDto,
   CreateStudySetWithVocabDto,
   UpdateStudySetDto,
   UpdateVocabularyDto,
 } from "./study-set.dto";
 import { Prisma } from "generated/prisma";
+import { GeminiService } from "src/shared/service/ai.service";
 
 @Injectable()
 export class StudySetService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly geminiService: GeminiService,
+  ) {}
+  
 
   async create(dto: CreateStudySetWithVocabDto, userId: string) {
     try {
@@ -33,6 +39,7 @@ export class StudySetService {
       throw new BadRequestException("Failed to create study set");
     }
   }
+ 
 
   async findAll(
     category?: string,
@@ -208,6 +215,77 @@ export class StudySetService {
       });
     } catch (error) {
       console.error("Lỗi tạo từ vựng:", error);
+      throw new InternalServerErrorException("Không thể thêm từ vựng");
+    }
+  }
+
+  async bulkAddVocabulary(
+    studySetId: string,
+    dto: BulkAddVocabularyDto,
+    userId: string,
+  ) {
+    const studySet = await this.prisma.studySet.findUnique({
+      where: { id: studySetId },
+      select: { authorId: true },
+    });
+
+    if (!studySet) {
+      throw new NotFoundException("Study set not found");
+    }
+
+    if (studySet.authorId !== userId) {
+      throw new ForbiddenException("Bạn không có quyền sửa bộ từ vựng này");
+    }
+
+    // Check for duplicates in the request
+    const words = dto.vocabularies.map((v) => v.word.toLowerCase().trim());
+    const uniqueWords = new Set(words);
+    if (uniqueWords.size !== words.length) {
+      throw new BadRequestException("Có từ vựng trùng lặp trong danh sách");
+    }
+
+    // Check existing vocabularies in database
+    const existingVocabs = await this.prisma.vocabulary.findMany({
+      where: {
+        studySetId,
+        word: { in: words },
+      },
+      select: { word: true },
+    });
+
+    const existingWords = new Set(
+      existingVocabs.map((v) => v.word.toLowerCase()),
+    );
+    const newVocabs = dto.vocabularies.filter(
+      (v) => !existingWords.has(v.word.toLowerCase().trim()),
+    );
+
+    if (newVocabs.length === 0) {
+      throw new ConflictException("Tất cả từ vựng đã tồn tại trong bộ từ");
+    }
+
+    // Bulk insert using transaction
+    try {
+      const result = await this.prisma.$transaction(
+        newVocabs.map((vocab) =>
+          this.prisma.vocabulary.create({
+            data: {
+              ...vocab,
+              studySetId,
+              createdById: userId,
+            },
+          }),
+        ),
+      );
+
+      return {
+        success: result.length,
+        total: dto.vocabularies.length,
+        skipped: dto.vocabularies.length - result.length,
+        data: result,
+      };
+    } catch (error) {
+      console.error("Lỗi bulk add từ vựng:", error);
       throw new InternalServerErrorException("Không thể thêm từ vựng");
     }
   }
