@@ -68,4 +68,50 @@ Nhiệm vụ:
       return [];
     }
   }
+
+  async generateVocabularyByArticle(text: string): Promise<string[]> {
+    const prompt = `
+You are an expert English teacher. Analyze the following text extracted from an IELTS/TOEIC reading passage.
+
+Task:
+1. Identify 15-20 important vocabulary words (Level B1-C2, Academic words).
+2. Ignore simple words (the, a, is, are, etc.) and common verbs (go, have, make, etc.).
+3. Focus on: academic words, advanced adjectives, phrasal verbs, collocations.
+4. Return ONLY a JSON array of base form words (infinitive for verbs, singular for nouns).
+5. Do NOT include any explanation, markdown, or extra text - ONLY the JSON array.
+
+Text to analyze:
+"""
+${text.slice(0, 8000)}
+"""
+
+Output format (ONLY this, nothing else):
+["sustainable", "cornerstone", "compromise", "mitigate", "ubiquitous", "detrimental"]
+    `.trim();
+
+    const raw = await this.ask(prompt);
+    
+    // Parse JSON response
+    try {
+      // Remove markdown code blocks if present
+      let cleaned = raw?.trim() ?? '';
+      if (cleaned.startsWith('```')) {
+        cleaned = cleaned.replace(/```json?\n?/g, '').replace(/```\n?$/g, '');
+      }
+      
+      const words = JSON.parse(cleaned);
+      
+      if (!Array.isArray(words)) {
+        throw new Error('Response is not an array');
+      }
+      
+      return words;
+    } catch (error) {
+      console.error('Failed to parse AI response:', raw);
+      throw new Error('AI returned invalid JSON format');
+    }
+  }
+
+
 }
+

@@ -73,3 +73,14 @@ export class CreateVocabularyByAiDto {
   @IsNotEmpty()
   idStudySet: string;
 }
+
+
+export class VocabularyByArticleDto {
+  @IsString()
+  @IsNotEmpty()
+  text: string;
+
+  @IsArray()
+  @IsNotEmpty()
+  vocabulary: VocabularyResponseDto[];
+}

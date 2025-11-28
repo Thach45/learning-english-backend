@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   HttpException,
   HttpStatus,
+  UploadedFile,
 } from "@nestjs/common";
 import { VocabularyService } from "./vocabulary.service";
 import { AuthenticationGuard } from "src/shared/guards/authentication.guard";
@@ -19,6 +20,8 @@ import { translate } from "google-translate-api-x";
 import { PartOfSpeech } from "generated/prisma";
 import { TokenPayload } from "src/types/token.type";
 import { ActiveUser } from "src/shared/decorator/active-user.decorator";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { MulterFile } from "src/types/multer-file";
 
 @Controller("vocabulary")
 @UseInterceptors(ClassSerializerInterceptor)
@@ -45,6 +48,32 @@ export class VocabularyController {
     @ActiveUser() user: TokenPayload,
   ) {
     return this.vocabularyService.createVocabularyByAi(dto, user.userId);
+  }
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  @Post("upload-article")
+  @UseInterceptors(FileInterceptor("file"))
+  async createVocabularyByArticle(
+    @UploadedFile() file: MulterFile,
+    @ActiveUser() user: TokenPayload,
+  ) {
+    if (!file) {
+      throw new BadRequestException("File is required");
+    }
+    return this.vocabularyService.createVocabularyByArticle(file, user.userId);
+  }
+
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  @Post("analyze-text")
+  async analyzeText(
+    @Body("text") text: string,
+    @ActiveUser() user: TokenPayload,
+  ) {
+    if (!text || !text.trim()) {
+      throw new BadRequestException("Text is required");
+    }
+    return this.vocabularyService.analyzeText(text, user.userId);
   }
   @Get()
   async getVocabulary(

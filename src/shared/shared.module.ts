@@ -9,6 +9,7 @@ import { AuthenticationGuard } from "./guards/authentication.guard";
 import { SendEmailService } from "./service/send-email.service";
 import { SharedUserRepo } from "./repo/shared-user";
 import { GeminiService } from "./service/ai.service";
+import { UploadService } from "./service/upload.service";
 const sharedServices = [
   PrismaService,
   HashingService,
@@ -19,6 +20,7 @@ const sharedServices = [
   AccessTokenGuard,
   AuthenticationGuard,
   SharedUserRepo,
+  UploadService,
   GeminiService,
 ];
 @Global()

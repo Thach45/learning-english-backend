@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { CreateVocabularyByAiDto, VocabularyResponseDto } from "./vocabulary.dto";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { CreateVocabularyByAiDto, VocabularyByArticleDto, VocabularyResponseDto } from "./vocabulary.dto";
 import {
   crawlCambridgeDictionary,
   crawlCambridgeEnglishDictionary,
@@ -11,11 +11,14 @@ import { CambridgeResult } from "./vocabulary.types";
 import { PrismaService } from "../../shared/service/prisma.service";
 import { PartOfSpeech } from "generated/prisma";
 import { GeminiService } from "src/shared/service/ai.service";
+import { MulterFile } from "src/types/multer-file";
+import { UploadService } from "src/shared/service/upload.service";
 
 @Injectable()
 export class VocabularyService {
   constructor(private prisma: PrismaService,
     private readonly geminiService: GeminiService,
+    private readonly uploadService: UploadService,
   ) {}
 
   async getVocabulary(
@@ -166,6 +169,70 @@ export class VocabularyService {
     } else {
       const data = await crawlCambridgeDictionary(word);
       return data;
+    }
+  }
+
+  async createVocabularyByArticle(file: MulterFile, userId: string) : Promise<VocabularyByArticleDto | undefined> {
+    try {
+      const uploadedFile = await this.uploadService.uploadArticle(file, userId);
+      const text = uploadedFile.data.text;
+      if (!text) {
+        throw new BadRequestException("Text not found");
+      }
+      const vocabulary = await this.geminiService.generateVocabularyByArticle(text);
+      const finalVocabulary: VocabularyResponseDto[] = [];
+      for (const word of vocabulary) {
+        try {
+          const vocabulary = await this.getVocabulary(word);
+          if (vocabulary) {
+            finalVocabulary.push(vocabulary);
+          }
+        } catch (error) {
+          console.error("Error in getVocabulary:", error);
+        }
+      }
+      return {
+        text: text,
+        vocabulary: finalVocabulary,
+      };
+     
+    } catch (error) {
+      console.error("Error in uploadArticle:", error);
+      throw error;
+    }
+  }
+
+  async analyzeText(text: string, userId: string): Promise<VocabularyByArticleDto> {
+    try {
+      // Validate text length
+      if (text.length > 20000) {
+        throw new BadRequestException("Text is too long. Maximum 20,000 characters.");
+      }
+
+      // AI analyze text to extract vocabulary words
+      const words = await this.geminiService.generateVocabularyByArticle(text);
+      
+      // Get full vocabulary info for each word
+      const finalVocabulary: VocabularyResponseDto[] = [];
+      for (const word of words) {
+        try {
+          const vocabulary = await this.getVocabulary(word);
+          if (vocabulary) {
+            finalVocabulary.push(vocabulary);
+          }
+        } catch (error) {
+          console.warn(`Failed to get vocabulary for "${word}":`, error.message);
+          // Continue with next word
+        }
+      }
+
+      return {
+        text: text,
+        vocabulary: finalVocabulary,
+      };
+    } catch (error) {
+      console.error("Error in analyzeText:", error);
+      throw error;
     }
   }
 }
