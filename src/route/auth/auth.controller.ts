@@ -3,6 +3,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -73,6 +74,11 @@ export class AuthController {
   async forgotPassword(@Body() body: ForgotPasswordBodyDto) {
     const data = await this.authService.forgotPassword(body);
     return data;
+  }
+  @Get("users/:id")
+  async getUser(@Param("id") id: string) {
+    const user = await this.authService.getInfoUser(id);
+    return user;
   }
   // @Get('google-link')
 

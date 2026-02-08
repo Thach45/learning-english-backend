@@ -27,10 +27,13 @@ export class GamificationController {
 
   // GET /gamification/stats
   @Get("stats")
-  async getGamificationStats(@ActiveUser() user: TokenPayload) {
-    const stats = await this.gamificationService.getUserGamificationStats(
-      user.userId,
-    );
+  async getGamificationStats(
+    @ActiveUser() user: TokenPayload,
+    @Query("userId") targetUserId?: string,
+  ) {
+    const userId = targetUserId || user.userId;
+    const stats =
+      await this.gamificationService.getUserGamificationStats(userId);
     if (!stats) {
       throw new NotFoundException("Stats not found");
     }
@@ -58,11 +61,13 @@ export class GamificationController {
   @Get("daily-activity-stats")
   async getDailyActivityStats(
     @ActiveUser() user: TokenPayload,
+    @Query("userId") targetUserId?: string,
     @Query("date") date?: string,
   ) {
+    const userId = targetUserId || user.userId;
     const targetDate = date ? new Date(date) : new Date();
     const stats = await this.gamificationService.getDailyActivityStats(
-      user.userId,
+      userId,
       targetDate,
     );
     return new DailyActivityResponseDto({
@@ -75,13 +80,15 @@ export class GamificationController {
   @Get("xp-events")
   async getXPEvents(
     @ActiveUser() user: TokenPayload,
+    @Query("userId") targetUserId?: string,
     @Query("limit") limit?: string,
   ) {
     try {
       const limitNumber = parseInt(limit || "50");
 
+      const userId = targetUserId || user.userId;
       const events = await this.gamificationService.getXPEvents(
-        user.userId,
+        userId,
         limitNumber,
       );
 

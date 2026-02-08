@@ -131,7 +131,10 @@ exports.Prisma.UserScalarFieldEnum = {
   publicProfile: 'publicProfile',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  bio: 'bio',
+  website: 'website',
+  location: 'location'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {
@@ -187,6 +190,7 @@ exports.Prisma.StudySetScalarFieldEnum = {
   tags: 'tags',
   isPublic: 'isPublic',
   likesCount: 'likesCount',
+  learnersCount: 'learnersCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   authorId: 'authorId',
@@ -233,6 +237,13 @@ exports.Prisma.VerificationCodeScalarFieldEnum = {
 };
 
 exports.Prisma.UserLikesStudySetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studySetId: 'studySetId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserStudySetEnrollmentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   studySetId: 'studySetId',
@@ -324,6 +335,56 @@ exports.Prisma.DictionaryWordScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PostScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  content: 'content',
+  imageUrls: 'imageUrls',
+  type: 'type',
+  privacy: 'privacy',
+  sharedStudySetId: 'sharedStudySetId',
+  metadata: 'metadata',
+  likesCount: 'likesCount',
+  commentsCount: 'commentsCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  authorId: 'authorId',
+  postId: 'postId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  commentId: 'commentId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  recipientId: 'recipientId',
+  actorId: 'actorId',
+  type: 'type',
+  isRead: 'isRead',
+  postId: 'postId',
+  commentId: 'commentId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserFollowScalarFieldEnum = {
+  id: 'id',
+  followerId: 'followerId',
+  followingId: 'followingId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -406,6 +467,25 @@ exports.AchievementRarity = exports.$Enums.AchievementRarity = {
   LEGENDARY: 'LEGENDARY'
 };
 
+exports.PostType = exports.$Enums.PostType = {
+  USER_POST: 'USER_POST',
+  STUDY_SET_SHARE: 'STUDY_SET_SHARE'
+};
+
+exports.Privacy = exports.$Enums.Privacy = {
+  PUBLIC: 'PUBLIC',
+  FOLLOWERS_ONLY: 'FOLLOWERS_ONLY',
+  PRIVATE: 'PRIVATE'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  NEW_FOLLOWER: 'NEW_FOLLOWER',
+  POST_LIKE: 'POST_LIKE',
+  POST_COMMENT: 'POST_COMMENT',
+  SYSTEM_ANNOUNCEMENT: 'SYSTEM_ANNOUNCEMENT',
+  STREAK_REMINDER: 'STREAK_REMINDER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -418,13 +498,19 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   VerificationCode: 'VerificationCode',
   UserLikesStudySet: 'UserLikesStudySet',
+  UserStudySetEnrollment: 'UserStudySetEnrollment',
   UserVocabularyProgress: 'UserVocabularyProgress',
   UserUniqueWord: 'UserUniqueWord',
   XPEvent: 'XPEvent',
   DailyActivity: 'DailyActivity',
   Achievement: 'Achievement',
   UserAchievement: 'UserAchievement',
-  DictionaryWord: 'DictionaryWord'
+  DictionaryWord: 'DictionaryWord',
+  Post: 'Post',
+  Comment: 'Comment',
+  Like: 'Like',
+  Notification: 'Notification',
+  UserFollow: 'UserFollow'
 };
 
 /**

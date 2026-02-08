@@ -38,19 +38,23 @@ export class StudySetController {
   }
 
   @Get()
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
   async findAll(
     @Query("category") category?: string,
     @Query("search") search?: string,
     @Query("page") page?: string,
     @Query("pageSize") pageSize?: string,
+    @ActiveUser() user?: TokenPayload,
   ) {
     const data = await this.studySetService.findAll(
       category,
       search,
       page,
       pageSize,
+      user?.userId,
     );
-    console.log(data);
+  
     return data;
   }
 
@@ -150,5 +154,23 @@ export class StudySetController {
   @Post(":id/toggle-like")
   toggleLike(@Param("id") id: string, @ActiveUser() user: TokenPayload) {
     return this.studySetService.toggleLike(id, user.userId);
+  }
+
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  @Post(":id/enroll")
+  enroll(@Param("id") id: string, @ActiveUser() user: TokenPayload) {
+    return this.studySetService.enroll(id, user.userId);
+  }
+
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  @Get("enrolled/me")
+  getEnrolledStudySets(
+    @ActiveUser() user: TokenPayload,
+    @Query("page") page?: string,
+    @Query("pageSize") pageSize?: string,
+  ) {
+    return this.studySetService.findEnrolledByUser(user.userId, page, pageSize);
   }
 }

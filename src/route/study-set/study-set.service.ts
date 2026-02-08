@@ -46,11 +46,16 @@ export class StudySetService {
     search?: string,
     pageStr?: string,
     pageSizeStr?: string,
+    userId?: string,
   ) {
     const where: Prisma.StudySetWhereInput = {};
 
     if (category) {
       where.categoryId = category;
+    }
+
+    if (userId) {
+      where.authorId = userId;
     }
 
     if (search) {
@@ -117,10 +122,8 @@ export class StudySetService {
           },
         },
         category: true,
-        likedBy: {
-          select: {
-            id: true,
-          },
+        enrollments: {
+          select: { id: true, userId: true },
         },
       },
     });
@@ -351,11 +354,11 @@ export class StudySetService {
     if (like) {
       // Unlike
       await this.prisma.userLikesStudySet.delete({ where: { id: like.id } });
-      await this.prisma.studySet.update({
+      const updated = await this.prisma.studySet.update({
         where: { id: studySetId },
         data: { likesCount: { decrement: 1 } },
       });
-      return { liked: false };
+      return { liked: false, likesCount: updated.likesCount };
     } else {
       // Like
       await this.prisma.userLikesStudySet.create({
@@ -364,12 +367,112 @@ export class StudySetService {
           studySet: { connect: { id: studySetId } },
         },
       });
-      await this.prisma.studySet.update({
+      const updated = await this.prisma.studySet.update({
         where: { id: studySetId },
         data: { likesCount: { increment: 1 } },
       });
-      return { liked: true };
+      return { liked: true, likesCount: updated.likesCount };
     }
+  }
+
+  /**
+   * Ghi danh user vào study set để học (không phụ thuộc like).
+   * - Chỉ cho phép ghi danh vào bộ public hoặc bộ do chính user tạo.
+   * - Idempotent: ghi danh nhiều lần vẫn chỉ tạo 1 bản ghi.
+   */
+  async enroll(studySetId: string, userId: string) {
+    const studySet = await this.prisma.studySet.findUnique({
+      where: { id: studySetId },
+      select: { id: true, authorId: true, isPublic: true },
+    });
+
+    if (!studySet) {
+      throw new NotFoundException("Study set not found");
+    }
+
+    if (!studySet.isPublic && studySet.authorId !== userId) {
+      throw new ForbiddenException("Bạn không thể ghi danh vào bộ từ vựng này");
+    }
+
+    const existing = await this.prisma.userStudySetEnrollment.findUnique({
+      where: {
+        userId_studySetId: {
+          userId,
+          studySetId,
+        },
+      },
+    });
+
+    if (existing) {
+      return { enrolled: true };
+    }
+
+    await this.prisma.$transaction([
+      this.prisma.userStudySetEnrollment.create({
+        data: {
+          userId,
+          studySetId,
+        },
+      }),
+      this.prisma.studySet.update({
+        where: { id: studySetId },
+        data: { learnersCount: { increment: 1 } },
+      }),
+    ]);
+
+    return { enrolled: true };
+  }
+
+  /**
+   * Lấy danh sách study set mà user đã ghi danh (từ cộng đồng).
+   * Loại trừ các bộ do chính user tạo.
+   */
+  async findEnrolledByUser(userId: string, pageStr?: string, pageSizeStr?: string) {
+    const page = Math.max(1, parseInt(pageStr || "1", 10));
+    const pageSize = Math.max(1, Math.min(50, parseInt(pageSizeStr || "6", 10)));
+    const skip = (page - 1) * pageSize;
+
+    const where: Prisma.StudySetWhereInput = {
+      authorId: { not: userId },
+      enrollments: {
+        some: { userId },
+      },
+    };
+
+    const [total, studySets] = await Promise.all([
+      this.prisma.studySet.count({ where }),
+      this.prisma.studySet.findMany({
+        where,
+        skip,
+        take: pageSize,
+        orderBy: { updatedAt: "desc" },
+        include: {
+          author: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          category: true,
+          _count: {
+            select: { vocabularies: true },
+          },
+        },
+      }),
+    ]);
+
+    return {
+      data: studySets.map((set) => {
+        const { _count, ...rest } = set;
+        return {
+          ...rest,
+          vocabularyCount: _count.vocabularies,
+        };
+      }),
+      total,
+      page,
+      pageSize,
+    };
   }
 
   async findPopular() {

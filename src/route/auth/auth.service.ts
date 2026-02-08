@@ -345,4 +345,20 @@ export class AuthService {
       });
     }
   }
+  async getInfoUser(id: string) {
+    const user = await this.prisma.user.findUniqueOrThrow({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatarUrl: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    return (user);
+  }
 }

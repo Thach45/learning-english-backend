@@ -6,9 +6,16 @@ import { User } from "generated/prisma";
 export class SharedUserRepo {
   constructor(private readonly prisma: PrismaService) {}
 
+
   async findUserByEmail(email: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { email },
+    });
+    return user;
+  }
+  async getUserById(id: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
     });
     return user;
   }

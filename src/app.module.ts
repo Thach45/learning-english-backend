@@ -12,6 +12,8 @@ import { GamificationModule } from "./route/gamification/gamification.module";
 import { AchievementModule } from "./route/achievement/achievement.module";
 import { RoleModule } from './route/role/role.module';
 import { PermissionModule } from './route/permission/permission.module';
+import { QuizModule } from './route/quiz/quiz.module';
+import { CommunityModule } from './route/community/community.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { PermissionModule } from './route/permission/permission.module';
     AchievementModule,
     RoleModule,
     PermissionModule,
+    QuizModule,
+    CommunityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

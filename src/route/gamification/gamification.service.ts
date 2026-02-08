@@ -501,4 +501,30 @@ export class GamificationService {
 
     return todayActivity;
   }
+  async updateDailyActivityFromQuiz(
+    userId: string,
+    wordsReviewed: number,
+    wordsCorrect: number,
+  ): Promise<void> {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    await this.prisma.dailyActivity.upsert({
+      where: {
+        userId_date: {
+          userId,
+          date: today,
+        },
+      },
+      create: {
+        userId,
+        date: today,
+        wordsReviewed,
+        xpEarned: 0, // No XP if not needed
+      },
+      update: {
+        wordsReviewed: { increment: wordsReviewed },
+      },
+    });
+  }
 }

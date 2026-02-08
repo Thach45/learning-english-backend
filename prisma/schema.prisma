@@ -30,11 +30,26 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   status String @default("active") @map("status") @db.String
+  bio             String?   @db.String // Giới thiệu bản thân ngắn gọn
+  website         String?   @db.String
+  location        String?   @db.String
+  // Follow system
+  followedBy      UserFollow[] @relation("UserFollowedBy") // Người theo dõi mình
+  following       UserFollow[] @relation("UserFollowing")  // Người mình đang theo dõi
   
+  // Content & Interaction
+  posts           Post[] // Bài đăng của user
+  comments        Comment[] // Comment của user
+  likes           Like[] // Các like user đã thả
+  
+  // Notification
+  notificationsReceived Notification[] @relation("NotificationRecipient")
+  notificationsSent     Notification[] @relation("NotificationActor")
   tokens RefreshToken[]
   vocabularies Vocabulary[] @relation("CreatedVocabularies")
   studySets StudySet[] @relation("CreatedStudySets")
-  likedStudySets UserLikesStudySet[]
+  likedStudySets     UserLikesStudySet[]
+  enrolledStudySets  UserStudySetEnrollment[]
   categories Category[]
   vocabularyProgress UserVocabularyProgress[]
   uniqueWordsLearned UserUniqueWord[]
@@ -128,6 +143,7 @@ model StudySet {
   tags String[] @db.String
   isPublic Boolean @default(false) @map("is_public")
   likesCount Int @default(0) @map("likes_count")
+  learnersCount Int @default(0) @map("learners_count")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -138,8 +154,9 @@ model StudySet {
   categoryId String   @db.ObjectId
   
   vocabularies Vocabulary[]
-  likedBy      UserLikesStudySet[]
-  
+  likedBy      UserLikesStudySet[]        // Users đã "thích" bộ này
+  enrollments  UserStudySetEnrollment[]   // Users đã ghi danh / học bộ này
+  sharedInPosts Post[]
   @@index([authorId, categoryId])
 }
 
@@ -211,11 +228,24 @@ model UserLikesStudySet {
   @@unique([userId, studySetId])
 }
 
+// Ghi danh user vào StudySet để học (khác với like)
+model UserStudySetEnrollment {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  studySetId String   @db.ObjectId
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studySet StudySet @relation(fields: [studySetId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, studySetId])
+}
+
 model UserVocabularyProgress {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   userId         String   @db.ObjectId
   vocabularyId   String   @db.ObjectId
-  status         String   @default("new") // new, review, mastered
+  status         String   @default("new") 
   lastReviewedAt DateTime?
   nextReviewAt   DateTime?
   reviewCount    Int      @default(0)
@@ -308,7 +338,6 @@ model UserAchievement {
 
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
-
   @@unique([userId, achievementId])
   @@index([userId, isCompleted])
 }
@@ -331,6 +360,119 @@ model DictionaryWord {
   @@index([word])
 }
 
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String   @db.ObjectId
+  content   String?  @db.String // Nội dung text status
+  imageUrls String[] @db.String // Mảng ảnh (nếu có)
+  type      PostType @default(USER_POST) // Phân loại bài đăng (thủ công hay tự động)
+  privacy   Privacy  @default(PUBLIC)
+  
+  // --- ATTACHMENTS (Đính kèm) ---
+  // Khi user share một bộ từ vựng
+  sharedStudySetId String? @db.ObjectId
+  sharedStudySet   StudySet? @relation(fields: [sharedStudySetId], references: [id], onDelete: SetNull)
+  
+  // Metadata cho các sự kiện hệ thống (Ví dụ: Level Up, Streak Milestone)
+  // Lưu JSON: { "oldLevel": 4, "newLevel": 5, "streakDays": 30 }
+  metadata Json? 
+
+  // --- METRICS (Denormalization để query nhanh hơn) ---
+  likesCount    Int @default(0)
+  commentsCount Int @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments Comment[]
+  likes    Like[]
+
+  @@index([authorId, createdAt]) // Index quan trọng để query Feed
+}
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String   @db.String
+  authorId  String   @db.ObjectId
+  postId    String   @db.ObjectId
+  
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  likes  Like[] @relation("CommentLikes")
+  
+  @@index([postId])
+}
+
+model Like {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  postId    String?  @db.ObjectId // Like bài post
+  commentId String?  @db.ObjectId // Like comment (optional feature)
+  
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relationships
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment Comment? @relation("CommentLikes", fields: [commentId], references: [id], onDelete: Cascade)
+
+  // Constraint: 1 user chỉ like 1 post 1 lần
+  @@unique([userId, postId])
+}
+model Notification {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  recipientId String   @db.ObjectId // Người nhận thông báo
+  actorId     String   @db.ObjectId // Người gây ra hành động (VD: người like)
+  type        NotificationType
+  isRead      Boolean  @default(false) @map("is_read")
+  
+  // References tới các object liên quan để tạo link khi click vào
+  postId      String?  @db.ObjectId 
+  commentId   String?  @db.ObjectId
+  
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  recipient User @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  actor     User @relation("NotificationActor", fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([recipientId, isRead])
+}
+
+enum NotificationType {
+  NEW_FOLLOWER
+  POST_LIKE
+  POST_COMMENT
+  SYSTEM_ANNOUNCEMENT
+  STREAK_REMINDER
+}
+model UserFollow {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  followerId  String   @db.ObjectId // Người đi theo dõi
+  followingId String   @db.ObjectId // Người được theo dõi
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  follower  User @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("UserFollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId]) // Không thể follow 2 lần
+  @@index([followerId])
+  @@index([followingId])
+}
+enum PostType {
+  USER_POST       // Bài đăng thông thường
+  STUDY_SET_SHARE // Share bộ từ vựng
+}
+
+enum Privacy {
+  PUBLIC
+  FOLLOWERS_ONLY
+  PRIVATE
+}
 enum Level {
   BEGINNER
   INTERMEDIATE
