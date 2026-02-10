@@ -298,5 +298,102 @@ export class CommunityRepository {
     };
   }
   
+  // --- Comment Methods ---
+
+  /**
+   * Tạo comment mới và tăng commentsCount trong Post.
+   */
+  async createComment(data: { userId: string; postId: string; content: string }) {
+    const { userId, postId, content } = data;
+    
+    // Transaction: tạo comment và update commentsCount
+    const [comment] = await this.prisma.$transaction([
+      this.prisma.comment.create({
+        data: {
+          content,
+          authorId: userId,
+          postId,
+        },
+        include: {
+          author: {
+            select: {
+              id: true,
+              name: true,
+              avatarUrl: true,
+              level: true,
+            },
+          },
+        },
+      }),
+      this.prisma.post.update({
+        where: { id: postId },
+        data: { commentsCount: { increment: 1 } },
+      }),
+    ]);
+
+    return comment;
+  }
+
+  /**
+   * Lấy danh sách comment của một bài post.
+   */
+  async getComments(postId: string, page: number, pageSize: number) {
+    const skip = (page - 1) * pageSize;
+    
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.comment.findMany({
+        where: { postId },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: pageSize,
+        include: {
+          author: {
+            select: {
+              id: true,
+              name: true,
+              avatarUrl: true,
+              level: true,
+            },
+          },
+        },
+      }),
+      this.prisma.comment.count({ where: { postId } }),
+    ]);
+
+    return { items, total };
+  }
+
+  /**
+   * Lấy thông tin comment theo ID (để check quyền).
+   */
+  async getCommentById(commentId: string) {
+    return this.prisma.comment.findUnique({
+      where: { id: commentId },
+    });
+  }
+
+  /**
+   * Cập nhật nội dung comment.
+   */
+  async updateComment(commentId: string, content: string) {
+    return this.prisma.comment.update({
+      where: { id: commentId },
+      data: { content },
+    });
+  }
+
+  /**
+   * Xoá comment và giảm commentsCount trong Post.
+   */
+  async deleteComment(commentId: string, postId: string) {
+    const [, updatedPost] = await this.prisma.$transaction([
+      this.prisma.comment.delete({ where: { id: commentId } }),
+      this.prisma.post.update({
+        where: { id: postId },
+        data: { commentsCount: { decrement: 1 } },
+      }),
+    ]);
+    return { commentsCount: updatedPost.commentsCount };
+  }
 }
 

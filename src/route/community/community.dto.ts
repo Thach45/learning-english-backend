@@ -261,3 +261,67 @@ export class DeletePostResponseDto {
     Object.assign(this, partial);
   }
 }
+
+// --- Comments ---
+
+export class CreateCommentDto {
+  @IsString()
+  content: string;
+}
+
+export class UpdateCommentDto {
+  @IsString()
+  content: string;
+}
+
+export class CommentUser {
+  @IsString()
+  id: string;
+  @IsString()
+  name: string;
+  @IsOptional()
+  @IsString()
+  avatarUrl?: string | null;
+  @IsOptional()
+  @IsNumber()
+  level?: number;
+}
+
+export class CommentResponseDto {
+  id: string;
+  content: string;
+  postId: string;
+  author: CommentUser;
+  createdAt: Date;
+  updatedAt: Date;
+  isAuthor: boolean;
+
+  constructor(partial: Partial<CommentResponseDto>) {
+    Object.assign(this, partial);
+  }
+}
+
+export class GetCommentsResponseDto {
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CommentResponseDto)
+  items: CommentResponseDto[] = [];
+
+  pagination: PaginationDto;
+
+  constructor(partial: Partial<GetCommentsResponseDto>) {
+    Object.assign(this, partial);
+  }
+}
+
+export class DeleteCommentResponseDto {
+  @IsString()
+  message: string;
+
+  @IsNumber()
+  commentsCount: number;
+
+  constructor(partial: Partial<DeleteCommentResponseDto>) {
+    Object.assign(this, partial);
+  }
+}

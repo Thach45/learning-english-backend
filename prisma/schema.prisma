@@ -403,7 +403,7 @@ model Comment {
   // Relationships
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
   post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  likes  Like[] @relation("CommentLikes")
+  
   
   @@index([postId])
 }

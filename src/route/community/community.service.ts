@@ -12,6 +12,11 @@ import {
   UpdatePostDto,
   UpdatePostResponseDto,
   DeletePostResponseDto,
+  CreateCommentDto,
+  UpdateCommentDto,
+  CommentResponseDto,
+  GetCommentsResponseDto,
+  DeleteCommentResponseDto,
 } from "./community.dto";
 import { JsonValue } from "generated/prisma/runtime/library";
 import { PostType } from "generated/prisma";
@@ -191,4 +196,132 @@ export class CommunityService {
    }
    return new CheckFollowResponseDto({ type: 'UNFOLLOW' })
     }
+
+  // --- Comment Logic ---
+
+  async createComment(
+    userId: string,
+    postId: string,
+    dto: CreateCommentDto,
+  ): Promise<CommentResponseDto> {
+    const comment = await this.communityRepo.createComment({
+      userId,
+      postId,
+      content: dto.content,
+    });
+
+    return new CommentResponseDto({
+      id: comment.id,
+      content: comment.content,
+      postId: comment.postId,
+      createdAt: comment.createdAt,
+      updatedAt: comment.updatedAt,
+      isAuthor: true,
+      author: {
+        id: comment.author.id,
+        name: comment.author.name,
+        avatarUrl: comment.author.avatarUrl,
+        level: comment.author.level,
+      },
+    });
+  }
+
+  async getComments(
+    userId: string,
+    postId: string,
+    page: number = 1,
+    pageSize: number = 20,
+  ): Promise<GetCommentsResponseDto> {
+    const { items, total } = await this.communityRepo.getComments(postId, page, pageSize);
+
+    const commentItems = items.map((comment) => ({
+      id: comment.id,
+      content: comment.content,
+      postId: comment.postId,
+      createdAt: comment.createdAt,
+      updatedAt: comment.updatedAt,
+      isAuthor: comment.authorId === userId,
+      author: {
+        id: comment.author.id,
+        name: comment.author.name,
+        avatarUrl: comment.author.avatarUrl,
+        level: comment.author.level,
+      },
+    }));
+
+    return new GetCommentsResponseDto({
+      items: commentItems,
+      pagination: {
+        page,
+        pageSize,
+        total,
+      },
+    });
+  }
+
+  async updateComment(
+    userId: string,
+    commentId: string,
+    dto: UpdateCommentDto,
+  ): Promise<CommentResponseDto> {
+    const comment = await this.communityRepo.getCommentById(commentId);
+    if (!comment) {
+      throw new NotFoundException("Bình luận không tồn tại");
+    }
+
+    if (comment.authorId !== userId) {
+      throw new BadRequestException("Bạn không có quyền sửa bình luận này");
+    }
+
+    const updatedComment = await this.communityRepo.updateComment(commentId, dto.content);
+
+    // Fetch user info for response (or simpler: just return basic info)
+    // Here we can fetch user again or just return structure. 
+    // Since repo update doesn't include user, we might want to include it or just assume FE has it.
+    // Let's refetch with include in repo or just standard return.
+    // Since UI updates optimistic, simple return is okay, but `author` field is required by DTO.
+    // Let's just create a full DTO by fetching user info or relying on what we have.
+    const user = await this.sharedUserRepo.getUserById(userId);
+
+    return new CommentResponseDto({
+      id: updatedComment.id,
+      content: updatedComment.content,
+      postId: updatedComment.postId,
+      createdAt: updatedComment.createdAt,
+      updatedAt: updatedComment.updatedAt,
+      isAuthor: true,
+      author: {
+        id: user!.id,
+        name: user!.name,
+        avatarUrl: user!.avatarUrl,
+        level: user!.level,
+      },
+    });
+  }
+
+  async deleteComment(
+    userId: string,
+    commentId: string,
+  ): Promise<DeleteCommentResponseDto> {
+    const comment = await this.communityRepo.getCommentById(commentId);
+    if (!comment) {
+      throw new NotFoundException("Bình luận không tồn tại");
+    }
+
+    // Check permissions: Owner of comment OR Owner of post
+    const postAuthorId = await this.communityRepo.getPostAuthorId(comment.postId);
+    const isCommentOwner = comment.authorId === userId;
+    const isPostOwner = postAuthorId === userId;
+
+    if (!isCommentOwner && !isPostOwner) {
+      throw new BadRequestException("Bạn không có quyền xoá bình luận này");
+    }
+
+    const { commentsCount } = await this.communityRepo.deleteComment(commentId, comment.postId);
+
+    return new DeleteCommentResponseDto({
+      message: "Xoá bình luận thành công",
+      commentsCount,
+    });
+  }
 }

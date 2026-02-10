@@ -13,6 +13,11 @@ import {
   UpdatePostDto,
   UpdatePostResponseDto,
   DeletePostResponseDto,
+  CreateCommentDto,
+  UpdateCommentDto,
+  CommentResponseDto,
+  GetCommentsResponseDto,
+  DeleteCommentResponseDto,
 } from "./community.dto";
 import { Auth } from "src/shared/decorator/auth.decorator";
 import { AuthenticationGuard } from "src/shared/guards/authentication.guard";
@@ -135,6 +140,61 @@ export class CommunityController {
     const page = parseInt(pageQuery.toString());
     const pageSize = parseInt(pageSizeQuery.toString());
     const result = await this.communityService.listFollowing(user.userId, page, pageSize);
+    return { data: result };
+  }
+
+  // --- Comments ---
+
+  @Post("posts/:postId/comments")
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  async createComment(
+    @ActiveUser() user: TokenPayload,
+    @Param("postId") postId: string,
+    @Body() body: CreateCommentDto,
+  ): Promise<{ data: CommentResponseDto }> {
+    const result = await this.communityService.createComment(user.userId, postId, body);
+    return { data: result };
+  }
+
+  @Get("posts/:postId/comments")
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  async getComments(
+    @ActiveUser() user: TokenPayload,
+    @Param("postId") postId: string,
+    @Query("page") page: number,
+    @Query("pageSize") pageSize: number,
+  ): Promise<{ data: GetCommentsResponseDto }> {
+    const result = await this.communityService.getComments(
+      user.userId,
+      postId,
+      page ? Number(page) : 1,
+      pageSize ? Number(pageSize) : 20,
+    );
+    return { data: result };
+  }
+
+  @Put("comments/:id")
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  async updateComment(
+    @ActiveUser() user: TokenPayload,
+    @Param("id") id: string,
+    @Body() body: UpdateCommentDto,
+  ): Promise<{ data: CommentResponseDto }> {
+    const result = await this.communityService.updateComment(user.userId, id, body);
+    return { data: result };
+  }
+
+  @Delete("comments/:id")
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  async deleteComment(
+    @ActiveUser() user: TokenPayload,
+    @Param("id") id: string,
+  ): Promise<{ data: DeleteCommentResponseDto }> {
+    const result = await this.communityService.deleteComment(user.userId, id);
     return { data: result };
   }
 }
