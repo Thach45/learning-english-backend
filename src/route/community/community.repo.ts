@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/shared/service/prisma.service";
 import { JsonValue } from "generated/prisma/runtime/library";
 import { PostType, Privacy } from "generated/prisma";
-import { ListFollowersResponseDto } from "./community.dto";
+import { ListFollowersResponseDto, UpdatePostDto } from "./community.dto";
 
 /**
  * CommunityRepository
@@ -71,15 +71,59 @@ export class CommunityRepository {
               
             },
           },
+          likes: {
+            where: {
+              userId: userId,
+            },
+            select: {
+              id: true,
+            },
+          }
         },
       }),
       
       this.prisma.post.count({ where }),
     ]);
   
- 
+    return { items: items.map((item) => ({
+      ...item,
+      likes: item.likes.length,
+      isLike: item.likes.length > 0 ? true : false,
+    })), total };
+  }
+  async updatePost(userId: string, id: string, dto: UpdatePostDto) {
+    try {
+      
+      const post = await this.prisma.post.update({
+        where: { id, authorId: userId },
+        data: dto,
+      });
+      return post;
+    } catch (error) {
+      throw new BadRequestException("Lỗi khi cập nhật bài viết");
+    }
+    
+  }
 
-    return { items, total };
+  /**
+   * Xoá bài post (chỉ author mới được xoá).
+   * Xoá luôn likes liên quan để tránh lỗi foreign key.
+   */
+  async deletePost(userId: string, postId: string) {
+    // Kiểm tra post tồn tại và thuộc về user
+    const post = await this.prisma.post.findUnique({
+      where: { id: postId },
+      select: { authorId: true },
+    });
+    if (!post || post.authorId !== userId) {
+      return null;
+    }
+    // Xoá likes trước, rồi xoá post
+    await this.prisma.$transaction([
+      this.prisma.like.deleteMany({ where: { postId } }),
+      this.prisma.post.delete({ where: { id: postId } }),
+    ]);
+    return true;
   }
   /**
    * Kiểm tra user đã like post này chưa.

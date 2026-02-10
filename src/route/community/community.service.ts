@@ -9,6 +9,9 @@ import {
   UnfollowResponseDto,
   ListFollowersResponseDto,
   CheckFollowResponseDto,
+  UpdatePostDto,
+  UpdatePostResponseDto,
+  DeletePostResponseDto,
 } from "./community.dto";
 import { JsonValue } from "generated/prisma/runtime/library";
 import { PostType } from "generated/prisma";
@@ -43,6 +46,22 @@ export class CommunityService {
       metadata: post.metadata as Record<string, JsonValue>,
     });
   }
+  async updatePost(userId: string, id: string, dto: UpdatePostDto): Promise<UpdatePostResponseDto> {
+    const post = await this.communityRepo.updatePost(userId, id, dto);
+    if (!post) {
+      throw new BadRequestException("Bạn không có quyền cập nhật bài viết này");
+    }
+    return new UpdatePostResponseDto({ message: "Cập nhật bài viết thành công" });
+  }
+
+  async deletePost(userId: string, postId: string): Promise<DeletePostResponseDto> {
+    const result = await this.communityRepo.deletePost(userId, postId);
+    if (!result) {
+      throw new BadRequestException("Bạn không có quyền xoá bài viết này");
+    }
+    return new DeletePostResponseDto({ message: "Xoá bài viết thành công" });
+  }
+
   async getFeed(userId: string, query: GetFeedQueryDto): Promise<GetPostResponseDto> {
     const page = query.page && query.page > 0 ? query.page : 1;
     const pageSize = query.pageSize && query.pageSize > 0 ? Math.min(query.pageSize, 50) : 20;
@@ -73,6 +92,7 @@ export class CommunityService {
           name: post.author.name,
           avatarUrl: post.author.avatarUrl || undefined,
           level: post.author.level,
+          isAuthor: post.author.id === userId,
         },
         content: post.content || "",
         image: post.imageUrls?.[0],
@@ -99,7 +119,7 @@ export class CommunityService {
         timestamp: post.createdAt.toISOString(),
         likes: post.likesCount,
         comments: post.commentsCount,
-        isLiked: false,
+        isLiked: post.isLike,
         isSaved: false,
       };
     });
@@ -111,6 +131,7 @@ export class CommunityService {
         pageSize,
         total,
       },
+      isFinished: page * pageSize >= total,
     };
   }
   async reactToPost(userId: string, id: string): Promise<ReactPostResponseDto> {

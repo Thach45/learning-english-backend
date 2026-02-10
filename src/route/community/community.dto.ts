@@ -15,6 +15,9 @@ export class FeedUser {
     @IsOptional()
     @IsNumber()
     level?: number;
+   
+    @IsBoolean()
+    isAuthor: boolean;
 }
 
 export class FeedAttachmentStudySet {
@@ -137,8 +140,12 @@ export class GetPostResponseDto {
   @ValidateNested({ each: true })
   @Type(() => FeedItem)
   items: FeedItem[] = [];
- 
+
   pagination: PaginationDto;
+
+  @IsBoolean()
+  isFinished: boolean;
+
   constructor(partial: Partial<GetPostResponseDto>) {
     Object.assign(this, partial);
   }
@@ -216,6 +223,41 @@ export class CheckFollowResponseDto {
   type: 'FOLLOW' | 'UNFOLLOW' | "ME";
 
   constructor(partial: Partial<CheckFollowResponseDto>) {
+    Object.assign(this, partial);
+  }
+}
+
+export class UpdatePostDto {
+  @IsString()
+  content: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  imageUrls?: string[];
+
+  @IsOptional()
+  @IsString()
+  sharedStudySetId?: string;
+  
+  @IsOptional()
+  @IsIn(["PUBLIC", "FOLLOWERS_ONLY", "PRIVATE"])
+  privacy?: Privacy;
+}
+
+export class UpdatePostResponseDto {
+  message: string;
+
+  constructor(partial: Partial<UpdatePostResponseDto>) {
+    Object.assign(this, partial);
+  }
+}
+
+export class DeletePostResponseDto {
+  @IsString()
+  message: string;
+
+  constructor(partial: Partial<DeletePostResponseDto>) {
     Object.assign(this, partial);
   }
 }

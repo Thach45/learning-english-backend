@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { CommunityService } from "./community.service";
 import {
   CreatePostDto,
@@ -10,6 +10,9 @@ import {
   UnfollowResponseDto,
   ListFollowersResponseDto,
   CheckFollowResponseDto,
+  UpdatePostDto,
+  UpdatePostResponseDto,
+  DeletePostResponseDto,
 } from "./community.dto";
 import { Auth } from "src/shared/decorator/auth.decorator";
 import { AuthenticationGuard } from "src/shared/guards/authentication.guard";
@@ -40,6 +43,28 @@ export class CommunityController {
   ): Promise<{ data: GetPostResponseDto }> {
     const feed = await this.communityService.getFeed(user.userId, query);
     return { data: feed };
+  }
+  @Put("posts/:id")
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  async updatePost(
+    @ActiveUser() user: TokenPayload,
+    @Param("id") id: string,
+    @Body() body: UpdatePostDto,
+  ): Promise<{ data: UpdatePostResponseDto }> {
+    const result = await this.communityService.updatePost(user.userId, id, body);
+    return { data: result };
+  }
+
+  @Delete("posts/:id")
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  async deletePost(
+    @ActiveUser() user: TokenPayload,
+    @Param("id") id: string,
+  ): Promise<{ data: DeletePostResponseDto }> {
+    const result = await this.communityService.deletePost(user.userId, id);
+    return { data: result };
   }
 
   @Put("posts/:id/react")

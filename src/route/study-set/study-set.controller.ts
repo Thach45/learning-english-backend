@@ -173,4 +173,10 @@ export class StudySetController {
   ) {
     return this.studySetService.findEnrolledByUser(user.userId, page, pageSize);
   }
+  @Auth(["access-token"], "or")
+  @UseGuards(AuthenticationGuard)
+  @Post(":id/toggle-privacy")
+  togglePrivacy(@Param("id") id: string, @ActiveUser() user: TokenPayload) {
+    return this.studySetService.togglePrivacy(id, user.userId);
+  }
 }

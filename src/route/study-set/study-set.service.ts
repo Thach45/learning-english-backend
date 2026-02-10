@@ -486,4 +486,19 @@ export class StudySetService {
       },
     });
   }
+  async togglePrivacy(studySetId: string, userId: string) {
+    const studySet = await this.prisma.studySet.findUnique({
+      where: { id: studySetId },
+    });
+    if (!studySet) {
+      throw new NotFoundException("Study set not found");
+    }
+    if (studySet.authorId !== userId) {
+      throw new ForbiddenException("Bạn không có quyền thay đổi quyền riêng tư của bộ từ vựng này");
+    }
+    return this.prisma.studySet.update({
+      where: { id: studySetId },
+      data: { isPublic: { set: !studySet.isPublic } },
+    });
+  }
 }
