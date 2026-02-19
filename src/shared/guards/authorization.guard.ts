@@ -69,6 +69,9 @@ export class AuthorizationGuard implements CanActivate {
       where: { userId },
       include: { role: { select: { name: true } } },
     });
+    if (userRoles.some((ur) => ur.role.name === EUserRole.ADMIN)) {
+      return true;
+    }
     const userRoleNames = userRoles.map((ur) => ur.role.name);
     const hasRequiredRole = requiredRoles.some((r) => userRoleNames.includes(r));
     if (!hasRequiredRole) {
