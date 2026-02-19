@@ -7,6 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "prisma:seed": "ts-node prisma/seed.ts",
+    "seed:permissions": "ts-node -r tsconfig-paths/register seed/seed-permissions.ts",
+    "seed:role-permissions": "ts-node -r tsconfig-paths/register seed/seed-role-permissions.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
