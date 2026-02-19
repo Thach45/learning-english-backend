@@ -120,7 +120,7 @@ export class RoleWithPermissionsDto {
     this.isActive = role.isActive;
     this.createdAt = role.createdAt;
     this.updatedAt = role.updatedAt;
-    this.permissions = role.rolePermissions?.map(p => new PermissionResponseDto(p)) || [];
+    this.permissions = role.rolePermissions?.map((p) => new PermissionResponseDto(p.permission ?? p)) || [];
   }
 }
 

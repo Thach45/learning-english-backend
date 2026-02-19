@@ -25,6 +25,13 @@ export class RoleController {
         return roles.map(role => new RoleResponseDto(role));
     }
 
+    @Get("with-permissions")
+    async getAllRolesWithPermissions() {
+        const roles = await this.roleService.getAllRolesWithPermissions();
+        console.log(roles);
+        return roles.map(role => new RoleWithPermissionsDto(role));
+    }
+
     @Get(":id")
     async findOne(@Param('id') id: string) {
         const role = await this.roleService.findRoleById(id);
@@ -68,13 +75,6 @@ export class RoleController {
         
         return new RoleWithPermissionsDto(role);
         // return role;
-    }
-
-    @Get("with-permissions")
-    async getAllRolesWithPermissions() {
-        const roles = await this.roleService.getAllRolesWithPermissions();
-        console.log(roles);
-        return roles.map(role => new RoleWithPermissionsDto(role));
     }
 
     @Get(":id/available-permissions")
