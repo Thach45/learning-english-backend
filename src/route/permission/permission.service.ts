@@ -1,162 +1,110 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreatePermissionDto, UpdatePermissionDto, GetPermissionsQueryDto } from './permission.dto';
-import { Permission, PermissionResource, PermissionAction } from 'generated/prisma';
-import { PrismaService } from 'src/shared/service/prisma.service';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
+import {
+  CreatePermissionDto,
+  UpdatePermissionDto,
+  GetPermissionsQueryDto,
+  PermissionResponseDto,
+} from "./permission.dto";
+import { PermissionRepository } from "./permission.repo";
 
+/**
+ * PermissionService
+ * -----------------
+ * Business logic cho Permission. Mọi thao tác DB qua PermissionRepository.
+ */
 @Injectable()
 export class PermissionService {
-    constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly permissionRepo: PermissionRepository) {}
 
-    async createPermission(dto: CreatePermissionDto): Promise<Permission> {
-        // Check if permission name already exists
-        const existingPermission = await this.prisma.permission.findUnique({
-          where: { name: dto.name },
-        });
-    
-        if (existingPermission) {
-          throw new ConflictException(`Permission with name '${dto.name}' already exists`);
-        }
-    
-        return this.prisma.permission.create({
-          data: {
-            name: dto.name,
-            displayName: dto.displayName,
-            description: dto.description,
-            resource: dto.resource,
-            action: dto.action,
-            isActive: dto.isActive ?? true,
-          },
-        });
+  async createPermission(dto: CreatePermissionDto) {
+    const existing = await this.permissionRepo.findUniqueByName(dto.name);
+    if (existing) {
+      throw new ConflictException(
+        `Permission with name '${dto.name}' already exists`,
+      );
     }
+    return this.permissionRepo.create({
+      name: dto.name,
+      path: dto.path,
+      method: dto.method,
+      isActive: dto.isActive ?? true,
+    });
+  }
 
-    async findAllPermissions(query?: GetPermissionsQueryDto): Promise<Permission[]> {
-        const where = {
-            ...(query?.resource && { resource: query.resource }),
-            ...(query?.action && { action: query.action }),
-            ...(typeof query?.isActive === 'boolean' && { isActive: query.isActive }),
-            ...(query?.search && {
-                OR: [
-                    { name: { contains: query.search, mode: 'insensitive' as any } },
-                    { displayName: { contains: query.search, mode: 'insensitive' as any } },
-                    { description: { contains: query.search, mode: 'insensitive' as any } },
-                ],
-            }),
-        };
+  async findAllPermissions(query?: GetPermissionsQueryDto) {
+    return this.permissionRepo.findMany({
+      isActive: query?.isActive,
+      search: query?.search,
+      path: query?.path,
+      method: query?.method,
+    });
+  }
 
-        return this.prisma.permission.findMany({
-            where,
-            orderBy: [
-                { resource: 'asc' },
-                { action: 'asc' },
-                { createdAt: 'desc' }
-            ],
-        });
+  async findPermissionById(id: string) {
+    const permission = await this.permissionRepo.findUniqueById(id);
+    if (!permission) {
+      throw new NotFoundException(`Permission with ID ${id} not found`);
     }
+    return permission;
+  }
 
-    async findPermissionById(id: string): Promise<Permission> {
-        const permission = await this.prisma.permission.findUnique({
-            where: { id },
-        });
+  async findPermissionByName(name: string) {
+    return this.permissionRepo.findUniqueByName(name);
+  }
 
-        if (!permission) {
-            throw new NotFoundException(`Permission with ID ${id} not found`);
-        }
-
-        return permission;
+  async updatePermission(id: string, dto: UpdatePermissionDto) {
+    const permission = await this.permissionRepo.findUniqueById(id);
+    if (!permission) {
+      throw new NotFoundException(`Permission with ID ${id} not found`);
     }
+    return this.permissionRepo.update(id, dto);
+  }
 
-    async findPermissionByName(name: string): Promise<Permission | null> {
-        return this.prisma.permission.findUnique({
-            where: { name },
-        });
+  async deletePermission(id: string) {
+    const permission = await this.permissionRepo.findUniqueById(id);
+    if (!permission) {
+      throw new NotFoundException(`Permission with ID ${id} not found`);
     }
+    return this.permissionRepo.setActive(id, false);
+  }
 
-    async updatePermission(id: string, dto: UpdatePermissionDto): Promise<Permission> {
-        const permission = await this.prisma.permission.findUnique({
-            where: { id },
-        });
-
-        if (!permission) {
-            throw new NotFoundException(`Permission with ID ${id} not found`);
-        }
-
-        return this.prisma.permission.update({
-            where: { id },
-            data: {
-                ...(dto.displayName && { displayName: dto.displayName }),
-                ...(dto.description !== undefined && { description: dto.description }),
-                ...(dto.resource && { resource: dto.resource }),
-                ...(dto.action && { action: dto.action }),
-                ...(typeof dto.isActive === 'boolean' && { isActive: dto.isActive }),
-            },
-        });
+  async hardDeletePermission(id: string) {
+    const permission = await this.permissionRepo.findUniqueById(id);
+    if (!permission) {
+      throw new NotFoundException(`Permission with ID ${id} not found`);
     }
-
-    async deletePermission(id: string): Promise<Permission> {
-        const permission = await this.prisma.permission.findUnique({
-            where: { id },
-        });
-
-        if (!permission) {
-            throw new NotFoundException(`Permission with ID ${id} not found`);
-        }
-
-        // Soft delete by setting isActive to false
-        return this.prisma.permission.update({
-            where: { id },
-            data: { isActive: false },
-        });
+    const count = await this.permissionRepo.countRolePermissionsByPermissionId(id);
+    if (count > 0) {
+      throw new ConflictException(
+        `Cannot delete permission. It is currently assigned to ${count} role(s)`,
+      );
     }
+    return this.permissionRepo.hardDelete(id);
+  }
 
-    async hardDeletePermission(id: string): Promise<Permission> {
-        const permission = await this.prisma.permission.findUnique({
-            where: { id },
-        });
+  async getPermissionsByRole(roleId: string) {
+    return this.permissionRepo.getPermissionsByRole(roleId);
+  }
 
-        if (!permission) {
-            throw new NotFoundException(`Permission with ID ${id} not found`);
-        }
+  /**
+   * Lấy danh sách { path, method } mà user có (qua các role). Dùng cho authorization guard.
+   */
+  async getPathPermissionsForUser(
+    userId: string,
+  ): Promise<{ path: string; method: string | null }[]> {
+    const roleIds = await this.permissionRepo.getUserRoleIds(userId);
+    return this.permissionRepo.getPathPermissionsByRoleIds(roleIds);
+  }
 
-        // Check if permission is being used by any roles
-        const rolePermissions = await this.prisma.rolePermission.findMany({
-            where: { permissionId: id },
-        });
-
-        if (rolePermissions.length > 0) {
-            throw new ConflictException(`Cannot delete permission. It is currently assigned to ${rolePermissions.length} role(s)`);
-        }
-
-        return this.prisma.permission.delete({
-            where: { id },
-        });
-    }
-
-    async getPermissionsByResource(resource: PermissionResource): Promise<Permission[]> {
-        return this.prisma.permission.findMany({
-            where: { 
-                resource,
-                isActive: true 
-            },
-            orderBy: { action: 'asc' },
-        });
-    }
-
-    async getPermissionsByAction(action: PermissionAction): Promise<Permission[]> {
-        return this.prisma.permission.findMany({
-            where: { 
-                action,
-                isActive: true 
-            },
-            orderBy: { resource: 'asc' },
-        });
-    }
-
-    async getPermissionsByRole(roleId: string): Promise<Permission[]> {
-        const rolePermissions = await this.prisma.rolePermission.findMany({
-            where: { roleId },
-            include: { permission: true },
-        });
-
-        return rolePermissions.map(rp => rp.permission);
-    }
+  /**
+   * Lấy danh sách tên permission mà user có (qua các role). Dùng cho guard kiểm tra theo tên.
+   */
+  async getPermissionNamesForUser(userId: string): Promise<string[]> {
+    const roleIds = await this.permissionRepo.getUserRoleIds(userId);
+    return this.permissionRepo.getPermissionNamesByRoleIds(roleIds);
+  }
 }

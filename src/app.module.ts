@@ -14,6 +14,7 @@ import { RoleModule } from './route/role/role.module';
 import { PermissionModule } from './route/permission/permission.module';
 import { QuizModule } from './route/quiz/quiz.module';
 import { CommunityModule } from './route/community/community.module';
+import { DashboardModule } from './route/dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CommunityModule } from './route/community/community.module';
     PermissionModule,
     QuizModule,
     CommunityModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

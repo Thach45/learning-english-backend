@@ -82,21 +82,17 @@ enum EUserRole {
 }
 
 model Permission {
-  id          String             @id @default(auto()) @map("_id") @db.ObjectId
-  name        String             @unique // "achievement.create", "achievement.update", "user.delete"
-  displayName String             @map("display_name") // "Create Achievement", "Update Achievement", "Delete User"
-  description String?
-  resource    PermissionResource // "achievement", "user", "studySet"
-  action      PermissionAction // "create", "read", "update", "delete", "manage"
-  isActive    Boolean            @default(true) @map("is_active")
-  createdAt   DateTime           @default(now()) @map("created_at")
-  updatedAt   DateTime           @updatedAt @map("updated_at")
-
-  // Relationships
+  id              String           @id @default(auto()) @map("_id") @db.ObjectId
+  name            String           @unique
+  path            String?          @db.String
+  method          String?          @db.String
+  isActive        Boolean          @default(true) @map("is_active")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
   rolePermissions RolePermission[]
 
-  @@index([resource, action])
   @@index([name, isActive])
+  @@index([path, method])
 }
 
 model UserRole {
@@ -532,22 +528,4 @@ enum AchievementRarity {
   RARE
   EPIC
   LEGENDARY
-}
-
-enum PermissionAction {
-  CREATE
-  READ
-  UPDATE
-  DELETE
-  MANAGE // Full access
-}
-
-enum PermissionResource {
-  USER
-  ACHIEVEMENT
-  STUDY_SET
-  VOCABULARY
-  CATEGORY
-  GAMIFICATION
-  SYSTEM
 }

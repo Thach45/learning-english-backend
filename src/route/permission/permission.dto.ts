@@ -1,31 +1,28 @@
-import { IsString, IsOptional, IsBoolean, MinLength, MaxLength, IsEnum, IsNotEmpty } from 'class-validator';
-import { PermissionResource, PermissionAction } from 'generated/prisma';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  MinLength,
+  MaxLength,
+  IsNotEmpty,
+} from "class-validator";
 
 export class CreatePermissionDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
-  @MaxLength(100)
-  name: string; // "achievement.create", "user.delete"
-
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(2)
-  @MaxLength(100)
-  displayName: string; // "Create Achievement", "Delete User"
+  @MinLength(1)
+  @MaxLength(200)
+  name: string;
 
   @IsString()
   @IsOptional()
   @MaxLength(500)
-  description?: string;
+  path?: string;
 
-  @IsEnum(PermissionResource)
-  @IsNotEmpty()
-  resource: PermissionResource; // "achievement", "user", "studySet"
-
-  @IsEnum(PermissionAction)
-  @IsNotEmpty()
-  action: PermissionAction; // "create", "read", "update", "delete", "manage"
+  @IsString()
+  @IsOptional()
+  @MaxLength(10)
+  method?: string;
 
   @IsBoolean()
   @IsOptional()
@@ -35,22 +32,19 @@ export class CreatePermissionDto {
 export class UpdatePermissionDto {
   @IsString()
   @IsOptional()
-  @MinLength(2)
-  @MaxLength(100)
-  displayName?: string;
+  @MinLength(1)
+  @MaxLength(200)
+  name?: string;
 
   @IsString()
   @IsOptional()
   @MaxLength(500)
-  description?: string;
+  path?: string;
 
-  @IsEnum(PermissionResource)
+  @IsString()
   @IsOptional()
-  resource?: PermissionResource;
-
-  @IsEnum(PermissionAction)
-  @IsOptional()
-  action?: PermissionAction;
+  @MaxLength(10)
+  method?: string;
 
   @IsBoolean()
   @IsOptional()
@@ -60,10 +54,8 @@ export class UpdatePermissionDto {
 export class PermissionResponseDto {
   id: string;
   name: string;
-  displayName: string;
-  description?: string;
-  resource: PermissionResource;
-  action: PermissionAction;
+  path: string | null;
+  method: string | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -71,10 +63,8 @@ export class PermissionResponseDto {
   constructor(permission: any) {
     this.id = permission.id;
     this.name = permission.name;
-    this.displayName = permission.displayName;
-    this.description = permission.description;
-    this.resource = permission.resource;
-    this.action = permission.action;
+    this.path = permission.path ?? null;
+    this.method = permission.method ?? null;
     this.isActive = permission.isActive;
     this.createdAt = permission.createdAt;
     this.updatedAt = permission.updatedAt;
@@ -82,14 +72,6 @@ export class PermissionResponseDto {
 }
 
 export class GetPermissionsQueryDto {
-  @IsEnum(PermissionResource)
-  @IsOptional()
-  resource?: PermissionResource;
-
-  @IsEnum(PermissionAction)
-  @IsOptional()
-  action?: PermissionAction;
-
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
@@ -98,4 +80,12 @@ export class GetPermissionsQueryDto {
   @IsOptional()
   @MaxLength(100)
   search?: string;
+
+  @IsString()
+  @IsOptional()
+  path?: string;
+
+  @IsString()
+  @IsOptional()
+  method?: string;
 }

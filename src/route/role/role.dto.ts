@@ -127,10 +127,8 @@ export class RoleWithPermissionsDto {
 export class PermissionResponseDto {
   id: string;
   name: string;
-  displayName: string;
-  description?: string;
-  resource: string;
-  action: string;
+  path: string | null;
+  method: string | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -138,10 +136,8 @@ export class PermissionResponseDto {
   constructor(permission: any) {
     this.id = permission.id;
     this.name = permission.name;
-    this.displayName = permission.displayName;
-    this.description = permission.description;
-    this.resource = permission.resource;
-    this.action = permission.action;
+    this.path = permission.path ?? null;
+    this.method = permission.method ?? null;
     this.isActive = permission.isActive;
     this.createdAt = permission.createdAt;
     this.updatedAt = permission.updatedAt;

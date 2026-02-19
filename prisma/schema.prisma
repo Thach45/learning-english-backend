@@ -81,20 +81,15 @@ enum EUserRole {
 }
 model Permission {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String   @unique // "achievement.create", "achievement.update", "user.delete"
-  displayName String   @map("display_name") // "Create Achievement", "Update Achievement", "Delete User"
-  description String?
-  resource    PermissionResource   // "achievement", "user", "studySet"
-  action      PermissionAction   // "create", "read", "update", "delete", "manage"
+  name        String   @unique  
+  path        String?  @db.String // nên xoá ? khi hoàn thiện
+  method      String?  @db.String // nên xoá ? khi hoàn thiện
   isActive    Boolean  @default(true) @map("is_active")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  
-  // Relationships
   rolePermissions RolePermission[]
-  
-  @@index([resource, action])
   @@index([name, isActive])
+  @@index([path, method])
 }
 model UserRole {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -401,10 +396,10 @@ model Comment {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relationships
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  
-  
+  author User  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post   Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  likes  Like[] @relation("CommentLikes")
+
   @@index([postId])
 }
 
@@ -521,20 +516,3 @@ enum AchievementRarity {
   LEGENDARY
 }
 
-enum PermissionAction {
-  CREATE
-  READ
-  UPDATE
-  DELETE
-  MANAGE  // Full access
-}
-
-enum PermissionResource {
-  USER
-  ACHIEVEMENT
-  STUDY_SET
-  VOCABULARY
-  CATEGORY
-  GAMIFICATION
-  SYSTEM
-}

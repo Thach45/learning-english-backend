@@ -150,10 +150,8 @@ exports.Prisma.RoleScalarFieldEnum = {
 exports.Prisma.PermissionScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  displayName: 'displayName',
-  description: 'description',
-  resource: 'resource',
-  action: 'action',
+  path: 'path',
+  method: 'method',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -398,24 +396,6 @@ exports.EUserRole = exports.$Enums.EUserRole = {
   ADMIN: 'ADMIN',
   MODERATOR: 'MODERATOR',
   USER: 'USER'
-};
-
-exports.PermissionResource = exports.$Enums.PermissionResource = {
-  USER: 'USER',
-  ACHIEVEMENT: 'ACHIEVEMENT',
-  STUDY_SET: 'STUDY_SET',
-  VOCABULARY: 'VOCABULARY',
-  CATEGORY: 'CATEGORY',
-  GAMIFICATION: 'GAMIFICATION',
-  SYSTEM: 'SYSTEM'
-};
-
-exports.PermissionAction = exports.$Enums.PermissionAction = {
-  CREATE: 'CREATE',
-  READ: 'READ',
-  UPDATE: 'UPDATE',
-  DELETE: 'DELETE',
-  MANAGE: 'MANAGE'
 };
 
 exports.Level = exports.$Enums.Level = {

@@ -241,30 +241,6 @@ export const AchievementRarity: {
 
 export type AchievementRarity = (typeof AchievementRarity)[keyof typeof AchievementRarity]
 
-
-export const PermissionAction: {
-  CREATE: 'CREATE',
-  READ: 'READ',
-  UPDATE: 'UPDATE',
-  DELETE: 'DELETE',
-  MANAGE: 'MANAGE'
-};
-
-export type PermissionAction = (typeof PermissionAction)[keyof typeof PermissionAction]
-
-
-export const PermissionResource: {
-  USER: 'USER',
-  ACHIEVEMENT: 'ACHIEVEMENT',
-  STUDY_SET: 'STUDY_SET',
-  VOCABULARY: 'VOCABULARY',
-  CATEGORY: 'CATEGORY',
-  GAMIFICATION: 'GAMIFICATION',
-  SYSTEM: 'SYSTEM'
-};
-
-export type PermissionResource = (typeof PermissionResource)[keyof typeof PermissionResource]
-
 }
 
 export type EUserRole = $Enums.EUserRole
@@ -306,14 +282,6 @@ export const AchievementType: typeof $Enums.AchievementType
 export type AchievementRarity = $Enums.AchievementRarity
 
 export const AchievementRarity: typeof $Enums.AchievementRarity
-
-export type PermissionAction = $Enums.PermissionAction
-
-export const PermissionAction: typeof $Enums.PermissionAction
-
-export type PermissionResource = $Enums.PermissionResource
-
-export const PermissionResource: typeof $Enums.PermissionResource
 
 /**
  * ##  Prisma Client ʲˢ
@@ -6389,10 +6357,8 @@ export namespace Prisma {
   export type PermissionMinAggregateOutputType = {
     id: string | null
     name: string | null
-    displayName: string | null
-    description: string | null
-    resource: $Enums.PermissionResource | null
-    action: $Enums.PermissionAction | null
+    path: string | null
+    method: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6401,10 +6367,8 @@ export namespace Prisma {
   export type PermissionMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    displayName: string | null
-    description: string | null
-    resource: $Enums.PermissionResource | null
-    action: $Enums.PermissionAction | null
+    path: string | null
+    method: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6413,10 +6377,8 @@ export namespace Prisma {
   export type PermissionCountAggregateOutputType = {
     id: number
     name: number
-    displayName: number
-    description: number
-    resource: number
-    action: number
+    path: number
+    method: number
     isActive: number
     createdAt: number
     updatedAt: number
@@ -6427,10 +6389,8 @@ export namespace Prisma {
   export type PermissionMinAggregateInputType = {
     id?: true
     name?: true
-    displayName?: true
-    description?: true
-    resource?: true
-    action?: true
+    path?: true
+    method?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -6439,10 +6399,8 @@ export namespace Prisma {
   export type PermissionMaxAggregateInputType = {
     id?: true
     name?: true
-    displayName?: true
-    description?: true
-    resource?: true
-    action?: true
+    path?: true
+    method?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -6451,10 +6409,8 @@ export namespace Prisma {
   export type PermissionCountAggregateInputType = {
     id?: true
     name?: true
-    displayName?: true
-    description?: true
-    resource?: true
-    action?: true
+    path?: true
+    method?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -6536,10 +6492,8 @@ export namespace Prisma {
   export type PermissionGroupByOutputType = {
     id: string
     name: string
-    displayName: string
-    description: string | null
-    resource: $Enums.PermissionResource
-    action: $Enums.PermissionAction
+    path: string | null
+    method: string | null
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -6565,10 +6519,8 @@ export namespace Prisma {
   export type PermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    displayName?: boolean
-    description?: boolean
-    resource?: boolean
-    action?: boolean
+    path?: boolean
+    method?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6581,16 +6533,14 @@ export namespace Prisma {
   export type PermissionSelectScalar = {
     id?: boolean
     name?: boolean
-    displayName?: boolean
-    description?: boolean
-    resource?: boolean
-    action?: boolean
+    path?: boolean
+    method?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "displayName" | "description" | "resource" | "action" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["permission"]>
+  export type PermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "path" | "method" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["permission"]>
   export type PermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rolePermissions?: boolean | Permission$rolePermissionsArgs<ExtArgs>
     _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
@@ -6604,10 +6554,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      displayName: string
-      description: string | null
-      resource: $Enums.PermissionResource
-      action: $Enums.PermissionAction
+      path: string | null
+      method: string | null
       isActive: boolean
       createdAt: Date
       updatedAt: Date
@@ -7006,10 +6954,8 @@ export namespace Prisma {
   interface PermissionFieldRefs {
     readonly id: FieldRef<"Permission", 'String'>
     readonly name: FieldRef<"Permission", 'String'>
-    readonly displayName: FieldRef<"Permission", 'String'>
-    readonly description: FieldRef<"Permission", 'String'>
-    readonly resource: FieldRef<"Permission", 'PermissionResource'>
-    readonly action: FieldRef<"Permission", 'PermissionAction'>
+    readonly path: FieldRef<"Permission", 'String'>
+    readonly method: FieldRef<"Permission", 'String'>
     readonly isActive: FieldRef<"Permission", 'Boolean'>
     readonly createdAt: FieldRef<"Permission", 'DateTime'>
     readonly updatedAt: FieldRef<"Permission", 'DateTime'>
@@ -29234,10 +29180,8 @@ export namespace Prisma {
   export const PermissionScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    displayName: 'displayName',
-    description: 'description',
-    resource: 'resource',
-    action: 'action',
+    path: 'path',
+    method: 'method',
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -29616,34 +29560,6 @@ export namespace Prisma {
    * Reference to a field of type 'EUserRole[]'
    */
   export type ListEnumEUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EUserRole[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'PermissionResource'
-   */
-  export type EnumPermissionResourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionResource'>
-    
-
-
-  /**
-   * Reference to a field of type 'PermissionResource[]'
-   */
-  export type ListEnumPermissionResourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionResource[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'PermissionAction'
-   */
-  export type EnumPermissionActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionAction'>
-    
-
-
-  /**
-   * Reference to a field of type 'PermissionAction[]'
-   */
-  export type ListEnumPermissionActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PermissionAction[]'>
     
 
 
@@ -30062,10 +29978,8 @@ export namespace Prisma {
     NOT?: PermissionWhereInput | PermissionWhereInput[]
     id?: StringFilter<"Permission"> | string
     name?: StringFilter<"Permission"> | string
-    displayName?: StringFilter<"Permission"> | string
-    description?: StringNullableFilter<"Permission"> | string | null
-    resource?: EnumPermissionResourceFilter<"Permission"> | $Enums.PermissionResource
-    action?: EnumPermissionActionFilter<"Permission"> | $Enums.PermissionAction
+    path?: StringNullableFilter<"Permission"> | string | null
+    method?: StringNullableFilter<"Permission"> | string | null
     isActive?: BoolFilter<"Permission"> | boolean
     createdAt?: DateTimeFilter<"Permission"> | Date | string
     updatedAt?: DateTimeFilter<"Permission"> | Date | string
@@ -30075,10 +29989,8 @@ export namespace Prisma {
   export type PermissionOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    displayName?: SortOrder
-    description?: SortOrder
-    resource?: SortOrder
-    action?: SortOrder
+    path?: SortOrder
+    method?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30091,10 +30003,8 @@ export namespace Prisma {
     AND?: PermissionWhereInput | PermissionWhereInput[]
     OR?: PermissionWhereInput[]
     NOT?: PermissionWhereInput | PermissionWhereInput[]
-    displayName?: StringFilter<"Permission"> | string
-    description?: StringNullableFilter<"Permission"> | string | null
-    resource?: EnumPermissionResourceFilter<"Permission"> | $Enums.PermissionResource
-    action?: EnumPermissionActionFilter<"Permission"> | $Enums.PermissionAction
+    path?: StringNullableFilter<"Permission"> | string | null
+    method?: StringNullableFilter<"Permission"> | string | null
     isActive?: BoolFilter<"Permission"> | boolean
     createdAt?: DateTimeFilter<"Permission"> | Date | string
     updatedAt?: DateTimeFilter<"Permission"> | Date | string
@@ -30104,10 +30014,8 @@ export namespace Prisma {
   export type PermissionOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    displayName?: SortOrder
-    description?: SortOrder
-    resource?: SortOrder
-    action?: SortOrder
+    path?: SortOrder
+    method?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30122,10 +30030,8 @@ export namespace Prisma {
     NOT?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Permission"> | string
     name?: StringWithAggregatesFilter<"Permission"> | string
-    displayName?: StringWithAggregatesFilter<"Permission"> | string
-    description?: StringNullableWithAggregatesFilter<"Permission"> | string | null
-    resource?: EnumPermissionResourceWithAggregatesFilter<"Permission"> | $Enums.PermissionResource
-    action?: EnumPermissionActionWithAggregatesFilter<"Permission"> | $Enums.PermissionAction
+    path?: StringNullableWithAggregatesFilter<"Permission"> | string | null
+    method?: StringNullableWithAggregatesFilter<"Permission"> | string | null
     isActive?: BoolWithAggregatesFilter<"Permission"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
@@ -31983,10 +31889,8 @@ export namespace Prisma {
   export type PermissionCreateInput = {
     id?: string
     name: string
-    displayName: string
-    description?: string | null
-    resource: $Enums.PermissionResource
-    action: $Enums.PermissionAction
+    path?: string | null
+    method?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31996,10 +31900,8 @@ export namespace Prisma {
   export type PermissionUncheckedCreateInput = {
     id?: string
     name: string
-    displayName: string
-    description?: string | null
-    resource: $Enums.PermissionResource
-    action: $Enums.PermissionAction
+    path?: string | null
+    method?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32008,10 +31910,8 @@ export namespace Prisma {
 
   export type PermissionUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
-    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32020,10 +31920,8 @@ export namespace Prisma {
 
   export type PermissionUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
-    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32033,10 +31931,8 @@ export namespace Prisma {
   export type PermissionCreateManyInput = {
     id?: string
     name: string
-    displayName: string
-    description?: string | null
-    resource: $Enums.PermissionResource
-    action: $Enums.PermissionAction
+    path?: string | null
+    method?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32044,10 +31940,8 @@ export namespace Prisma {
 
   export type PermissionUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
-    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32055,10 +31949,8 @@ export namespace Prisma {
 
   export type PermissionUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
-    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34047,27 +33939,11 @@ export namespace Prisma {
     _max?: NestedEnumEUserRoleFilter<$PrismaModel>
   }
 
-  export type EnumPermissionResourceFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionResourceFilter<$PrismaModel> | $Enums.PermissionResource
-  }
-
-  export type EnumPermissionActionFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionActionFilter<$PrismaModel> | $Enums.PermissionAction
-  }
-
   export type PermissionCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    displayName?: SortOrder
-    description?: SortOrder
-    resource?: SortOrder
-    action?: SortOrder
+    path?: SortOrder
+    method?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -34076,10 +33952,8 @@ export namespace Prisma {
   export type PermissionMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    displayName?: SortOrder
-    description?: SortOrder
-    resource?: SortOrder
-    action?: SortOrder
+    path?: SortOrder
+    method?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -34088,33 +33962,11 @@ export namespace Prisma {
   export type PermissionMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    displayName?: SortOrder
-    description?: SortOrder
-    resource?: SortOrder
-    action?: SortOrder
+    path?: SortOrder
+    method?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type EnumPermissionResourceWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionResourceWithAggregatesFilter<$PrismaModel> | $Enums.PermissionResource
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPermissionResourceFilter<$PrismaModel>
-    _max?: NestedEnumPermissionResourceFilter<$PrismaModel>
-  }
-
-  export type EnumPermissionActionWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionActionWithAggregatesFilter<$PrismaModel> | $Enums.PermissionAction
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPermissionActionFilter<$PrismaModel>
-    _max?: NestedEnumPermissionActionFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -36167,14 +36019,6 @@ export namespace Prisma {
     connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
   }
 
-  export type EnumPermissionResourceFieldUpdateOperationsInput = {
-    set?: $Enums.PermissionResource
-  }
-
-  export type EnumPermissionActionFieldUpdateOperationsInput = {
-    set?: $Enums.PermissionAction
-  }
-
   export type RolePermissionUpdateManyWithoutPermissionNestedInput = {
     create?: XOR<RolePermissionCreateWithoutPermissionInput, RolePermissionUncheckedCreateWithoutPermissionInput> | RolePermissionCreateWithoutPermissionInput[] | RolePermissionUncheckedCreateWithoutPermissionInput[]
     connectOrCreate?: RolePermissionCreateOrConnectWithoutPermissionInput | RolePermissionCreateOrConnectWithoutPermissionInput[]
@@ -37362,40 +37206,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEUserRoleFilter<$PrismaModel>
     _max?: NestedEnumEUserRoleFilter<$PrismaModel>
-  }
-
-  export type NestedEnumPermissionResourceFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionResourceFilter<$PrismaModel> | $Enums.PermissionResource
-  }
-
-  export type NestedEnumPermissionActionFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionActionFilter<$PrismaModel> | $Enums.PermissionAction
-  }
-
-  export type NestedEnumPermissionResourceWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionResource | EnumPermissionResourceFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionResource[] | ListEnumPermissionResourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionResourceWithAggregatesFilter<$PrismaModel> | $Enums.PermissionResource
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPermissionResourceFilter<$PrismaModel>
-    _max?: NestedEnumPermissionResourceFilter<$PrismaModel>
-  }
-
-  export type NestedEnumPermissionActionWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PermissionAction | EnumPermissionActionFieldRefInput<$PrismaModel>
-    in?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PermissionAction[] | ListEnumPermissionActionFieldRefInput<$PrismaModel>
-    not?: NestedEnumPermissionActionWithAggregatesFilter<$PrismaModel> | $Enums.PermissionAction
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPermissionActionFilter<$PrismaModel>
-    _max?: NestedEnumPermissionActionFilter<$PrismaModel>
   }
 
   export type NestedEnumLevelFilter<$PrismaModel = never> = {
@@ -39087,10 +38897,8 @@ export namespace Prisma {
   export type PermissionCreateWithoutRolePermissionsInput = {
     id?: string
     name: string
-    displayName: string
-    description?: string | null
-    resource: $Enums.PermissionResource
-    action: $Enums.PermissionAction
+    path?: string | null
+    method?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39099,10 +38907,8 @@ export namespace Prisma {
   export type PermissionUncheckedCreateWithoutRolePermissionsInput = {
     id?: string
     name: string
-    displayName: string
-    description?: string | null
-    resource: $Enums.PermissionResource
-    action: $Enums.PermissionAction
+    path?: string | null
+    method?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39157,10 +38963,8 @@ export namespace Prisma {
 
   export type PermissionUpdateWithoutRolePermissionsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
-    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39168,10 +38972,8 @@ export namespace Prisma {
 
   export type PermissionUncheckedUpdateWithoutRolePermissionsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    resource?: EnumPermissionResourceFieldUpdateOperationsInput | $Enums.PermissionResource
-    action?: EnumPermissionActionFieldUpdateOperationsInput | $Enums.PermissionAction
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -284,10 +284,7 @@ export class RoleService {
         // Get all active permissions
         const allPermissions = await this.prisma.permission.findMany({
             where: { isActive: true },
-            orderBy: [
-                { resource: 'asc' },
-                { action: 'asc' },
-            ],
+            orderBy: { name: "asc" },
         });
 
         // Get permissions already assigned to this role
