@@ -1,4 +1,5 @@
-import { IsString, IsInt, IsOptional, IsBoolean, IsEnum, Min } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsBoolean, IsEnum, Min, Max } from 'class-validator';
+import { Type } from 'class-transformer';
 import { AchievementRarity, AchievementType } from 'generated/prisma';
 
 
@@ -84,6 +85,10 @@ export class AchievementResponseDto {
   xpReward: number;
   createdAt: Date;
   updatedAt: Date;
+
+  constructor(partial: Partial<AchievementResponseDto>) {
+    Object.assign(this, partial);
+  }
 }
 
 export class UserAchievementResponseDto {
@@ -97,8 +102,21 @@ export class UserAchievementResponseDto {
   updatedAt: Date;
 }
 
-// Query params cho việc lọc achievement
+// Query params cho danh sách achievement (admin, có phân trang)
 export class GetAchievementsQueryDto {
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page?: number = 1;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  pageSize?: number = 20;
+
   @IsEnum(AchievementType)
   @IsOptional()
   type?: AchievementType;
@@ -110,4 +128,26 @@ export class GetAchievementsQueryDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
+}
+
+// Pagination trong response
+export class AchievementPaginationDto {
+  page: number;
+  pageSize: number;
+  total: number;
+
+  constructor(partial: Partial<AchievementPaginationDto>) {
+    Object.assign(this, partial);
+  }
+}
+
+// Response danh sách achievement (admin)
+export class GetAchievementsResponseDto {
+  items: AchievementResponseDto[];
+  pagination: AchievementPaginationDto;
+
+  constructor(partial: Partial<GetAchievementsResponseDto>) {
+    this.items = partial.items ?? [];
+    this.pagination = new AchievementPaginationDto(partial.pagination ?? { page: 1, pageSize: 20, total: 0 });
+  }
 }

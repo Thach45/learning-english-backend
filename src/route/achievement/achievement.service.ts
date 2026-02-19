@@ -1,89 +1,88 @@
 import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../shared/service/prisma.service';
-import { CreateAchievementDto, UpdateAchievementDto, GetAchievementsQueryDto } from './achievement.dto';
-import { Achievement, AchievementType, User } from 'generated/prisma';
+import { AchievementRepository } from './achievement.repo';
+import { CreateAchievementDto, UpdateAchievementDto, GetAchievementsQueryDto, GetAchievementsResponseDto, AchievementResponseDto } from './achievement.dto';
+import { Achievement, AchievementType } from 'generated/prisma';
 import { GamificationService } from '../gamification/gamification.service';
 
 @Injectable()
 export class AchievementService {
   constructor(
-    private prisma: PrismaService,
+    private readonly achievementRepo: AchievementRepository,
     @Inject(forwardRef(() => GamificationService))
     private gamificationService: GamificationService,
   ) {}
 
-  // CRUD operations for admin
   async createAchievement(dto: CreateAchievementDto): Promise<Achievement> {
-    return this.prisma.achievement.create({
-      data: {
-        ...dto,
-        isActive: true,
-      },
+    return this.achievementRepo.create({
+      title: dto.title,
+      description: dto.description,
+      type: dto.type,
+      targetValue: dto.targetValue,
+      duration: dto.duration,
+      rarity: dto.rarity,
+      icon: dto.icon,
+      xpReward: dto.xpReward,
     });
   }
 
   async updateAchievement(id: string, dto: UpdateAchievementDto): Promise<Achievement> {
-    const achievement = await this.prisma.achievement.findUnique({ where: { id } });
+    const achievement = await this.achievementRepo.findById(id);
     if (!achievement) {
       throw new NotFoundException(`Achievement with ID ${id} not found`);
     }
-
-    return this.prisma.achievement.update({
-      where: { id },
-      data: dto,
+    return this.achievementRepo.update(id, {
+      title: dto.title,
+      description: dto.description,
+      targetValue: dto.targetValue,
+      duration: dto.duration,
+      rarity: dto.rarity,
+      icon: dto.icon,
+      isActive: dto.isActive,
+      xpReward: dto.xpReward,
     });
   }
 
   async deleteAchievement(id: string): Promise<Achievement> {
-    const achievement = await this.prisma.achievement.findUnique({ where: { id } });
+    const achievement = await this.achievementRepo.findById(id);
     if (!achievement) {
       throw new NotFoundException(`Achievement with ID ${id} not found`);
     }
-
-    return this.prisma.achievement.update({
-      where: { id },
-      data: { isActive: false },
-    });
+    return this.achievementRepo.setActive(id, false);
   }
 
   async getAchievement(id: string): Promise<Achievement | null> {
-    return this.prisma.achievement.findUnique({
-      where: { id },
+    return this.achievementRepo.findById(id);
+  }
+
+  async getAchievements(query: GetAchievementsQueryDto): Promise<GetAchievementsResponseDto> {
+    const page = query.page && query.page > 0 ? query.page : 1;
+    const pageSize = query.pageSize && query.pageSize > 0 ? Math.min(query.pageSize, 100) : 20;
+
+    const { items, total } = await this.achievementRepo.getAchievementsPaginated({
+      page,
+      pageSize,
+      type: query.type,
+      rarity: query.rarity,
+      isActive: query.isActive,
+    });
+
+    return new GetAchievementsResponseDto({
+      items: items.map((a) => new AchievementResponseDto({
+        ...a,
+        duration: a.duration ?? undefined,
+        icon: a.icon ?? undefined,
+      })),
+      pagination: { page, pageSize, total },
     });
   }
 
-  async getAchievements(query: GetAchievementsQueryDto) {
-    const where = {
-      ...(query.type && { type: query.type }),
-      ...(query.rarity && { rarity: query.rarity }),
-      ...(typeof query.isActive === 'boolean' && { isActive: query.isActive }),
-    };
-
-    return this.prisma.achievement.findMany({
-      where,
-      orderBy: { createdAt: 'desc' },
-    });
-  }
-
-  // Achievement progress checking and updating
-  async checkAndUpdateAchievements(userId: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        totalWordsLearned: true,
-        streak: true,
-        level: true,
-        totalWordsReviewed: true,
-      },
-    });
-
+  async checkAndUpdateAchievements(userId: string): Promise<void> {
+    const user = await this.achievementRepo.findUserStats(userId);
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
 
-    const activeAchievements = await this.prisma.achievement.findMany({
-      where: { isActive: true },
-    });
+    const activeAchievements = await this.achievementRepo.findManyActive();
 
     for (const achievement of activeAchievements) {
       await this.checkAndUpdateSingleAchievement(userId, user, achievement);
@@ -92,12 +91,11 @@ export class AchievementService {
 
   private async checkAndUpdateSingleAchievement(
     userId: string,
-    user: Pick<User, 'totalWordsLearned' | 'streak' | 'level' | 'totalWordsReviewed'>,
+    user: { totalWordsLearned: number; streak: number; level: number; totalWordsReviewed: number },
     achievement: Achievement,
-  ) {
+  ): Promise<void> {
     let currentProgress = 0;
 
-    // Xác định tiến độ dựa trên loại achievement
     switch (achievement.type) {
       case AchievementType.TOTAL_WORDS_LEARNED:
         currentProgress = user.totalWordsLearned;
@@ -113,95 +111,55 @@ export class AchievementService {
         break;
     }
 
-    // Kiểm tra và cập nhật tiến độ
-    const userAchievement = await this.prisma.userAchievement.findUnique({
-      where: {
-        userId_achievementId: {
-          userId,
-          achievementId: achievement.id,
-        },
-      },
-    });
+    const userAchievement = await this.achievementRepo.findUserAchievement(userId, achievement.id);
 
     if (!userAchievement) {
-      // Tạo mới nếu chưa có
-      await this.prisma.userAchievement.create({
-        data: {
-          userId,
-          achievementId: achievement.id,
-          progress: currentProgress,
-          isCompleted: currentProgress >= achievement.targetValue,
-          completedAt: currentProgress >= achievement.targetValue ? new Date() : null,
-        },
+      await this.achievementRepo.createUserAchievement({
+        userId,
+        achievementId: achievement.id,
+        progress: currentProgress,
+        isCompleted: currentProgress >= achievement.targetValue,
+        completedAt: currentProgress >= achievement.targetValue ? new Date() : null,
       });
-    } else if (!userAchievement.isCompleted) {
-      // Cập nhật nếu chưa hoàn thành
-      const isNowCompleted = currentProgress >= achievement.targetValue;
-      
-      // Kiểm tra điều kiện thời gian nếu có
-      let canComplete = isNowCompleted;
-      if (achievement.duration && isNowCompleted) {
-        const achievementAge = Math.floor(
-          (Date.now() - userAchievement.createdAt.getTime()) / (1000 * 60 * 60 * 24)
-        );
-        canComplete = achievementAge <= achievement.duration;
-      }
+      return;
+    }
 
-      await this.prisma.userAchievement.update({
-        where: { id: userAchievement.id },
-        data: {
-          progress: currentProgress,
-          isCompleted: canComplete,
-          completedAt: canComplete ? new Date() : null,
-        },
-      });
+    if (userAchievement.isCompleted) return;
 
-      // Nếu vừa hoàn thành, award XP thông qua GamificationService
-      if (canComplete) {
-        await this.gamificationService.awardXPForAchievement(userId, achievement.id);
-      }
+    const isNowCompleted = currentProgress >= achievement.targetValue;
+    let canComplete = isNowCompleted;
+
+    if (achievement.duration && isNowCompleted) {
+      const achievementAge = Math.floor(
+        (Date.now() - userAchievement.createdAt.getTime()) / (1000 * 60 * 60 * 24),
+      );
+      canComplete = achievementAge <= achievement.duration;
+    }
+
+    await this.achievementRepo.updateUserAchievement(userAchievement.id, {
+      progress: currentProgress,
+      isCompleted: canComplete,
+      completedAt: canComplete ? new Date() : null,
+    });
+
+    if (canComplete) {
+      await this.gamificationService.awardXPForAchievement(userId, achievement.id);
     }
   }
 
-  // Lấy achievements của user
   async getUserAchievements(userId: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!user) {
+    const userExists = await this.achievementRepo.findUserStats(userId);
+    if (!userExists) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
-
-    return this.prisma.userAchievement.findMany({
-      where: { userId },
-      include: {
-        achievement: true,
-      },
-      orderBy: [
-        { isCompleted: 'asc' },
-        { updatedAt: 'desc' },
-      ],
-    });
+    return this.achievementRepo.findUserAchievements(userId);
   }
 
   async getUserInProgressAchievements(userId: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!user) {
+    const userExists = await this.achievementRepo.findUserStats(userId);
+    if (!userExists) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
-
-    return this.prisma.userAchievement.findMany({
-      where: {
-        userId,
-        isCompleted: false,
-        achievement: {
-          isActive: true,
-        },
-      },
-      include: {
-        achievement: true,
-      },
-      orderBy: {
-        progress: 'desc',
-      },
-    });
+    return this.achievementRepo.findUserInProgressAchievements(userId);
   }
 }
