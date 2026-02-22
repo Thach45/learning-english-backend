@@ -16,12 +16,14 @@ import { PermissionModule } from './route/permission/permission.module';
 import { QuizModule } from './route/quiz/quiz.module';
 import { CommunityModule } from './route/community/community.module';
 import { DashboardModule } from './route/dashboard/dashboard.module';
+import { UserModule } from './route/user/user.module';
 
 @Module({
   imports: [
     DiscoveryModule,
     SharedModule,
     AuthModule,
+    UserModule,
     CategoryModule,
     StudySetModule,
     VocabularyModule,
