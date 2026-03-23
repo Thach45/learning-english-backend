@@ -197,8 +197,8 @@ export class AuthService {
       const decodedRefreshToken = await this.tokenService.verifyRefreshToken(
         body.refreshToken,
       );
-      console.log(decodedRefreshToken);
-      console.log(body.refreshToken);
+     
+      
       if (!decodedRefreshToken) {
         throw new UnauthorizedException("Invalid refresh token");
       }
@@ -209,8 +209,7 @@ export class AuthService {
             token: body.refreshToken,
           },
         });
-      console.log(checkRefreshToken);
-      //    3. delete the refresh token from the database
+     
       await this.prisma.refreshToken.delete({
         where: {
           token: body.refreshToken,

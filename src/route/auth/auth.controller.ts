@@ -42,7 +42,7 @@ export class AuthController {
 
   @Post("login")
   async login(@Body() body: LoginDto) {
-    console.log(body);
+    
     const user = await this.authService.login(body);
     return new LoginResponseDto(user);
   }
@@ -61,7 +61,7 @@ export class AuthController {
   @UseGuards(AuthenticationGuard)
   @Get("me")
   async me(@ActiveUser() user: TokenPayload) {
-    console.log(user.userId);
+   
     const userData = await this.authService.getCurrentUser(user.userId);
     return new MeResponseDto(userData);
   }
