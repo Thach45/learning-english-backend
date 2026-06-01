@@ -56,6 +56,7 @@ model User {
   roles UserRole[]
   dailyActivities DailyActivity[]
   achievements UserAchievement[]
+  conversationSessions AiConversationSession[]
 }
 
 model Role {
@@ -513,5 +514,77 @@ enum AchievementRarity {
   RARE
   EPIC
   LEGENDARY
+}
+
+
+// 1. Các tình huống giao tiếp (Scenarios - giống data cứng UI đang làm)
+model AiScenario {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String    // VD: "Tại nhà hàng"
+  description String?   // VD: "Luyện tập gọi món ăn..."
+  prompt      String // prompt cho ai
+  level       String?   // VD: "A1", "A2"
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  sessions    AiConversationSession[]
+}
+
+// 2. Phiên giao tiếp với AI (Lưu trạng thái và thông tin phiên)
+model AiConversationSession {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  scenarioId  String    @db.ObjectId
+  status      String    @default("active") // active, completed
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  endedAt     DateTime? // Thời điểm kết thúc cuộc trò chuyện
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scenario    AiScenario @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+  messages    AiConversationMessage[]
+  result      AiConversationResult?
+}
+
+// 3. Kết quả đánh giá sau khi kết thúc phiên giao tiếp
+model AiConversationResult {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId       String    @unique @db.ObjectId
+  
+  // Chi tiết điểm số
+  overallScore    Float     // Điểm tổng quan
+  grammarScore    Float?    // Điểm ngữ pháp
+  vocabularyScore Float?    // Điểm từ vựng
+  fluencyScore    Float?    // Điểm trôi chảy
+  
+  // Đánh giá chi tiết bằng chữ
+  feedback        String    @db.String // Nhận xét chung
+  strengths       String[]  // Những điểm làm tốt
+  weaknesses      String[]  // Những điểm cần khắc phục
+  learnedWords    String[]  // Từ vựng mới học được
+  
+  // Thống kê
+  durationSeconds Int?      // Thời lượng phiên (giây)
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  session         AiConversationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+// Chi tiết từng tin nhắn trong phiên
+model AiConversationMessage {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId   String    @db.ObjectId
+  sender      String    // "USER" hoặc "AI"
+  content     String    @db.String // Nội dung text
+  audioUrl    String?   @db.String // Link file audio (nếu có lưu)
+  
+  // Dành riêng cho tin nhắn của User để AI nhận xét
+  grammarFeedback String? @db.String 
+  suggestedVocab  String? @db.String 
+  
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  session     AiConversationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
 

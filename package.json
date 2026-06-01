@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prisma:seed": "ts-node prisma/seed.ts",
+    "fix:cefrlevel": "ts-node -r tsconfig-paths/register scripts/fix-dictionaryword-cefrlevel.ts",
     "seed:permissions": "ts-node -r tsconfig-paths/register seed/seed-permissions.ts",
     "seed:role-permissions": "ts-node -r tsconfig-paths/register seed/seed-role-permissions.ts",
     "build": "nest build",

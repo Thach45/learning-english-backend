@@ -7,7 +7,7 @@ import {
   Max,
   MaxLength,
   IsIn,
-} from 'class-validator';
+} from "class-validator";
 
 export class UpdateProfileDto {
   @IsOptional()
@@ -43,7 +43,7 @@ export class UpdateProfileDto {
 
   @IsOptional()
   @IsString()
-  @IsIn(['beginner', 'intermediate', 'advanced'])
+  @IsIn(["beginner", "intermediate", "advanced"])
   difficultyPreference?: string;
 
   @IsOptional()

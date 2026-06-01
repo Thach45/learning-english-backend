@@ -49,7 +49,10 @@ export class CommunityRepository {
       ...(typeFilter ? { type: { in: typeFilter } } : {}),
       OR: [
         { privacy: Privacy.PUBLIC },
-        { privacy: Privacy.FOLLOWERS_ONLY, author: { followedBy: { some: { followerId: userId } } } },
+        {
+          privacy: Privacy.FOLLOWERS_ONLY,
+          author: { followedBy: { some: { followerId: userId } } },
+        },
       ],
     };
 
@@ -68,7 +71,6 @@ export class CommunityRepository {
               enrollments: {
                 select: { userId: true },
               },
-              
             },
           },
           likes: {
@@ -78,22 +80,24 @@ export class CommunityRepository {
             select: {
               id: true,
             },
-          }
+          },
         },
       }),
-      
+
       this.prisma.post.count({ where }),
     ]);
-  
-    return { items: items.map((item) => ({
-      ...item,
-      likes: item.likes.length,
-      isLike: item.likes.length > 0 ? true : false,
-    })), total };
+
+    return {
+      items: items.map((item) => ({
+        ...item,
+        likes: item.likes.length,
+        isLike: item.likes.length > 0 ? true : false,
+      })),
+      total,
+    };
   }
   async updatePost(userId: string, id: string, dto: UpdatePostDto) {
     try {
-      
       const post = await this.prisma.post.update({
         where: { id, authorId: userId },
         data: dto,
@@ -102,7 +106,6 @@ export class CommunityRepository {
     } catch (error) {
       throw new BadRequestException("Lỗi khi cập nhật bài viết");
     }
-    
   }
 
   /**
@@ -159,7 +162,10 @@ export class CommunityRepository {
    *
    * Trả về: { postId, likes, isLiked }
    */
-  async reactToPost(userId: string, postId: string): Promise<{ postId: string; likes: number; isLiked: boolean }> {
+  async reactToPost(
+    userId: string,
+    postId: string,
+  ): Promise<{ postId: string; likes: number; isLiked: boolean }> {
     const existingLike = await this.checkLikeInPost(userId, postId);
 
     if (existingLike) {
@@ -241,7 +247,11 @@ export class CommunityRepository {
   /**
    * Lấy danh sách followers của một user.
    */
-  async listFollowers(userId: string, page: number, pageSize: number) : Promise<ListFollowersResponseDto> {
+  async listFollowers(
+    userId: string,
+    page: number,
+    pageSize: number,
+  ): Promise<ListFollowersResponseDto> {
     const followers = await this.prisma.userFollow.findMany({
       where: { followingId: userId },
       skip: (page - 1) * pageSize,
@@ -297,15 +307,19 @@ export class CommunityRepository {
       pageSize,
     };
   }
-  
+
   // --- Comment Methods ---
 
   /**
    * Tạo comment mới và tăng commentsCount trong Post.
    */
-  async createComment(data: { userId: string; postId: string; content: string }) {
+  async createComment(data: {
+    userId: string;
+    postId: string;
+    content: string;
+  }) {
     const { userId, postId, content } = data;
-    
+
     // Transaction: tạo comment và update commentsCount
     const [comment] = await this.prisma.$transaction([
       this.prisma.comment.create({
@@ -339,7 +353,7 @@ export class CommunityRepository {
    */
   async getComments(postId: string, page: number, pageSize: number) {
     const skip = (page - 1) * pageSize;
-    
+
     const [items, total] = await this.prisma.$transaction([
       this.prisma.comment.findMany({
         where: { postId },
@@ -396,4 +410,3 @@ export class CommunityRepository {
     return { commentsCount: updatedPost.commentsCount };
   }
 }
-
