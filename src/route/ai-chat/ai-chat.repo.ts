@@ -29,4 +29,35 @@ export class AiChatRepo {
       limit,
     };
   }
+
+  async saveNote(userId: string, text: string, context?: string, meaning?: string) {
+    // Nếu không có userId, lấy user đầu tiên làm mặc định cho PoC
+    let actualUserId = userId;
+    if (!actualUserId) {
+      const firstUser = await this.prisma.user.findFirst();
+      if (!firstUser) throw new Error("No user found in DB");
+      actualUserId = firstUser.id;
+    }
+    return this.prisma.aiChatNote.create({
+      data: {
+        userId: actualUserId,
+        text,
+        context,
+        meaning,
+      }
+    });
+  }
+
+  async getNotes(userId: string) {
+    let actualUserId = userId;
+    if (!actualUserId) {
+      const firstUser = await this.prisma.user.findFirst();
+      if (!firstUser) throw new Error("No user found in DB");
+      actualUserId = firstUser.id;
+    }
+    return this.prisma.aiChatNote.findMany({
+      where: { userId: actualUserId },
+      orderBy: { createdAt: 'desc' }
+    });
+  }
 }

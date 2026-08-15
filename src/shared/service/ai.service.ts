@@ -39,6 +39,32 @@ Luôn trả về kết quả ngắn gọn, không giải thích thừa.
     return response?.text;
   }
 
+  async chatWithHistory(
+    message: string,
+    history: Array<{ role: 'user' | 'model'; parts: { text: string }[] }>,
+    systemInstruction: string = 'Bạn là trợ lý AI.'
+  ): Promise<string | undefined> {
+    const contents = [
+      {
+        role: 'user',
+        parts: [{ text: systemInstruction }],
+      },
+      ...history,
+      {
+        role: 'user',
+        parts: [{ text: message }],
+      }
+    ];
+
+    const response = await this.ai.models.generateContent({
+      model: this.modelId,
+      // @ts-ignore
+      contents: contents,
+    });
+
+    return response?.text;
+  }
+
   // Dùng riêng cho việc gợi ý từ vựng từ title + description
   async generateVocabulary(title: string, description: string, existingVocabularyWords: string[]): Promise<string[]> {
     const prompt = `

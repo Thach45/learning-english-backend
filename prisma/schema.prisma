@@ -57,6 +57,7 @@ model User {
   dailyActivities DailyActivity[]
   achievements UserAchievement[]
   conversationSessions AiConversationSession[]
+  aiChatNotes AiChatNote[]
 }
 
 model Role {
@@ -588,3 +589,15 @@ model AiConversationMessage {
   session     AiConversationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
 
+model AiChatNote {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  text      String   @db.String // The English sentence
+  meaning   String?  @db.String // Vietnamese translation
+  context   String?  @db.String // e.g. "Hỏi đường đến sân bay"
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
